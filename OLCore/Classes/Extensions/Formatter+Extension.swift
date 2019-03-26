@@ -1,0 +1,18 @@
+//
+//  Formatter+Extension.swift
+//  OLCore
+//
+//  Created by DENZA on 07/12/18.
+//  Copyright © 2018 NDV6. All rights reserved.
+//
+
+import Foundation
+
+public extension Formatter {
+    public static let thousandSeparator: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.groupingSeparator = Separator.Thousand
+        formatter.numberStyle = .decimal
+        return formatter
+    }()
+}

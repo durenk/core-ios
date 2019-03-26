@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'OLCore_Example' do
+  pod 'OLCore', :path => '../'
+
+  target 'OLCore_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
