@@ -24,7 +24,8 @@ public class MinValueRule: Rule {
 
     override public func validate(_ value: String) -> ValidationStatus {
         let status = super.validate(value)
-        status.isValid = Int(value) ?? DefaultValue.EmptyInt >= minValue
+        let number = Int(value.digits) ?? DefaultValue.EmptyInt
+        status.isValid = number >= minValue
         return status
     }
 }
