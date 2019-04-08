@@ -10,5 +10,5 @@ import Foundation
 
 public struct RegexString {
     public static let passwordRegex = "^(?=.*\\d)(?=.*[a-zA-Z]).{6,}$"
-    public static let fullNameRegex = "^[a-zA-Z]+(\\s[a-zA-Z]+)?$"
+    public static let fullNameRegex = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
 }

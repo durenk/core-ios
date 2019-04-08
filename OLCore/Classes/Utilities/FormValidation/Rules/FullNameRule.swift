@@ -17,7 +17,7 @@ public class FullNameRule: Rule {
 
     override public func validate(_ value: String) -> ValidationStatus {
         let status = super.validate(value)
-        status.isValid = value.isValid(regexRule: RegexString.fullNameRegex)
+        status.isValid = value.trimmingCharacters(in: .whitespacesAndNewlines).isValid(regexRule: RegexString.fullNameRegex)
         return status
     }
 }
