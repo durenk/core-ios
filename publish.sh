@@ -25,4 +25,5 @@ git commit -m "'$2'"
 git push
 git tag "`podspec-bump --dump-version`"
 git push --tags
-pod repo push cocoapod-specs OLCore.podspec --allow-warnings
+pod trunk register admin@ndv6.net
+pod trunk push OLCore.podspec --allow-warnings
