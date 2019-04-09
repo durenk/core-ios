@@ -76,9 +76,7 @@ open class RadioButton: DLRadioButton {
         guard let option = options.first else { return }
         guard let titleLabel = titleLabel else { return }
         self.option = option
-        if (options.count-1) == otherButtons.count {
-            return
-        }
+        if (options.count - 1) == otherButtons.count { return }
         for i in 1..<options.count {
             let originX = frame.origin.x
             let originY = frame.origin.y + CGFloat(40 * i)
