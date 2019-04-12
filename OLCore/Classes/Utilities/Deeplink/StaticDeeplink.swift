@@ -21,7 +21,7 @@ public class StaticDeeplink {
     public static let instance = StaticDeeplink()
 
     public func openAppStore(storeId: String) -> Bool {
-        return String(format: Link.appstore, StoreId.whatsapp).openDeeplink()
+        return String(format: Link.appstore, storeId).openDeeplink()
     }
 
     public func openWhatsapp(phoneNumber: String) {
