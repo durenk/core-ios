@@ -169,6 +169,10 @@ open class TextField: UITextField {
     open func getInputType() -> InputType {
         return inputType
     }
+
+    open func setRightButtonEnabled(_ enabled: Bool) {
+        rightButton?.setEnabled(enabled)
+    }
 }
 
 extension TextField: InputProtocol {
