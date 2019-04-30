@@ -11,4 +11,5 @@ import Foundation
 public struct Separator {
     public static let RangePeriod = "-"
     public static let Thousand = "."
+    public static let Decimal = "."
 }

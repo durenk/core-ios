@@ -127,4 +127,8 @@ open class PickerInputType: InputType {
     open func getDisplayText() -> String {
         return textField.getText()
     }
+
+    open func shouldChangeCharactersIn(range: NSRange, replacementString string: String) -> Bool {
+        return true
+    }
 }

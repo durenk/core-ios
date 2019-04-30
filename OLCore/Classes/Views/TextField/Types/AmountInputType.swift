@@ -46,4 +46,8 @@ open class AmountInputType: InputType {
         }
         return textField.getText()
     }
+
+    open func shouldChangeCharactersIn(range: NSRange, replacementString string: String) -> Bool {
+        return true
+    }
 }
