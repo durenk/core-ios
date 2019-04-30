@@ -70,4 +70,8 @@ open class DropDownInputType: InputType {
     open func setController(controller: DropDownViewController) {
         self.controller = controller
     }
+
+    open func shouldChangeCharactersIn(range: NSRange, replacementString string: String) -> Bool {
+        return true
+    }
 }

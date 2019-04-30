@@ -1,5 +1,5 @@
 //
-//  MaxValueRule.swift
+//  MaxIntegerRule.swift
 //  OLCore
 //
 //  Created by Sofyan Fradenza Adi on 15/02/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class MaxValueRule: Rule {
+public class MaxIntegerRule: Rule {
     private var maxValue: Int = 0
 
     public init(name: String, maxValue: Int, message: String = DefaultValue.EmptyString) {
@@ -16,7 +16,7 @@ public class MaxValueRule: Rule {
         self.maxValue = maxValue
         if message != DefaultValue.EmptyString { return }
         self.message = String(
-            format: ValidationErrorMessage.instance.getErrorMessageFormat(MaxValueRule.className),
+            format: ValidationErrorMessage.instance.getErrorMessageFormat(MaxIntegerRule.className),
             name,
             String(maxValue)
         )
@@ -24,7 +24,8 @@ public class MaxValueRule: Rule {
 
     override public func validate(_ value: String) -> ValidationStatus {
         let status = super.validate(value)
-        status.isValid = Int(value) ?? DefaultValue.EmptyInt <= maxValue
+        let number = Int(value.digits) ?? DefaultValue.EmptyInt
+        status.isValid = number <= maxValue
         return status
     }
 }

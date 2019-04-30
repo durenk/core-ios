@@ -21,4 +21,5 @@ open class DefaultButtonStyle: ButtonStyle {
     open var cornerRadius: CGFloat = 0
     open var contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     open var indicatorStyle = UIActivityIndicatorView.Style.white
+    public init() {}
 }

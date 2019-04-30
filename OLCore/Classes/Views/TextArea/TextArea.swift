@@ -36,7 +36,7 @@ open class TextArea: UITextView {
 
     private func applyStyle() {
         font = style.font
-        textColor = style.color
+        textColor = showingPlaceholder ? style.placeholderColor : style.color
         backgroundColor = style.backgroundColor
         layer.borderColor = style.borderColor.cgColor
         layer.borderWidth = style.borderWidth

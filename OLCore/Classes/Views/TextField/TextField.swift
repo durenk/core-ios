@@ -169,6 +169,14 @@ open class TextField: UITextField {
     open func getInputType() -> InputType {
         return inputType
     }
+
+    open func setRightButtonEnabled(_ enabled: Bool) {
+        rightButton?.setEnabled(enabled)
+    }
+
+    open func shouldChangeCharactersIn(range: NSRange, replacementString string: String) -> Bool {
+        return inputType.shouldChangeCharactersIn(range: range, replacementString: string)
+    }
 }
 
 extension TextField: InputProtocol {

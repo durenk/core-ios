@@ -1,5 +1,5 @@
 //
-//  NumericRule.swift
+//  MinIntegerRule.swift
 //  OLCore
 //
 //  Created by Sofyan Fradenza Adi on 15/02/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class MinValueRule: Rule {
+public class MinIntegerRule: Rule {
     private var minValue: Int = 0
 
     public init(name: String, minValue: Int, message: String = DefaultValue.EmptyString) {
@@ -16,7 +16,7 @@ public class MinValueRule: Rule {
         self.minValue = minValue
         if message != DefaultValue.EmptyString { return }
         self.message = String(
-            format: ValidationErrorMessage.instance.getErrorMessageFormat(MinValueRule.className),
+            format: ValidationErrorMessage.instance.getErrorMessageFormat(MinIntegerRule.className),
             name,
             String(minValue)
         )
