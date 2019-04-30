@@ -33,13 +33,7 @@ open class DecimalInputType: InputType {
     open func render() {
         guard let activeIcon = activeIcon else { return }
         guard let inactiveIcon = inactiveIcon else { return }
-        textField.setRightButton(
-            icon: textField.isEmpty() ? inactiveIcon : activeIcon,
-            style: DefaultButtonStyle(),
-            imageRenderingMode: .alwaysOriginal,
-            action: {}
-        )
-        textField.setRightButtonEnabled(false)
+        textField.setRightIcon(textField.isEmpty() ? inactiveIcon : activeIcon)
     }
 
     open func getValue() -> AnyObject {
