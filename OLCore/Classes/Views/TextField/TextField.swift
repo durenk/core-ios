@@ -16,16 +16,26 @@ open class TextField: UITextField {
     private var defaultContentPadding: UIEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
     private var inputType: InputType!
     private var rightButton: Button?
-    open var name: String = DefaultValue.EmptyString
     open var didChangeAction: InputDidChangeHandler?
     open var didValidationErrorAction: InputDidValidationError?
     open var didValidationSuccessAction: InputDidValidationSuccess?
+    public var maxLength: Int = 255
     public var style: TextFieldStyle! {
         didSet {
             applyStyle()
         }
     }
-    public var maxLength: Int = 255
+    open var name: String = DefaultValue.EmptyString {
+        didSet {
+            self.accessibilityIdentifier = String(
+                format: AccessibilityIdentifier.Textfield,
+                name.replacingOccurrences(
+                    of: Separator.Whitespace,
+                    with: Separator.AccessibilityId
+                )
+            )
+        }
+    }
 
     override open func awakeFromNib() {
         super.awakeFromNib()
