@@ -13,4 +13,6 @@ public struct AccessibilityIdentifier {
     public static let RadioButton = "%@_rdbtn"
     public static let Checkbox = "%@_chbx"
     public static let Label = "%@_lbl"
+    public static let ErrorLabel = "%@_err_lbl"
+    public static let HintLabel = "%@_hnt_lbl"
 }

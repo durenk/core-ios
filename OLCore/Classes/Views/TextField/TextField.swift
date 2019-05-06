@@ -29,10 +29,7 @@ open class TextField: UITextField {
         didSet {
             self.accessibilityIdentifier = String(
                 format: AccessibilityIdentifier.Textfield,
-                name.replacingOccurrences(
-                    of: Separator.Whitespace,
-                    with: Separator.AccessibilityId
-                )
+                name.toAccessibilityFormat()
             )
         }
     }
