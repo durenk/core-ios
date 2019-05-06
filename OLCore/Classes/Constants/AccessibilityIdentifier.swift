@@ -10,7 +10,7 @@ import Foundation
 public struct AccessibilityIdentifier {
     public static let Textfield = "%@_txtfld"
     public static let Button = "%@_btn"
-    public static let RadioButton = "%@_rdbtn"
+    public static let RadioButton = "%@_%@_rdbtn"
     public static let Checkbox = "%@_chbx"
     public static let Label = "%@_lbl"
     public static let ErrorLabel = "%@_err_lbl"

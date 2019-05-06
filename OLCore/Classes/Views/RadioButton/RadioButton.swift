@@ -21,12 +21,22 @@ open class RadioButton: DLRadioButton {
     public var didChangeAction: InputDidChangeHandler?
     public var didValidationErrorAction: InputDidValidationError?
     public var didValidationSuccessAction: InputDidValidationSuccess?
+    private var selectedOption: Option = Option()
     private var option: Option = Option() {
         didSet {
             setTitle(option.text, for: .normal)
+            accessibilityIdentifier = String(
+                format: AccessibilityIdentifier.RadioButton,
+                name,
+                option.id
+            ).toAccessibilityFormat()
+            accessibilityLabel = String(
+                format: AccessibilityIdentifier.RadioButton,
+                name,
+                option.text
+            ).toAccessibilityFormat()
         }
     }
-    private var selectedOption: Option = Option()
 
     public init(
         frame: CGRect,
@@ -35,7 +45,8 @@ open class RadioButton: DLRadioButton {
         titleFont: UIFont,
         iconColor: UIColor,
         container: UIView,
-        bottomView: UIView
+        bottomView: UIView,
+        name: String = DefaultValue.EmptyString
     ) {
         super.init(frame: frame)
         setup(
@@ -44,7 +55,8 @@ open class RadioButton: DLRadioButton {
             titleFont: titleFont,
             iconColor: iconColor,
             container: container,
-            bottomView: bottomView
+            bottomView: bottomView,
+            name: name
         )
     }
 
@@ -58,8 +70,10 @@ open class RadioButton: DLRadioButton {
         titleFont: UIFont,
         iconColor: UIColor,
         container: UIView,
-        bottomView: UIView
+        bottomView: UIView,
+        name: String = DefaultValue.EmptyString
     ) {
+        self.name = name
         self.option = option
         self.container = container
         self.bottomView = bottomView
@@ -92,7 +106,8 @@ open class RadioButton: DLRadioButton {
                 titleFont: titleLabel.font,
                 iconColor: iconColor,
                 container: container,
-                bottomView: bottomView
+                bottomView: bottomView,
+                name: name
             )
             container.addSubview(radioButton)
             otherButtons.append(radioButton)
