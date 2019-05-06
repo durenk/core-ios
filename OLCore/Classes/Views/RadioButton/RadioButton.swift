@@ -28,13 +28,9 @@ open class RadioButton: DLRadioButton {
             accessibilityIdentifier = String(
                 format: AccessibilityIdentifier.RadioButton,
                 name,
-                option.id
-            ).toAccessibilityFormat()
-            accessibilityLabel = String(
-                format: AccessibilityIdentifier.RadioButton,
-                name,
                 option.text
             ).toAccessibilityFormat()
+            accessibilityLabel = option.text
         }
     }
 
