@@ -90,4 +90,11 @@ public extension String {
     public func isValid(regexRule: String) -> Bool {
         return NSPredicate(format: "SELF MATCHES %@", regexRule).evaluate(with: self)
     }
+
+    public func toAccessibilityFormat() -> String {
+        return self.replacingOccurrences(
+            of: Separator.Whitespace,
+            with: Separator.AccessibilityId
+        ).lowercased()
+    }
 }
