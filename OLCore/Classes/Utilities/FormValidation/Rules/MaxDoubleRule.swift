@@ -25,8 +25,7 @@ public class MaxDoubleRule: Rule {
 
     override public func validate(_ value: String) -> ValidationStatus {
         let status = super.validate(value)
-        let number = Double(value) ?? DefaultValue.EmptyDouble
-        status.isValid = number <= maxValue
+        status.isValid = value.doubleValue <= maxValue
         return status
     }
 }

@@ -23,8 +23,7 @@ public class MinDoubleRule: Rule {
 
     override public func validate(_ value: String) -> ValidationStatus {
         let status = super.validate(value)
-        let number = Double(value) ?? DefaultValue.EmptyDouble
-        status.isValid = number >= minValue
+        status.isValid = value.doubleValue >= minValue
         return status
     }
 }
