@@ -20,7 +20,7 @@ public class RequiredRule: Rule {
 
     override public func validate(_ value: String) -> ValidationStatus {
         let status = super.validate(value)
-        status.isValid = !value.isEmpty
+        status.isValid = !value.trimmingCharacters(in: .whitespaces).isEmpty
         return status
     }
 }
