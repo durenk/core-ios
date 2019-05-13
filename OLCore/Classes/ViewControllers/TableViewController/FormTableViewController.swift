@@ -70,7 +70,7 @@ open class FormTableViewController: TableViewController {
 
     @objc open func keyboardWillHide(notification: NSNotification) {
         isShowingKeyboard = false
-        let insets = UIEdgeInsets( top: 0, left: 0, bottom: 0, right: 0 )
+        let insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         contentView.tableView.contentInset = insets
         contentView.tableView.scrollIndicatorInsets = insets
     }
