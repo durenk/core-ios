@@ -15,7 +15,6 @@ public struct DefaultValue {
     public static let EmptyInt32 = Int32(0)
     public static let EmptyInt64 = Int64(0)
     public static let EmptyDouble = Double(0.0)
-    public static let EmptyFloat = Float(0.0)
     public static let EmptyIndex = -1
     public static let EmptyCGFloat = CGFloat(0.0)
 }
