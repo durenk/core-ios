@@ -27,6 +27,19 @@ public extension String {
         return 0
     }
 
+    var floatValue: Float {
+        String.numberFormatter.decimalSeparator = Separator.DecimalEN
+        if let result =  String.numberFormatter.number(from: self) {
+            return result.floatValue
+        } else {
+            String.numberFormatter.decimalSeparator = Separator.DecimalID
+            if let result = String.numberFormatter.number(from: self) {
+                return result.floatValue
+            }
+        }
+        return 0
+    }
+
     public var digits: String {
         return components(separatedBy: CharacterSet.decimalDigits.inverted)
             .joined()

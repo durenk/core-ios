@@ -37,8 +37,8 @@ open class DecimalInputType: InputType {
     }
 
     open func getValue() -> AnyObject {
-        guard let text = textField.text else { return DefaultValue.EmptyDouble as AnyObject }
-        return text.doubleValue as AnyObject
+        guard let text = textField.text else { return DefaultValue.EmptyFloat as AnyObject }
+        return text.floatValue as AnyObject
     }
 
     open func getDisplayText() -> String {
