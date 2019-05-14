@@ -159,8 +159,7 @@ open class TableView: View {
     
     public func scrollToVisible(row: TableViewCell) {
         guard let superview = row.superview else { return }
-        var visibleRect = row.frame
-        visibleRect = tableView.convert(visibleRect, to: superview)
+        let visibleRect = tableView.convert(row.frame, to: superview)
         tableView.scrollRectToVisible(visibleRect, animated: true)
     }
 
