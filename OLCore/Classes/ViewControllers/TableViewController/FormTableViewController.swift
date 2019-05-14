@@ -79,6 +79,11 @@ open class FormTableViewController: TableViewController {
         guard let row = input.getInputView().getParentCell() else { return }
         contentView.scrollTo(row: row)
     }
+    
+    public func scrollToVisibleInput(_ input: InputProtocol) {
+        guard let row = input.getInputView().getParentCell() else { return }
+        contentView.scrollToVisible(row: row)
+    }
 
     open func validateForm() {
         var firstInvalidInput: InputProtocol?

@@ -156,6 +156,13 @@ open class TableView: View {
         let indexPath = indexPathOfCell(cell: row)
         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
+    
+    public func scrollToVisible(row: TableViewCell) {
+        guard let superview = row.superview else { return }
+        var visibleRect = row.frame
+        visibleRect = tableView.convert(visibleRect, to: superview)
+        tableView.scrollRectToVisible(visibleRect, animated: true)
+    }
 
     public func dequeueReusableCellWithIdentifier(nibName: String) -> UITableViewCell {
         if let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: nibName) {
