@@ -8,7 +8,7 @@
 
 import Foundation
 
-public extension Date {
+extension Date {
     public func formatInMonth() -> String {
         return formatIn(format: DateFormat.Month)
     }

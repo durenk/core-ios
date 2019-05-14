@@ -8,7 +8,7 @@
 
 import Foundation
 
-public extension Formatter {
+extension Formatter {
     public static let thousandSeparator: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.groupingSeparator = Separator.Thousand

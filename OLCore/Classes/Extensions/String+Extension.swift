@@ -11,10 +11,10 @@ import Foundation
 import Foundation
 import SafariServices
 
-public extension String {
+extension String {
     static let numberFormatter = NumberFormatter()
 
-    var doubleValue: Double {
+    public var doubleValue: Double {
         String.numberFormatter.decimalSeparator = Separator.DecimalEN
         if let result =  String.numberFormatter.number(from: self) {
             return result.doubleValue
@@ -27,7 +27,7 @@ public extension String {
         return 0
     }
 
-    var floatValue: Float {
+    public var floatValue: Float {
         String.numberFormatter.decimalSeparator = Separator.DecimalEN
         if let result =  String.numberFormatter.number(from: self) {
             return result.floatValue

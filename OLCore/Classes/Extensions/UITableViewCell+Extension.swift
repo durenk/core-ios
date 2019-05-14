@@ -8,7 +8,7 @@
 
 import UIKit
 
-public extension UITableViewCell {
+extension UITableViewCell {
     public func removeSeparator(tableView: UITableView?) {
         var insetLeft = SizeHelper.ScreenWidth
         if tableView != nil {

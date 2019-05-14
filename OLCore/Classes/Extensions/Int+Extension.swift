@@ -8,7 +8,7 @@
 
 import UIKit
 
-public extension Int {
+extension Int {
     public func percentOf(_ total: Int) -> Int {
         let percentage = Double(self) / Double(total) * 100
         return Int(percentage.rounded())
