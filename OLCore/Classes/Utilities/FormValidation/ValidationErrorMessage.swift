@@ -16,7 +16,7 @@ public class ValidationErrorMessage {
         self.errorMessageFormats = errorMessageFormats
     }
 
-    func getErrorMessageFormat(_ owner: String) -> String {
+    public func getErrorMessageFormat(_ owner: String) -> String {
         for (key, value) in errorMessageFormats where key == owner {
             return value
         }
