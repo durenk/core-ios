@@ -114,7 +114,7 @@ open class FormTableViewController: TableViewController {
             }
         }
         if needToReloadData {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 if self.isShowingKeyboard { return }
                 self.contentView.tableView.reloadData()
             }

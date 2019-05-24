@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Rule: NSObject {
+open class Rule: NSObject {
     public var name: String = DefaultValue.EmptyString
     public var message: String = DefaultValue.EmptyString
 
@@ -18,7 +18,7 @@ public class Rule: NSObject {
         self.message = message
     }
 
-    public func validate(_ value: String) -> ValidationStatus {
+    open func validate(_ value: String) -> ValidationStatus {
         let status = ValidationStatus()
         status.isValid = true
         status.message = message
