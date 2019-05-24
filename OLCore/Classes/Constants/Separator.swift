@@ -15,4 +15,5 @@ public struct Separator {
     public static let DecimalID = ","
     public static let Whitespace = " "
     public static let AccessibilityId = "_"
+    public static let Phrase = ", "
 }
