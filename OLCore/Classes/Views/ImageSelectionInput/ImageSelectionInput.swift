@@ -7,19 +7,11 @@
 
 import UIKit
 
-public typealias ImageSelectionInputDidChangeHandler = (_ imageSelectionInput: ImageSelectionInput) -> Void
-
-public protocol ImageSelectionInputDelegate: class {
-    func selectionInputDidChangeImage(_ imageSelectionInput: ImageSelectionInput)
-}
-
 open class ImageSelectionInput: Button {
-    public weak var delegate: ImageSelectionInputDelegate?
     open var didChangeAction: InputDidChangeHandler?
     open var didValidationErrorAction: InputDidValidationError?
     open var didValidationSuccessAction: InputDidValidationSuccess?
-//    private var controller: SelectionInputViewController = SelectionInputViewController()
-    private var sender: ViewController = ViewController()
+    private var sender: ImageInputTableViewCell = ImageInputTableViewCell()
     open func didChangeHandler(_ imageSelectionInput: ImageSelectionInput) {}
     open var name: String = DefaultValue.EmptyString {
         didSet {
@@ -36,36 +28,34 @@ open class ImageSelectionInput: Button {
     
     open func resetState() {}
     
-//    open func setup(
-//        name: String,
-//        sender: ViewController,
-//        controller: SelectionInputViewController,
-//        defaultValue: [Option]? = [Option](),
-//        didChangeAction: @escaping InputDidChangeHandler = {_ in }
-//        ) {
-//        self.name = name
-//        self.sender = sender
-//        self.controller = controller
-//        self.controller.screenTitle = self.name
-//        self.didChangeAction = didChangeAction
-//        self.didPressAction = {
-//            self.controller.didSelectAction = self.didSelectOptions
-//            self.sender.present(
-//                NavigationController(rootViewController: self.controller),
-//                animated: true,
-//                completion: nil
-//            )
-//        }
-//        if let defaultValue = defaultValue {
-//            self.controller.selectedOptions = defaultValue
-//            didSelectOptions(defaultValue)
-//        }
-//    }
-    
-//    private func didSelectOptions(_ options: [Option]) {
-//        delegate?.selectionInputDidEndEditing(self)
-//        guard let didChangeAction = didChangeAction else { return }
-//        didChangeAction(self)
-//    }
-
+    open func setup(
+        name: String,
+        sender: ImageInputTableViewCell,
+        didChangeAction: @escaping InputDidChangeHandler = {_ in }
+    ) {
+        self.name = name
+        self.sender = sender
+        self.didChangeAction = didChangeAction
+    }
 }
+
+extension ImageSelectionInput: InputProtocol {
+    open func getInputView() -> UIView {
+        return self
+    }
+    
+    open func getValue() -> AnyObject {
+        return sender.getSavedImage() as AnyObject
+    }
+    
+    open func getText() -> String {
+        return sender.getSavedImage() == nil ? DefaultValue.EmptyString : name
+    }
+    
+    open func resetValue() {}
+    
+    open func isEmpty() -> Bool {
+        return getText() == DefaultValue.EmptyString
+    }
+}
+
