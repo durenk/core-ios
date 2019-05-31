@@ -7,7 +7,8 @@
 
 import UIKit
 
-open class ImageInputTableViewCell: TableViewCell {
+open class ImageInputTableViewCell: TableViewCell, ImagePickerDelegate {
+    open func imagePickerDidSelect(image: UIImage) {}
     private var selectedPhoto: UIImage?
     
     open func setSelectedPhoto(image: UIImage) {

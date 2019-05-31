@@ -12,6 +12,11 @@ open class ImageSelectionInput: Button {
     open var didValidationErrorAction: InputDidValidationError?
     open var didValidationSuccessAction: InputDidValidationSuccess?
     private var sender: ImageInputTableViewCell = ImageInputTableViewCell()
+    private var senderParentView: ViewController = ViewController()
+    private var imagePickerController: ImagePicker!
+    private var menuTitle: String = DefaultValue.EmptyString
+    private var cameraButtonTitle: String = DefaultValue.EmptyString
+    private var galleryButtonTitle: String = DefaultValue.EmptyString
     open func didChangeHandler(_ imageSelectionInput: ImageSelectionInput) {}
     open var name: String = DefaultValue.EmptyString {
         didSet {
@@ -21,9 +26,13 @@ open class ImageSelectionInput: Button {
             )
         }
     }
-    
+
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    override open func awakeFromNib() {
+        
     }
     
     open func resetState() {}
@@ -31,13 +40,37 @@ open class ImageSelectionInput: Button {
     open func setup(
         name: String,
         sender: ImageInputTableViewCell,
+        senderParentView: ViewController,
+        menuTitle: String,
+        cameraButtonTitle: String,
+        galleryButtonTitle: String,
         didChangeAction: @escaping InputDidChangeHandler = {_ in }
+        
     ) {
         self.name = name
         self.sender = sender
+        self.senderParentView = senderParentView
+        self.menuTitle = menuTitle
+        self.cameraButtonTitle = cameraButtonTitle
+        self.galleryButtonTitle = galleryButtonTitle
         self.didChangeAction = didChangeAction
+        imagePickerController = ImagePicker(
+            presentationController: self.senderParentView,
+            delegate: sender,
+            overlay: UIView())
+        
+        self.didPressAction = showPhotoSourceOptions
+    }
+    
+    private func showPhotoSourceOptions() {
+        imagePickerController.present(from: self.senderParentView.view,
+                                      menuTitle: self.menuTitle,
+                                      cameraButtonTitle: self.cameraButtonTitle,
+                                      galleryButtonTitle: self.galleryButtonTitle
+        )
     }
 }
+
 
 extension ImageSelectionInput: InputProtocol {
     open func getInputView() -> UIView {
