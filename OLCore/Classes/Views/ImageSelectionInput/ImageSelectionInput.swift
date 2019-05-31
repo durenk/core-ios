@@ -43,16 +43,18 @@ extension ImageSelectionInput: InputProtocol {
     open func getInputView() -> UIView {
         return self
     }
-    
+
     open func getValue() -> AnyObject {
-        return sender.getSavedImage() as AnyObject
+        return sender.getSelectedPhoto() as AnyObject
     }
     
     open func getText() -> String {
-        return sender.getSavedImage() == nil ? DefaultValue.EmptyString : name
+        return sender.getSelectedPhoto() == nil ? DefaultValue.EmptyString : name
     }
     
-    open func resetValue() {}
+    open func resetValue() {
+        sender.removeSelectedPhoto()
+    }
     
     open func isEmpty() -> Bool {
         return getText() == DefaultValue.EmptyString

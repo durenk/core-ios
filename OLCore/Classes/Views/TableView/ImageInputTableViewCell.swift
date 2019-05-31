@@ -8,13 +8,17 @@
 import UIKit
 
 open class ImageInputTableViewCell: TableViewCell {
-    private var savedImage: UIImage?
+    private var selectedPhoto: UIImage?
     
-    open func setSavedImage(image: UIImage) {
-        savedImage = image
+    open func setSelectedPhoto(image: UIImage) {
+        selectedPhoto = image
     }
 
-    open func getSavedImage() -> UIImage? {
-        return savedImage
+    open func getSelectedPhoto() -> UIImage? {
+        return selectedPhoto
+    }
+    
+    open func removeSelectedPhoto() {
+        return selectedPhoto = nil
     }
 }
