@@ -59,8 +59,8 @@ open class ImageSelectionInput: Button {
     
         if let defaultValue = defaultValue {
             self.sender.setImageUrl(urlImage: defaultValue)
-            checkInitialPhoto()
         }
+        checkInitialPhoto()
     }
     
     private func checkInitialPhoto() {
