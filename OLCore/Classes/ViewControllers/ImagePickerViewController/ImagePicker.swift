@@ -17,6 +17,7 @@ class ImagePicker: NSObject {
     private var overlay: UIView = UIView()
     private weak var presentationController: UIViewController?
     private weak var delegate: ImagePickerDelegate?
+    private var alertController: UIAlertController!
 
     public init(presentationController: UIViewController, delegate: ImagePickerDelegate, overlay: UIView) {
         self.pickerController = UIImagePickerController()
@@ -47,7 +48,7 @@ class ImagePicker: NSObject {
 
     public func present(from sourceView: UIView, menuTitle: String, cameraButtonTitle: String, galleryButtonTitle: String ) {
 
-        let alertController = UIAlertController(title: menuTitle, message: nil, preferredStyle: .actionSheet)
+        alertController = UIAlertController(title: menuTitle, message: nil, preferredStyle: .actionSheet)
 
         if let action = self.action(for: .camera, title: cameraButtonTitle) {
             alertController.addAction(action)
@@ -62,7 +63,19 @@ class ImagePicker: NSObject {
             alertController.popoverPresentationController?.permittedArrowDirections = [.down, .up]
         }
 
-        self.presentationController?.present(alertController, animated: true)
+        let gesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(self.closeAlert)
+        )
+
+        self.presentationController?.present(alertController, animated: true, completion: {
+            self.alertController.view.superview?.isUserInteractionEnabled = true
+            self.alertController.view.superview?.subviews.first?.addGestureRecognizer(gesture)
+        })
+    }
+    
+    @objc func closeAlert() {
+        alertController.dismiss(animated: true, completion: nil)
     }
 
     private func pickerController(_ controller: UIImagePickerController, didSelect image: UIImage?) {

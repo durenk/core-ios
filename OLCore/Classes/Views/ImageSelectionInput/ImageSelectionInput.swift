@@ -30,22 +30,18 @@ open class ImageSelectionInput: Button {
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
-    override open func awakeFromNib() {
-        
-    }
-    
+
     open func resetState() {}
     
     open func setup(
         name: String,
         sender: ImageInputTableViewCell,
         senderParentView: ViewController,
+        defaultValue: String? = nil,
         menuTitle: String,
         cameraButtonTitle: String,
         galleryButtonTitle: String,
         didChangeAction: @escaping InputDidChangeHandler = {_ in }
-        
     ) {
         self.name = name
         self.sender = sender
@@ -60,6 +56,16 @@ open class ImageSelectionInput: Button {
             overlay: UIView())
         
         self.didPressAction = showPhotoSourceOptions
+    
+        if let defaultValue = defaultValue {
+            self.sender.setImageUrl(urlImage: defaultValue)
+            checkInitialPhoto()
+        }
+    }
+    
+    private func checkInitialPhoto() {
+        guard let didChangeAction = didChangeAction else { return }
+        didChangeAction(self)
     }
     
     private func showPhotoSourceOptions() {
@@ -78,15 +84,16 @@ extension ImageSelectionInput: InputProtocol {
     }
 
     open func getValue() -> AnyObject {
-        return sender.getSelectedPhoto() as AnyObject
+        return sender.getImageUrl() as AnyObject
     }
     
     open func getText() -> String {
-        return sender.getSelectedPhoto() == nil ? DefaultValue.EmptyString : name
+        return sender.getImageUrl() == nil ? DefaultValue.EmptyString : name
     }
     
     open func resetValue() {
         sender.removeSelectedPhoto()
+        sender.removeImageUrl()
     }
     
     open func isEmpty() -> Bool {
