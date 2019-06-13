@@ -18,8 +18,9 @@ class ImagePicker: NSObject {
     private weak var presentationController: UIViewController?
     private weak var delegate: ImagePickerDelegate?
     private var alertController: UIAlertController!
+    private var compressionQuality: CGFloat!
 
-    public init(presentationController: UIViewController, delegate: ImagePickerDelegate, overlay: UIView) {
+    public init(presentationController: UIViewController, delegate: ImagePickerDelegate, overlay: UIView, compressionQuality: CGFloat = 0.5) {
         self.pickerController = UIImagePickerController()
         super.init()
         self.presentationController = presentationController
@@ -27,6 +28,7 @@ class ImagePicker: NSObject {
         self.pickerController.delegate = self
         self.pickerController.allowsEditing = false
         self.pickerController.mediaTypes = ["public.image"]
+        self.compressionQuality = compressionQuality
         self.overlay = overlay
     }
 
@@ -81,7 +83,7 @@ class ImagePicker: NSObject {
     private func pickerController(_ controller: UIImagePickerController, didSelect image: UIImage?) {
         controller.dismiss(animated: true, completion: nil)
         if let tempImage = image {
-            if let imageData = tempImage.jpegData(compressionQuality: 0.60) {
+            if let imageData = tempImage.jpegData(compressionQuality: self.compressionQuality) {
                 guard let selectedImage = UIImage(data: imageData) else { return }
                 self.delegate?.imagePickerDidSelect(image: selectedImage)
             }

@@ -41,6 +41,7 @@ open class ImageSelectionInput: Button {
         menuTitle: String,
         cameraButtonTitle: String,
         galleryButtonTitle: String,
+        compressionQuality: CGFloat,
         didChangeAction: @escaping InputDidChangeHandler = {_ in }
     ) {
         self.name = name
@@ -53,7 +54,9 @@ open class ImageSelectionInput: Button {
         imagePickerController = ImagePicker(
             presentationController: self.senderParentView,
             delegate: sender,
-            overlay: UIView())
+            overlay: UIView(),
+            compressionQuality: compressionQuality
+        )
         
         self.didPressAction = showPhotoSourceOptions
     
