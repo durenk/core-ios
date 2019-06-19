@@ -63,14 +63,8 @@ open class ImageSelectionInput: Button {
         if let defaultValue = defaultValue {
             self.sender.setImageUrl(urlImage: defaultValue)
         }
-        checkInitialPhoto()
     }
-    
-    private func checkInitialPhoto() {
-        guard let didChangeAction = didChangeAction else { return }
-        didChangeAction(self)
-    }
-    
+
     private func showPhotoSourceOptions() {
         imagePickerController.present(from: self.senderParentView.view,
                                       menuTitle: self.menuTitle,
