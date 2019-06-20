@@ -26,11 +26,11 @@ open class ImageSelectionInput: Button {
             )
         }
     }
-
+    
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-
+    
     open func resetState() {}
     
     open func setup(
@@ -41,9 +41,12 @@ open class ImageSelectionInput: Button {
         menuTitle: String,
         cameraButtonTitle: String,
         galleryButtonTitle: String,
+        cancelButtonText: String,
+        settingsButtonText: String,
+        permissionText: String,
         compressionQuality: CGFloat,
         didChangeAction: @escaping InputDidChangeHandler = {_ in }
-    ) {
+        ) {
         self.name = name
         self.sender = sender
         self.senderParentView = senderParentView
@@ -55,16 +58,19 @@ open class ImageSelectionInput: Button {
             presentationController: self.senderParentView,
             delegate: sender,
             overlay: UIView(),
-            compressionQuality: compressionQuality
+            compressionQuality: compressionQuality,
+            cancelButtonText: cancelButtonText,
+            settingsButtonText: settingsButtonText,
+            permissionText: permissionText
         )
         
         self.didPressAction = showPhotoSourceOptions
-    
+        
         if let defaultValue = defaultValue {
             self.sender.setImageUrl(urlImage: defaultValue)
         }
     }
-
+    
     private func showPhotoSourceOptions() {
         imagePickerController.present(from: self.senderParentView.view,
                                       menuTitle: self.menuTitle,
@@ -79,7 +85,7 @@ extension ImageSelectionInput: InputProtocol {
     open func getInputView() -> UIView {
         return self
     }
-
+    
     open func getValue() -> AnyObject {
         return sender.getImageUrl() as AnyObject
     }
@@ -97,4 +103,5 @@ extension ImageSelectionInput: InputProtocol {
         return getText() == DefaultValue.EmptyString
     }
 }
+
 
