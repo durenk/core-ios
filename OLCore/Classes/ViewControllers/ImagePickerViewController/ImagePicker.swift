@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 public protocol ImagePickerDelegate: class {
-    func imagePickerDidSelect(image: UIImage)
+    func imagePickerDidSelect(image: UIImage, fileSizeInKB: Int)
 }
 
 class ImagePicker: NSObject {
@@ -134,8 +134,9 @@ class ImagePicker: NSObject {
         controller.dismiss(animated: true, completion: nil)
         if let tempImage = image {
             if let imageData = tempImage.jpegData(compressionQuality: self.compressionQuality) {
+                var imageSizeinKB: Int = imageData.count / 1000
                 guard let selectedImage = UIImage(data: imageData) else { return }
-                self.delegate?.imagePickerDidSelect(image: selectedImage)
+                self.delegate?.imagePickerDidSelect(image: selectedImage, fileSizeInKB: imageSizeinKB)
             }
         }
     }
@@ -145,7 +146,7 @@ extension ImagePicker: UIImagePickerControllerDelegate {
     public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.pickerController(picker, didSelect: nil)
     }
-    
+
     public func imagePickerController(_ picker: UIImagePickerController,
                                       didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let image = info[.originalImage] as? UIImage else {

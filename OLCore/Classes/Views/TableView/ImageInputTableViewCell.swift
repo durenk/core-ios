@@ -8,7 +8,7 @@
 import UIKit
 
 open class ImageInputTableViewCell: TableViewCell, ImagePickerDelegate {
-    open func imagePickerDidSelect(image: UIImage) {}
+    open func imagePickerDidSelect(image: UIImage, fileSizeInKB: Int) {}
     private var selectedPhoto: UIImage?
     private var url: String?
     
