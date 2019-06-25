@@ -8,7 +8,7 @@
 
 import UIKit
 
-public extension UIView {
+extension UIView {
     public func applyCircleStyle() {
         self.layer.cornerRadius = self.frame.size.height / 2
     }
