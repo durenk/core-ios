@@ -35,6 +35,7 @@ extension FormTableViewController: UITextFieldDelegate {
         guard let text: String = tf.text else {
             return true
         }
-        return tf.maxLength == 0 || text.count + string.count - range.length <= tf.maxLength
+        let isValidLength = tf.maxLength == 0 || text.count + string.count - range.length <= tf.maxLength
+        return isValidLength && tf.shouldChangeCharactersIn(range: range, replacementString: string)
     }
 }

@@ -76,4 +76,13 @@ open class Button: UIButton {
         guard let action = didPressAction else { return }
         action()
     }
+
+    open override func setTitle(_ title: String?, for state: UIControl.State) {
+        super.setTitle(title, for: state)
+        guard let title = title else { return }
+        accessibilityIdentifier = String(
+            format: AccessibilityIdentifier.Button,
+            title.toAccessibilityFormat()
+        )
+    }
 }

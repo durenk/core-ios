@@ -10,7 +10,8 @@ import UIKit
 
 extension FormTableViewController: UITextViewDelegate {
     public func textViewDidBeginEditing(_ textView: UITextView) {
-        keyboardWillShow()
+        guard let textArea = textView as? TextArea else { return }
+        scrollToVisibleInput(textArea)
     }
 
     public func textViewDidEndEditing(_ textView: UITextView) {

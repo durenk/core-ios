@@ -70,7 +70,7 @@ open class FormTableViewController: TableViewController {
 
     @objc open func keyboardWillHide(notification: NSNotification) {
         isShowingKeyboard = false
-        let insets = UIEdgeInsets( top: 0, left: 0, bottom: 0, right: 0 )
+        let insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         contentView.tableView.contentInset = insets
         contentView.tableView.scrollIndicatorInsets = insets
     }
@@ -78,6 +78,11 @@ open class FormTableViewController: TableViewController {
     public func scrollToInput(_ input: InputProtocol) {
         guard let row = input.getInputView().getParentCell() else { return }
         contentView.scrollTo(row: row)
+    }
+    
+    public func scrollToVisibleInput(_ input: InputProtocol) {
+        guard let row = input.getInputView().getParentCell() else { return }
+        contentView.scrollToVisible(row: row)
     }
 
     open func validateForm() {
@@ -109,7 +114,7 @@ open class FormTableViewController: TableViewController {
             }
         }
         if needToReloadData {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 if self.isShowingKeyboard { return }
                 self.contentView.tableView.reloadData()
             }

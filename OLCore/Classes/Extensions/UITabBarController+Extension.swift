@@ -8,7 +8,7 @@
 
 import UIKit
 
-public extension UITabBarController {
+extension UITabBarController {
     public func setTabBarVisible(visible: Bool, animated: Bool) {
         if tabBarIsVisible() == visible { return }
         let frame = self.tabBar.frame

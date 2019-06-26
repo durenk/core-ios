@@ -11,7 +11,35 @@ import Foundation
 import Foundation
 import SafariServices
 
-public extension String {
+extension String {
+    static let numberFormatter = NumberFormatter()
+
+    public var doubleValue: Double {
+        String.numberFormatter.decimalSeparator = Separator.DecimalEN
+        if let result =  String.numberFormatter.number(from: self) {
+            return result.doubleValue
+        } else {
+            String.numberFormatter.decimalSeparator = Separator.DecimalID
+            if let result = String.numberFormatter.number(from: self) {
+                return result.doubleValue
+            }
+        }
+        return 0
+    }
+
+    public var floatValue: Float {
+        String.numberFormatter.decimalSeparator = Separator.DecimalEN
+        if let result =  String.numberFormatter.number(from: self) {
+            return result.floatValue
+        } else {
+            String.numberFormatter.decimalSeparator = Separator.DecimalID
+            if let result = String.numberFormatter.number(from: self) {
+                return result.floatValue
+            }
+        }
+        return 0
+    }
+
     public var digits: String {
         return components(separatedBy: CharacterSet.decimalDigits.inverted)
             .joined()
@@ -89,5 +117,12 @@ public extension String {
 
     public func isValid(regexRule: String) -> Bool {
         return NSPredicate(format: "SELF MATCHES %@", regexRule).evaluate(with: self)
+    }
+
+    public func toAccessibilityFormat() -> String {
+        return self.replacingOccurrences(
+            of: Separator.Whitespace,
+            with: Separator.AccessibilityId
+        ).lowercased()
     }
 }

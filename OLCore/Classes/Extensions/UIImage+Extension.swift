@@ -8,7 +8,7 @@
 
 import UIKit
 
-public extension UIImage {
+extension UIImage {
     public func alpha(_ value: CGFloat) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, scale)
         draw(at: CGPoint.zero, blendMode: .normal, alpha: value)
@@ -37,5 +37,13 @@ public extension UIImage {
         let croppedImageRef = self.cgImage!.cropping(to: cropRect)
         let cropped = UIImage(cgImage: croppedImageRef!, scale: self.scale, orientation: self.imageOrientation)
         return cropped
+    }
+
+    func fixImageOrientation() -> UIImage {
+        UIGraphicsBeginImageContext(self.size)
+        self.draw(at: .zero)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage ?? self
     }
 }

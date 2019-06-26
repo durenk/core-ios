@@ -12,10 +12,12 @@ open class Option: Model {
     public var id: String = DefaultValue.EmptyString
     public var text: String = DefaultValue.EmptyString
     public var isActive: Bool = true
+    public var description: String = DefaultValue.EmptyString
 
-    public init(id: String = DefaultValue.EmptyString, text: String = DefaultValue.EmptyString, isActive: Bool = true) {
+    public init(id: String = DefaultValue.EmptyString, text: String = DefaultValue.EmptyString, isActive: Bool = true, description: String = DefaultValue.EmptyString) {
         self.id = id
         self.text = text
         self.isActive = isActive
+        self.description = description
     }
 }

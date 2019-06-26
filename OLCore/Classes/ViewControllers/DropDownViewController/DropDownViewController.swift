@@ -35,6 +35,17 @@ open class DropDownViewController: TableViewController {
             section.appendRow(createItemCell(option))
         }
         contentView.appendSection(section: section)
+        contentView.setTableViewSeparator(
+            show: true,
+            separatorColor: UITableView().separatorColor,
+            separatorStyle: .singleLine,
+            separatorInset: UIEdgeInsets(
+                top: 0,
+                left: DropDownItemCellContentMargin.horizontal,
+                bottom: 0,
+                right: 0
+            )
+        )
     }
 
     open func createItemCell(_ option: Option) -> DropDownItemCell {

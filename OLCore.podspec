@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'OLCore'
-  s.version          = '0.1.3'
+  s.version          = '0.3.0'
   s.summary          = 'One Labs Core Library'
 
 # This description is used to generate tags and improve search results.

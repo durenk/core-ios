@@ -36,7 +36,7 @@ open class TextArea: UITextView {
 
     private func applyStyle() {
         font = style.font
-        textColor = style.color
+        textColor = showingPlaceholder ? style.placeholderColor : style.color
         backgroundColor = style.backgroundColor
         layer.borderColor = style.borderColor.cgColor
         layer.borderWidth = style.borderWidth
@@ -46,6 +46,7 @@ open class TextArea: UITextView {
 
     private func renderPlaceholder(text: String) {
         showingPlaceholder = true
+        autocorrectionType = .no
         textColor = style.placeholderColor
         selectedTextRange = textRange(from: beginningOfDocument, to: beginningOfDocument)
         if self.text != text {
@@ -89,6 +90,7 @@ open class TextArea: UITextView {
             return
         }
         showingPlaceholder = false
+        autocorrectionType = .yes
         self.text = text
         textColor = style.color
         didChange(self)

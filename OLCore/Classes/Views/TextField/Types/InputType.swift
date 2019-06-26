@@ -25,4 +25,5 @@ public protocol InputType {
     func didBeginEditingHandler(_ textField: TextField)
     func didEndEditingHandler(_ textField: TextField)
     func didChangeHandler(_ textField: TextField)
+    func shouldChangeCharactersIn(range: NSRange, replacementString string: String) -> Bool
 }
