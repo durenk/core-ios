@@ -78,4 +78,18 @@ extension UIView {
             view.removeFromSuperview()
         }
     }
+
+    public func applyDashedBorderLine() {
+        let lineDashPattern: [NSNumber] = [4, 4]
+        let lineDashWidth: CGFloat = 1.0
+        let path = CGMutablePath()
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.lineWidth = lineDashWidth
+        shapeLayer.strokeColor = UIColor.lightGray.cgColor
+        shapeLayer.lineDashPattern = lineDashPattern
+        path.addLines(between: [CGPoint(x: bounds.minX, y: bounds.height/2),
+                                CGPoint(x: bounds.width, y: bounds.height/2)])
+        shapeLayer.path = path
+        layer.addSublayer(shapeLayer)
+    }
 }
