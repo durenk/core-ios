@@ -111,7 +111,8 @@ extension UIView {
                 NSLayoutConstraint.constraints(withVisualFormat: $0,
                                                options: [],
                                                metrics: ["inset": inset, "thickness": thickness],
-                                               views: ["border": border]) })
+                                               views: ["border": border])
+            })
             borders.append(border)
             return border
         }
