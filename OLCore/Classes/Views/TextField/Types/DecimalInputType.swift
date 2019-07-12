@@ -22,12 +22,12 @@ open class DecimalInputType: InputType {
         defaultValue: Double? = nil,
         activeIcon: UIImage? = nil,
         inactiveIcon: UIImage? = nil
-        ) {
+    ) {
         self.textField = textField
         self.activeIcon = activeIcon
         self.inactiveIcon = inactiveIcon
         guard let defaultValue = defaultValue else { return }
-        self.textField.text = String(defaultValue)
+        self.textField.text = defaultValue.clean
     }
 
     open func render() {
