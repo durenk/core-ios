@@ -38,7 +38,7 @@ pod 'OLCore'
     git checkout develop
     git pull origin develop
     ```
-3. Make sure you have no error or warning by execute the comment below from your project root directory:
+3. Make sure you have no error or warning by execute the comment below from `core-ios` project root directory:
     ```
     pod lib lint
     ```
