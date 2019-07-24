@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import OLCore
 
 open class SelectionInputItemCell: TableViewCell {
     public var option: Option = Option()

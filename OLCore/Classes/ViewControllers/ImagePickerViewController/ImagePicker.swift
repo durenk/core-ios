@@ -109,21 +109,20 @@ class ImagePicker: NSObject {
             title: settingsButtonText,
             style: .default,
             handler: { (action) in
-                if let url = URL(string: UIApplication.openSettingsURLString) {
-                    UIApplication.shared.openURL(url)
-                }
-        })
-        
+                guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        )
         let cancelAction = UIAlertAction(
             title: cancelButtonText,
             style: .cancel,
             handler: nil
         )
-        
         let permissionAlert = UIAlertController(
             title: DefaultValue.EmptyString,
             message: permissionText,
-            preferredStyle: .alert)
+            preferredStyle: .alert
+        )
         permissionAlert.addAction(settingAction)
         permissionAlert.addAction(cancelAction)
         
@@ -134,7 +133,7 @@ class ImagePicker: NSObject {
         controller.dismiss(animated: true, completion: nil)
         if let tempImage = image {
             if let imageData = tempImage.jpegData(compressionQuality: self.compressionQuality) {
-                var imageSizeinKB: Int = imageData.count / 1000
+                let imageSizeinKB: Int = imageData.count / 1000
                 guard let selectedImage = UIImage(data: imageData) else { return }
                 self.delegate?.imagePickerDidSelect(image: selectedImage, fileSizeInKB: imageSizeinKB)
             }

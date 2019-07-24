@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension Array {
+extension Array {
     public func chunked(into size: Int) -> [[Element]] {
         if size <= 0 { return [] }
         return stride(from: 0, to: count, by: size).map {
