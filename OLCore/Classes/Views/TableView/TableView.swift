@@ -22,12 +22,14 @@ open class TableView: View {
     public var registeredCellIdentifiers: [String] = [String]()
     public var rememberTableViewContentOffset: CGPoint = CGPoint(x: 0, y: 0)
 
-    open func commonInit(sender: TableViewContainerProtocol) {
+    open func commonInit(sender: TableViewContainerProtocol, isRender: Bool = true) {
         sender.registerNibs()
         createTableView()
         configureTableView()
         registerCellIdentifiers()
-        sender.render()
+        if isRender {
+            sender.render()
+        }
         delegate?.tableViewDidCommontInit?(self)
     }
 
