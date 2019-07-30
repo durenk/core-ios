@@ -178,6 +178,10 @@ open class TableView: View {
             with: UITableView.RowAnimation.automatic
         )
     }
+
+    public func numberOfSections() -> Int {
+        return sections.count
+    }
 }
 
 extension TableView: UITableViewDelegate, UITableViewDataSource {
