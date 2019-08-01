@@ -190,6 +190,10 @@ open class TableView: View {
         }
         return total
     }
+
+    public func isEmpty() -> Bool {
+        return numberOfRows() <= DefaultValue.EmptyInt
+    }
 }
 
 extension TableView: UITableViewDelegate, UITableViewDataSource {
