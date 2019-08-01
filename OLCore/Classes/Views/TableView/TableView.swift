@@ -182,6 +182,14 @@ open class TableView: View {
     public func numberOfSections() -> Int {
         return sections.count
     }
+
+    public func numberOfRows() -> Int {
+        var total = 0
+        for section in sections {
+            total += section.numberOfRows()
+        }
+        return total
+    }
 }
 
 extension TableView: UITableViewDelegate, UITableViewDataSource {
