@@ -172,6 +172,25 @@ open class TableView: View {
         return UITableViewCell()
     }
 
+    public func registerNib<T>(nibClass: T.Type, resource: String? = nil) where T: TableViewCell {
+        var bundle: Bundle? = nil
+        if let resource = resource {
+            let nibBundle = Bundle(for: nibClass.self)
+            guard let url = nibBundle.url(forResource: resource, withExtension: "bundle") else { return }
+            bundle = Bundle(url: url)
+        }
+        let nib = UINib(nibName: nibClass.className, bundle: bundle)
+        tableView.register(nib, forCellReuseIdentifier: nibClass.className)
+    }
+
+    public func dequeueReusableNibCell<T>(nibClass: T.Type, resource: String? = nil) -> UITableViewCell where T: TableViewCell {
+        registerNib(nibClass: nibClass, resource: resource)
+        if let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: nibClass.className) {
+            return cell
+        }
+        return UITableViewCell()
+    }
+
     public func reloadSection(_ section: TableViewSection) {
         tableView.reloadSections(
             IndexSet(integer: section.tag),
