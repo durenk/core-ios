@@ -19,6 +19,9 @@ private struct EmptySize {
 
 open class SectionCollection {
     private var contentView: TableView = TableView()
+
+    public init() {}
+
     public var emptyXSmall: EmptySection {
         get {
             let section = EmptySection()
