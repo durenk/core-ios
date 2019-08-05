@@ -15,7 +15,11 @@ extension Double {
     }
 
     public func toCurrencyIDR() -> String {
-        return "Rp\(String(Int(self)).withThousandSeparator())"
+        let string = "Rp \(String(Int(self)).withThousandSeparator())"
+        if self < 0 {
+            return "-\(string)"
+        }
+        return string
     }
 
     public func rounded(toPlaces places: Int) -> Double {

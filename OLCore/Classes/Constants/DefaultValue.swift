@@ -18,4 +18,5 @@ public struct DefaultValue {
     public static let EmptyFloat = Float(0.0)
     public static let EmptyIndex = -1
     public static let EmptyCGFloat = CGFloat(0.0)
+    public static let EmptyAny = DefaultValue.EmptyString as Any
 }
