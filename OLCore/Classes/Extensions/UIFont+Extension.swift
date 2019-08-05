@@ -9,9 +9,12 @@ import Foundation
 
 public extension UIFont {
     private static func registerFont(filename: String, bundle: Bundle?) {
-        DispatchQueue.once(token: "register-font-\(filename)") {
-            let keys = filename.split(separator: ".")
-            let ext = keys.count > 1 ? String(keys.last ?? "ttf") : "ttf"
+        let token = String(format: DispatchTokenKey.registerFont, filename)
+        DispatchQueue.once(token: token) {
+            let keys = filename.split(separator: Character(Separator.FileExtension))
+            let ext = keys.count > 1
+                ? String(keys.last ?? Substring(FileExtension.Font.ttf))
+                : FileExtension.Font.ttf
             guard let url = bundle?.url(forResource: filename, withExtension: ext) else { return }
             guard let data = NSData(contentsOf: url) else { return }
             guard let provider = CGDataProvider(data: data) else { return }
