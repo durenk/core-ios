@@ -21,8 +21,7 @@ open class NestedTableViewConnector: NSObject {
         containerCell: NestedTableViewContainerCell,
         containerTableView: TableView,
         withStartLoading isLoading: Bool = false,
-        delegate: NestedTableViewDelegate,
-        didPressAction: @escaping PressButtonHandler = {}
+        delegate: NestedTableViewDelegate
     ) {
         if cell == nil {
             cell = containerCell
