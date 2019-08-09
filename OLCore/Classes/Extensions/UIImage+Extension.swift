@@ -39,7 +39,7 @@ extension UIImage {
         return cropped
     }
 
-    func fixImageOrientation() -> UIImage {
+    public func fixImageOrientation() -> UIImage {
         UIGraphicsBeginImageContext(self.size)
         self.draw(at: .zero)
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
