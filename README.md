@@ -25,7 +25,6 @@ pod 'OLCore'
 
 ## Dependencies
 * [DLRadioButton](https://github.com/DavydLiu/DLRadioButton)
-* [PGDrawerTransition](https://github.com/ipagong/PGDrawerTransition)
 * [SDWebImage](https://github.com/SDWebImage/SDWebImage)
 
 ## Deployment
