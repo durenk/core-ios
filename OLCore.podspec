@@ -33,7 +33,6 @@ TODO: Add long description of the pod here.
 
   s.source_files = 'OLCore/Classes/**/*'
   s.dependency 'DLRadioButton'
-  s.dependency 'PGDrawerTransition'
   s.dependency 'SDWebImage'
   
   # s.resource_bundles = {
