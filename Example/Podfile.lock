@@ -1,13 +1,11 @@
 PODS:
   - DLRadioButton (1.4.12)
-  - OLCore (0.4.0):
+  - OLCore (0.5.0):
     - DLRadioButton
-    - PGDrawerTransition
     - SDWebImage
-  - PGDrawerTransition (4.0.0)
-  - SDWebImage (5.0.6):
-    - SDWebImage/Core (= 5.0.6)
-  - SDWebImage/Core (5.0.6)
+  - SDWebImage (5.1.0):
+    - SDWebImage/Core (= 5.1.0)
+  - SDWebImage/Core (5.1.0)
 
 DEPENDENCIES:
   - OLCore (from `../`)
@@ -15,7 +13,6 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - DLRadioButton
-    - PGDrawerTransition
     - SDWebImage
 
 EXTERNAL SOURCES:
@@ -24,9 +21,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   DLRadioButton: d7c4e225ed0e8013cef7be61455230c7557ad7c1
-  OLCore: ffb4393dce445980ed178eeee81807277cfc974d
-  PGDrawerTransition: 6d9c8b6a79c0efcdbb0d811713fd686ae0a202eb
-  SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
+  OLCore: 067d0433c09601279f370968cedabc3933dc3892
+  SDWebImage: fb387001955223213dde14bc08c8b73f371f8d8f
 
 PODFILE CHECKSUM: 053b24881255c4db817adba2b0e1553c5b594edf
 
