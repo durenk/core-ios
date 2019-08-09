@@ -110,7 +110,13 @@ class ImagePicker: NSObject {
             style: .default,
             handler: { (action) in
                 guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                if UIApplication.shared.canOpenURL(url) {
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    } else {
+                        UIApplication.shared.openURL(url)
+                    }
+                }
             }
         )
         let cancelAction = UIAlertAction(
@@ -125,7 +131,6 @@ class ImagePicker: NSObject {
         )
         permissionAlert.addAction(settingAction)
         permissionAlert.addAction(cancelAction)
-        
         self.presentationController?.present(permissionAlert, animated: true, completion: nil)
     }
     
