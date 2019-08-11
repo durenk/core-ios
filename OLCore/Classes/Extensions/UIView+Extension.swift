@@ -10,7 +10,7 @@ import UIKit
 
 extension UIView {
     public func applyCircleStyle() {
-        self.layer.cornerRadius = self.frame.size.height / 2
+        applyRoundedCorners(radius: self.frame.size.height / 2)
     }
 
     public func applyRoundedTopCorners() {
@@ -36,24 +36,6 @@ extension UIView {
 
     public func removeRoundedCorners() {
         layer.cornerRadius = 0
-    }
-
-    public func applyDropShadow() {
-        let containerView = UIView()
-        let cornerRadius: CGFloat = 10.0
-        layer.backgroundColor = UIColor.clear.cgColor
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 1.0)
-        layer.shadowOpacity = 0.2
-        layer.shadowRadius = 4.0
-        containerView.layer.cornerRadius = cornerRadius
-        containerView.layer.masksToBounds = true
-        addSubview(containerView)
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        containerView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        containerView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        containerView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
 
     public func applyBorder(color: UIColor, width: CGFloat = CGFloat(1)) {
