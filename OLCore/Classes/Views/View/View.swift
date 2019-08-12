@@ -45,7 +45,7 @@ open class View: UIView {
         parentConstraint.activate()
     }
 
-    @objc public func setGradientColors(
+    public func setGradientColors(
         _ colors: [UIColor],
         startPoint: CGPoint = CGPoint(x: 0, y: 0),
         endPoint: CGPoint = CGPoint(x: 1, y: 1)
