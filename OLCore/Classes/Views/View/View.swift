@@ -45,15 +45,17 @@ open class View: UIView {
         parentConstraint.activate()
     }
 
-    public func setGradientColors(
-        _ colors: [CGColor],
+    @objc public func setGradientColors(
+        _ colors: [UIColor],
         startPoint: CGPoint = CGPoint(x: 0, y: 0),
         endPoint: CGPoint = CGPoint(x: 1, y: 1)
     ) {
+        var cgColors = [CGColor]()
+        for color in colors { cgColors.append(color.cgColor) }
         accessoryLayer.frame = bounds
         accessoryLayer.startPoint = startPoint
         accessoryLayer.endPoint = endPoint
-        accessoryLayer.colors = colors
+        accessoryLayer.colors = cgColors
         appendAccessoryLayer()
     }
 }
