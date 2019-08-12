@@ -9,7 +9,11 @@
 import UIKit
 
 extension UIView {
-    public func applyCircleStyle() {
+    @objc public func setRoundedCorners(radius: CGFloat = 0) {
+        applyRoundedCorners(radius: radius)
+    }
+
+    @objc public func applyCircleStyle() {
         applyRoundedCorners(radius: self.frame.size.height / 2)
     }
 
