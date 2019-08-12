@@ -10,12 +10,8 @@ import UIKit
 
 open class View: UIView {
     private var parentConstraint: Constraint!
-    private let accessoryLayer: CAGradientLayer = CAGradientLayer()
-
-    private func appendAccessoryLayer() {
-        if accessoryLayer.superlayer != nil { return }
-        layer.addSublayer(accessoryLayer)
-    }
+    private var gradientLayer: CAGradientLayer = CAGradientLayer()
+    private var shadowLayer: CAShapeLayer = CAShapeLayer()
 
     public func resetParentConstraint(parentView: UIView) {
         if parentConstraint != nil {
@@ -52,10 +48,34 @@ open class View: UIView {
     ) {
         var cgColors = [CGColor]()
         for color in colors { cgColors.append(color.cgColor) }
-        accessoryLayer.frame = bounds
-        accessoryLayer.startPoint = startPoint
-        accessoryLayer.endPoint = endPoint
-        accessoryLayer.colors = cgColors
-        appendAccessoryLayer()
+        backgroundColor = UIColor.clear
+        gradientLayer = CAGradientLayer()
+        gradientLayer.frame = bounds
+        gradientLayer.startPoint = startPoint
+        gradientLayer.endPoint = endPoint
+        gradientLayer.colors = cgColors
+        if gradientLayer.superlayer == nil { layer.addSublayer(gradientLayer) }
+        if shadowLayer.superlayer != nil { shadowLayer.removeFromSuperlayer() }
+    }
+
+    public func setDropShadow(
+        fillColor: UIColor,
+        cornerRadius: CGFloat = 0,
+        shadowRadius: CGFloat = 0,
+        shadowOpacity: CGFloat = 0.2,
+        shadowOffset: CGSize = CGSize(width: 0.0, height: 1.0),
+        shadowColor: UIColor = UIColor.black
+    ) {
+        backgroundColor = UIColor.clear
+        shadowLayer = CAShapeLayer()
+        shadowLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
+        shadowLayer.fillColor = fillColor.cgColor
+        shadowLayer.shadowColor = shadowColor.cgColor
+        shadowLayer.shadowPath = shadowLayer.path
+        shadowLayer.shadowOffset = shadowOffset
+        shadowLayer.shadowOpacity = Float(shadowOpacity)
+        shadowLayer.shadowRadius = shadowRadius
+        if shadowLayer.superlayer == nil { layer.addSublayer(shadowLayer) }
+        if gradientLayer.superlayer != nil { gradientLayer.removeFromSuperlayer() }
     }
 }
