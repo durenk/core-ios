@@ -18,6 +18,11 @@ open class Button: UIButton {
         }
     }
     public var didPressAction: PressButtonHandler?
+    override open var isEnabled:Bool {
+        didSet {
+            isEnabled ? applyEnabledStyle() : applyDisabledStyle()
+        }
+    }
 
     convenience public init(type buttonType: UIButton.ButtonType) {
         self.init(frame: CGRect.zero)
@@ -91,20 +96,30 @@ open class Button: UIButton {
         highlightFont: UIFont
     ) {
         let attribute = NSMutableAttributedString(string: fullText)
-        let highlightRange = NSRange(location: fullText.count - highlightText.count, length: highlightText.count)
-        attribute.addAttribute(NSAttributedString.Key.font, value: highlightFont, range: highlightRange)
-        attribute.addAttribute(NSAttributedString.Key.foregroundColor, value: style.textColorEnabled, range: NSRange(location: 0, length: fullText.count))
+        let highlightRange = NSRange(
+            location: fullText.count - highlightText.count,
+            length: highlightText.count
+        )
+        attribute.addAttribute(
+            NSAttributedString.Key.font,
+            value: highlightFont,
+            range: highlightRange
+        )
+        attribute.addAttribute(
+            NSAttributedString.Key.foregroundColor,
+            value: style.textColorEnabled,
+            range: NSRange(location: 0, length: fullText.count)
+        )
         setAttributedTitle(attribute, for: .normal)
-    }
-
-    public func setEnabled(_ enabled: Bool = true) {
-        isEnabled = enabled
-        isEnabled ? applyEnabledStyle() : applyDisabledStyle()
     }
 
     @objc public func pressButtonHandler(_ sender: UIButton) {
         guard let action = didPressAction else { return }
         action()
+    }
+
+    @objc public func setStyle(_ style: ButtonStyle) {
+        self.style = style
     }
 
     open override func setTitle(_ title: String?, for state: UIControl.State) {

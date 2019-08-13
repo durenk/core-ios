@@ -153,7 +153,7 @@ open class TextField: UITextField {
     open func setEnabled(_ enabled: Bool = true) {
         isEnabled = enabled
         guard let rightButton = rightButton else { return }
-        rightButton.setEnabled(enabled)
+        rightButton.isEnabled = enabled
     }
 
     open func didBeginEditingHandler(_ textField: UITextField) {
@@ -178,7 +178,8 @@ open class TextField: UITextField {
     }
 
     open func setRightButtonEnabled(_ enabled: Bool) {
-        rightButton?.setEnabled(enabled)
+        guard let rightButton = rightButton else { return }
+        rightButton.isEnabled = enabled
     }
 
     open func shouldChangeCharactersIn(range: NSRange, replacementString string: String) -> Bool {
