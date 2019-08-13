@@ -8,12 +8,15 @@
 
 import UIKit
 
-public protocol ButtonStyle {
+@objc public protocol ButtonStyle {
     var textFont: UIFont { get }
-    var textColor: UIColor { get }
+    var textColorEnabled: UIColor { get }
+    var textColorDisabled: UIColor { get }
     var textAlignment: NSTextAlignment { get }
     var buttonColorEnabled: UIColor { get }
     var buttonColorDisabled: UIColor { get }
+    var buttonGradientColorsEnabled: [UIColor] { get }
+    var buttonGradientColorsDisabled: [UIColor] { get }
     var borderColor: UIColor { get }
     var borderWidth: CGFloat { get }
     var tintColorEnabled: UIColor { get }
