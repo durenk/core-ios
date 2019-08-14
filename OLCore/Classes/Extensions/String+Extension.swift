@@ -47,7 +47,13 @@ extension String {
 
     public func makeACall() {
         guard let number = URL(string: "tel://" + self) else { return }
-        UIApplication.shared.open(number)
+        if UIApplication.shared.canOpenURL(number) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(number)
+            } else {
+                UIApplication.shared.openURL(number)
+            }
+        }
     }
 
     public func withThousandSeparator() -> String {
