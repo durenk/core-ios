@@ -7,7 +7,10 @@ None.
 # Solution
 None.
 
-# Documentation/References
+# Documentation/References (if any)
+None.
+
+# Dependencies (if any)
 None.
 
 # Screenshots (if appropriate)
@@ -17,6 +20,5 @@ None.
 None.
 
 # To Do (if WIP)
-* [X] Todo 1
-* [ ] Todo 2
-* [ ] Todo 3
+* [ ] None
+* [X] None
