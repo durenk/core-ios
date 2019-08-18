@@ -20,6 +20,7 @@ open class NestedTableViewConnector: NSObject {
         contentView: NestedTableView,
         containerCell: NestedTableViewContainerCell,
         containerTableView: TableView,
+        minimumContentHeight: CGFloat = 0,
         withStartLoading isLoading: Bool = false,
         delegate: NestedTableViewDelegate
     ) {
@@ -32,7 +33,10 @@ open class NestedTableViewConnector: NSObject {
             return
         }
         contentView.render()
-        cell.nestedTableViewContainer.contentView = contentView
+        cell.nestedTableViewContainer.setContentView(
+            contentView: contentView,
+            minimumContentHeight: minimumContentHeight
+        )
         isEmptyContent = contentView.isEmpty()
         return
     }
