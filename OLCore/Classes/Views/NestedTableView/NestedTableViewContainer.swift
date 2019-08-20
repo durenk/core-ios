@@ -43,7 +43,7 @@ open class NestedTableViewContainer: View {
     }
 
     public func setContentView(contentView: NestedTableView, minimumContentHeight: CGFloat = 0) {
-        self.contentView = contentView
         self.minimumContentHeight = minimumContentHeight
+        self.contentView = contentView
     }
 }
