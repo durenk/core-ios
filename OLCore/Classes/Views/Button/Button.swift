@@ -13,9 +13,7 @@ public typealias PressButtonHandler = () -> Void
 open class Button: UIButton {
     private var gradientLayer: CAGradientLayer = CAGradientLayer()
     public var style: ButtonStyle = DefaultButtonStyle() {
-        didSet {
-            applyStyle()
-        }
+        didSet { applyStyle() }
     }
     public var didPressAction: PressButtonHandler?
     override open var isEnabled:Bool {
@@ -68,11 +66,7 @@ open class Button: UIButton {
         tintColor = style.tintColorDisabled
     }
 
-    private func setGradientColors(
-        _ colors: [UIColor],
-        startPoint: CGPoint = CGPoint(x: 0, y: 0),
-        endPoint: CGPoint = CGPoint(x: 1, y: 1)
-    ) {
+    private func setGradientColors(_ colors: [UIColor]) {
         if colors.isEmpty {
             gradientLayer.removeFromSuperlayer()
             return
@@ -82,8 +76,8 @@ open class Button: UIButton {
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = bounds
         gradientLayer.locations = nil
-        gradientLayer.startPoint = startPoint
-        gradientLayer.endPoint = endPoint
+        gradientLayer.startPoint = style.buttonGradientStartPoint
+        gradientLayer.endPoint = style.buttonGradientEndPoint
         gradientLayer.colors = cgColors
         if gradientLayer.superlayer == nil {
             layer.addSublayer(gradientLayer)
@@ -129,5 +123,10 @@ open class Button: UIButton {
             format: AccessibilityIdentifier.Button,
             title.toAccessibilityFormat()
         )
+    }
+
+    override open func draw(_ rect: CGRect) {
+        super.draw(rect)
+        applyStyle()
     }
 }
