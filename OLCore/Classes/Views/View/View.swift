@@ -12,6 +12,7 @@ open class View: UIView {
     private var parentConstraint: Constraint!
     private var gradientLayer: CAGradientLayer = CAGradientLayer()
     private var shadowLayer: CAShapeLayer = CAShapeLayer()
+    private var shadowLayerCornerRadius: CGFloat = 0
 
     public func resetParentConstraint(parentView: UIView) {
         if parentConstraint != nil {
@@ -66,6 +67,7 @@ open class View: UIView {
         shadowOffset: CGSize = CGSize(width: 0.0, height: 1.0),
         shadowColor: UIColor = UIColor.black
     ) {
+        shadowLayerCornerRadius = cornerRadius
         backgroundColor = UIColor.clear
         shadowLayer = CAShapeLayer()
         shadowLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
@@ -77,5 +79,19 @@ open class View: UIView {
         shadowLayer.shadowRadius = shadowRadius
         if shadowLayer.superlayer == nil { layer.addSublayer(shadowLayer) }
         if gradientLayer.superlayer != nil { gradientLayer.removeFromSuperlayer() }
+    }
+
+    override open func draw(_ rect: CGRect) {
+        super.draw(rect)
+        if gradientLayer.superlayer != nil {
+            gradientLayer.frame = bounds
+        }
+        if shadowLayer.superlayer != nil {
+            shadowLayer.path = UIBezierPath(
+                roundedRect: bounds,
+                cornerRadius: shadowLayerCornerRadius
+            ).cgPath
+            shadowLayer.shadowPath = shadowLayer.path
+        }
     }
 }
