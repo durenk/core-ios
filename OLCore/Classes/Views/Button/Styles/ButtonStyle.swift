@@ -17,6 +17,8 @@ import UIKit
     var buttonColorDisabled: UIColor { get }
     var buttonGradientColorsEnabled: [UIColor] { get }
     var buttonGradientColorsDisabled: [UIColor] { get }
+    var buttonGradientStartPoint: CGPoint { get }
+    var buttonGradientEndPoint: CGPoint { get }
     var borderColor: UIColor { get }
     var borderWidth: CGFloat { get }
     var tintColorEnabled: UIColor { get }

@@ -17,6 +17,8 @@ open class DefaultButtonStyle: ButtonStyle {
     open var buttonColorDisabled = UIColor.clear
     open var buttonGradientColorsEnabled = [UIColor]()
     open var buttonGradientColorsDisabled = [UIColor]()
+    open var buttonGradientStartPoint = CGPoint(x: 0, y: 0)
+    open var buttonGradientEndPoint = CGPoint(x: 0, y: 0)
     open var borderColor = UIColor.clear
     open var borderWidth = CGFloat(0)
     open var tintColorEnabled = UIColor.blue
