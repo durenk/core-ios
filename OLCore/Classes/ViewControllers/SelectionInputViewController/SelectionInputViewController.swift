@@ -11,7 +11,7 @@ import UIKit
 public typealias OptionsSelectionHandler = (_ options: [Option]) -> Void
 
 open class SelectionInputViewController: TableViewController {
-    override open var closeButtonEnabled: Bool { get { return true } }
+    override open var closeButtonPosition: LayoutPosition { get { return .left } }
     open var doneButtonTitle: String { get { return DefaultValue.EmptyString } }
     open var doneButtonStyleAttributes: [NSAttributedString.Key: Any]? {
         get { return nil }

@@ -13,7 +13,17 @@ open class ViewController: UIViewController {
     open var navigationBarStyle: UIBarStyle { get { return UIBarStyle.default } }
     open var navigationBarColor: UIColor { get { return CoreStyle.Color.NavigationBackground } }
     open var navigationBarTintColor: UIColor { get { return CoreStyle.Color.NavigationText } }
-    open var closeButtonEnabled: Bool { get { return false } }
+    open var closeButtonPosition: LayoutPosition { get { return .none } }
+    open var closeButton: UIBarButtonItem {
+        get {
+            return UIBarButtonItem(image: CoreStyle.Image.NavigationCloseButton, style: .plain, target: self, action: #selector(closeButtonPressed))
+        }
+    }
+    open var backButton: UIBarButtonItem {
+        get {
+            return UIBarButtonItem(image: CoreStyle.Image.NavigationBackButton, style: .plain, target: self, action: #selector(backButtonPressed))
+        }
+    }
     open func load() {}
     open func loadMore() {}
 
@@ -89,17 +99,20 @@ open class ViewController: UIViewController {
         var buttons = [UIBarButtonItem]()
         guard let navigation = navigationController else { return buttons }
         if navigation.viewControllers.count > 1 {
-            let backButton = UIBarButtonItem(image: CoreStyle.Image.NavigationBackButton, style: .plain, target: self, action: #selector(backButtonPressed))
             buttons.append(backButton)
-        } else if closeButtonEnabled {
-            let closeButton = UIBarButtonItem(image: CoreStyle.Image.NavigationCloseButton, style: .plain, target: self, action: #selector(closeButtonPressed))
+        } else if closeButtonPosition == .left {
             buttons.append(closeButton)
         }
         return buttons
     }
 
     open func rightBarButtonItems() -> [UIBarButtonItem] {
-        return [UIBarButtonItem]()
+        var buttons = [UIBarButtonItem]()
+        guard let navigation = navigationController else { return buttons }
+        if navigation.viewControllers.count == 1 && closeButtonPosition == .right {
+            buttons.append(closeButton)
+        }
+        return buttons
     }
 
     open func moveTabBarToController(_ controllerClass: AnyClass) {
