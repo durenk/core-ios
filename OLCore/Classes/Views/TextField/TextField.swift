@@ -11,11 +11,11 @@ import UIKit
 public typealias TextFieldDidChangeHandler = (_ textfield: TextField) -> Void
 
 open class TextField: UITextField {
+    private var inputType: InputType!
     private var leftIconContainerSize: CGFloat = 0
     private var rightIconContainerSize: CGFloat = 0
-    private var defaultContentPadding: UIEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
-    private var inputType: InputType!
     private var rightButton: Button?
+    internal var bottomLineLayer: CALayer = CALayer()
     open var didChangeAction: InputDidChangeHandler?
     open var didValidationErrorAction: InputDidValidationError?
     open var didValidationSuccessAction: InputDidValidationSuccess?
@@ -53,7 +53,7 @@ open class TextField: UITextField {
     }
 
     private func calculateContentPadding() -> UIEdgeInsets {
-        var padding = defaultContentPadding
+        var padding = style.padding
         if leftIconContainerSize != 0 {
             padding.left = leftIconContainerSize + 8
         }
@@ -68,9 +68,7 @@ open class TextField: UITextField {
         textColor = style.color
         attributedPlaceholder = NSAttributedString(string: placeholder ?? DefaultValue.EmptyString, attributes: [NSAttributedString.Key.foregroundColor: style.placeholderColor])
         backgroundColor = style.backgroundColor
-        layer.borderColor = style.borderColor.cgColor
-        layer.borderWidth = style.borderWidth
-        layer.cornerRadius = style.cornerRadius
+        renderBorder()
     }
 
     open func setLeftIcon(_ image: UIImage) {
@@ -105,7 +103,7 @@ open class TextField: UITextField {
         style: ButtonStyle,
         imageRenderingMode: UIImage.RenderingMode = .automatic,
         action: @escaping () -> Void
-    ) {
+        ) {
         rightIconContainerSize = frame.size.height
         let button = Button(type: .custom)
         button.setImage(icon.withRenderingMode(imageRenderingMode), for: .normal)
@@ -184,6 +182,11 @@ open class TextField: UITextField {
 
     open func shouldChangeCharactersIn(range: NSRange, replacementString string: String) -> Bool {
         return inputType.shouldChangeCharactersIn(range: range, replacementString: string)
+    }
+
+    override open func draw(_ rect: CGRect) {
+        super.draw(rect)
+        applyStyle()
     }
 }
 
