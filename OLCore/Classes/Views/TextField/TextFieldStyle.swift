@@ -13,7 +13,7 @@ public protocol TextFieldStyle {
     var color: UIColor { get }
     var placeholderColor: UIColor { get }
     var backgroundColor: UIColor { get }
-    var borderStyle: TextFieldBorderStyle { get }
+    var borderStyle: FieldBorderStyle { get }
     var borderColor: UIColor { get }
     var borderWidth: CGFloat { get }
     var cornerRadius: CGFloat { get }

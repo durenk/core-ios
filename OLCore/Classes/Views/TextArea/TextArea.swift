@@ -12,6 +12,7 @@ public typealias TextAreaDidChangeHandler = (_ textarea: TextArea) -> Void
 
 open class TextArea: UITextView {
     private var showingPlaceholder: Bool = false
+    internal var bottomLineLayer: CALayer = CALayer()
     public var name: String = DefaultValue.EmptyString
     public var style: TextFieldStyle! {
         didSet {
@@ -38,10 +39,8 @@ open class TextArea: UITextView {
         font = style.font
         textColor = showingPlaceholder ? style.placeholderColor : style.color
         backgroundColor = style.backgroundColor
-        layer.borderColor = style.borderColor.cgColor
-        layer.borderWidth = style.borderWidth
-        layer.cornerRadius = style.cornerRadius
-        textContainerInset = UIEdgeInsets(top: 14, left: 8, bottom: 28, right: 8)
+        textContainerInset = style.padding
+        renderBorder()
     }
 
     private func renderPlaceholder(text: String) {
@@ -94,6 +93,11 @@ open class TextArea: UITextView {
         self.text = text
         textColor = style.color
         didChange(self)
+    }
+
+    override open func draw(_ rect: CGRect) {
+        super.draw(rect)
+        applyStyle()
     }
 }
 
