@@ -18,8 +18,8 @@ open class DropDownItemCell: TableViewCell {
     public var textFont: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
     public var textActiveColor: UIColor = .black
     public var textInactiveColor: UIColor = .gray
-    private var mainLabel: Label = Label()
-    private var descriptionLabel: Label = Label()
+    public var mainLabel: Label = Label() // was private
+    public var descriptionLabel: Label = Label() // was private
     private let containerWidth = SizeHelper.getWidth(
         containerWidth: SizeHelper.ScreenWidth,
         horizontalPadding: DropDownItemCellContentMargin.horizontal
