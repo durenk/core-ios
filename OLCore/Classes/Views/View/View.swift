@@ -55,7 +55,7 @@ open class View: UIView {
         gradientLayer.startPoint = startPoint
         gradientLayer.endPoint = endPoint
         gradientLayer.colors = cgColors
-        if gradientLayer.superlayer == nil { layer.addSublayer(gradientLayer) }
+        if gradientLayer.superlayer == nil { layer.insertSublayer(gradientLayer, at: 0) }
         if shadowLayer.superlayer != nil { shadowLayer.removeFromSuperlayer() }
     }
 
@@ -77,7 +77,7 @@ open class View: UIView {
         shadowLayer.shadowOffset = shadowOffset
         shadowLayer.shadowOpacity = Float(shadowOpacity)
         shadowLayer.shadowRadius = shadowRadius
-        if shadowLayer.superlayer == nil { layer.addSublayer(shadowLayer) }
+        if shadowLayer.superlayer == nil { layer.insertSublayer(shadowLayer, at: 0) }
         if gradientLayer.superlayer != nil { gradientLayer.removeFromSuperlayer() }
     }
 

@@ -78,7 +78,7 @@ pod 'OLCore'
     ```
 11. Push your new tag.
     ```
-    git push --tags
+    git push origin refs/tags/<tagname>
     ```
 12. Register new trunk session.
     ```
