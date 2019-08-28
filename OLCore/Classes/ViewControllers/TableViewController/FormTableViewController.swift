@@ -97,7 +97,7 @@ open class FormTableViewController: TableViewController {
             callback(status)
         }
         firstInvalidInput == nil ? didValidationSuccess() : didValidationFailed()
-        contentView.tableView.reloadData()
+        reloadTableView()
         if let invalidInput = firstInvalidInput {
             scrollToInput(invalidInput)
         }
@@ -116,7 +116,7 @@ open class FormTableViewController: TableViewController {
         if needToReloadData {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 if self.isShowingKeyboard { return }
-                self.contentView.tableView.reloadData()
+                self.reloadTableView()
             }
         }
     }

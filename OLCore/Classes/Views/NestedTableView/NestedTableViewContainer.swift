@@ -46,4 +46,8 @@ open class NestedTableViewContainer: View {
         self.minimumContentHeight = minimumContentHeight
         self.contentView = contentView
     }
+
+    public func reloadTableView() {
+        contentView.tableView.reloadData()
+    }
 }
