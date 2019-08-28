@@ -86,8 +86,9 @@ open class Button: UIButton {
 
     public func setTextWithPartialHighlight(
         fullText: String,
-        highlightText: String,
-        highlightFont: UIFont
+        highlightText: String = DefaultValue.EmptyString,
+        highlightFont: UIFont,
+        highlightColor: UIColor? = nil
     ) {
         let attribute = NSMutableAttributedString(string: fullText)
         let highlightRange = NSRange(
@@ -103,6 +104,11 @@ open class Button: UIButton {
             NSAttributedString.Key.foregroundColor,
             value: style.textColorEnabled,
             range: NSRange(location: 0, length: fullText.count)
+        )
+        attribute.addAttribute(
+            NSAttributedString.Key.foregroundColor,
+            value: highlightColor ?? style.textColorEnabled,
+            range: highlightRange
         )
         setAttributedTitle(attribute, for: .normal)
     }
