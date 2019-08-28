@@ -86,7 +86,7 @@ open class Button: UIButton {
 
     public func setTextWithPartialHighlight(
         fullText: String,
-        highlightText: String = "",
+        highlightText: String = DefaultValue.EmptyString,
         highlightFont: UIFont,
         highlightColor: UIColor? = nil
     ) {

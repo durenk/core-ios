@@ -78,7 +78,7 @@ open class DropDownItemCell: TableViewCell {
         )
     }
 
-    public func setCustomTextFormat(leftText: String, rightText: String = "") {
+    public func setContent(leftText: String, rightText: String = DefaultValue.EmptyString) {
         mainLabel.text = leftText
         descriptionLabel.text = rightText
     }
