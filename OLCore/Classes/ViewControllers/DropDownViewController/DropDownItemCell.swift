@@ -18,8 +18,8 @@ open class DropDownItemCell: TableViewCell {
     public var textFont: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
     public var textActiveColor: UIColor = .black
     public var textInactiveColor: UIColor = .gray
-    public var mainLabel: Label = Label() // was private
-    public var descriptionLabel: Label = Label() // was private
+    private var mainLabel: Label = Label()
+    private var descriptionLabel: Label = Label()
     private let containerWidth = SizeHelper.getWidth(
         containerWidth: SizeHelper.ScreenWidth,
         horizontalPadding: DropDownItemCellContentMargin.horizontal
@@ -76,6 +76,10 @@ open class DropDownItemCell: TableViewCell {
             percent: 45,
             valueOf: containerWidth
         )
+    }
+
+    public func setCustomTextFormat(text: String) {
+        mainLabel.text = text
     }
 
     public func render() {

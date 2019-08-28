@@ -14,7 +14,6 @@ open class DropDownViewController: TableViewController {
     public var selectedOption: Option = Option()
     public var options: [Option] = [Option]()
     public var didSelectAction: OptionSelectionHandler?
-    public var textFormat: DropDownTextFormatHandler?
     public var separatorColor: UIColor = .clear
     public var textFont: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
     public var textActiveColor: UIColor = .black

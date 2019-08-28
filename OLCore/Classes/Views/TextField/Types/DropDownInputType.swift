@@ -29,7 +29,6 @@ open class DropDownInputType: InputType {
         self.textField = textField
         self.navigationController = navigationController
         self.controller = controller
-        self.controller.textFormat = textFormat
         if defaultValue.id != DefaultValue.EmptyString {
             self.controller.selectedOption = defaultValue
             self.textField.text = defaultValue.text
