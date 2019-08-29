@@ -156,9 +156,10 @@ open class TableView: View {
 
     public func scrollTo(row: TableViewCell) {
         let indexPath = indexPathOfCell(cell: row)
+        if indexPath.isEmpty { return }
         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
-    
+
     public func scrollToVisible(row: TableViewCell) {
         guard let superview = row.superview else { return }
         let visibleRect = tableView.convert(row.frame, to: superview)
