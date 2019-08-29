@@ -12,14 +12,12 @@ public typealias PressButtonHandler = () -> Void
 
 open class Button: UIButton {
     private var gradientLayer: CAGradientLayer = CAGradientLayer()
+    public var didPressAction: PressButtonHandler?
     public var style: ButtonStyle = DefaultButtonStyle() {
         didSet { applyStyle() }
     }
-    public var didPressAction: PressButtonHandler?
     override open var isEnabled:Bool {
-        didSet {
-            isEnabled ? applyEnabledStyle() : applyDisabledStyle()
-        }
+        didSet { applyStyle() }
     }
 
     convenience public init(type buttonType: UIButton.ButtonType) {
@@ -42,7 +40,7 @@ open class Button: UIButton {
 
     private func applyStyle() {
         clipsToBounds = true
-        applyEnabledStyle()
+        isEnabled ? applyEnabledStyle() : applyDisabledStyle()
         layer.borderColor = style.borderColor.cgColor
         layer.borderWidth = style.borderWidth
         layer.cornerRadius = style.cornerRadius
