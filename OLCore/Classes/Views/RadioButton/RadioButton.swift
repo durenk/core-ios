@@ -230,4 +230,8 @@ extension RadioButton: InputProtocol {
     public func isEmpty() -> Bool {
         return getText() == DefaultValue.EmptyString
     }
+
+    public func getTag() -> Int {
+        return tag
+    }
 }

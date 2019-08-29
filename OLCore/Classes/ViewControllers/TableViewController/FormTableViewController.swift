@@ -44,6 +44,15 @@ open class FormTableViewController: TableViewController {
         inputValidators.append(InputValidator(input: input, rules: rules))
     }
 
+    open func getNextInput(currentInput: UITextField) -> InputProtocol? {
+        for inputValidator in inputValidators {
+            if inputValidator.input.getTag() > currentInput.tag {
+                return inputValidator.input
+            }
+        }
+        return nil
+    }
+
     private func addKeyboardListener() {
         let showSelector = #selector(FormTableViewController.keyboardWillShow(notification:))
         let hideSelector = #selector(FormTableViewController.keyboardWillHide(notification:))

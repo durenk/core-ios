@@ -23,6 +23,15 @@ extension FormTableViewController: UITextFieldDelegate {
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.returnKeyType == .send {
             validateForm()
+            return true
+        }
+        if textField.returnKeyType == .next {
+            guard let nextInput = getNextInput(currentInput: textField) as? UITextField else {
+                textField.resignFirstResponder()
+                return true
+            }
+            nextInput.becomeFirstResponder()
+            return false
         }
         textField.resignFirstResponder()
         return true

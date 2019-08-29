@@ -123,4 +123,8 @@ extension TextArea: InputProtocol {
     public func isEmpty() -> Bool {
         return showingPlaceholder || getText() == DefaultValue.EmptyString
     }
+
+    public func getTag() -> Int {
+        return tag
+    }
 }

@@ -102,6 +102,10 @@ extension ImageSelectionInput: InputProtocol {
     open func isEmpty() -> Bool {
         return getText() == DefaultValue.EmptyString
     }
+
+    public func getTag() -> Int {
+        return tag
+    }
 }
 
 

@@ -221,4 +221,8 @@ extension TextField: InputProtocol {
     open func render() {
         inputType.render()
     }
+
+    public func getTag() -> Int {
+        return tag
+    }
 }
