@@ -54,7 +54,10 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
     }
 
     open func reloadTableView() {
+        let contentOffset = contentView.tableView.contentOffset
         contentView.tableView.reloadData()
+        contentView.tableView.layoutIfNeeded()
+        contentView.tableView.setContentOffset(contentOffset, animated: false)
     }
 
     private func renderRefreshControl() {
