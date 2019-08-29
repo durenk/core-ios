@@ -77,29 +77,31 @@ open class FormTableViewController: TableViewController {
 
     public func scrollToInput(_ input: InputProtocol) {
         guard let row = input.getInputView().getParentCell() else { return }
-        contentView.scrollTo(row: row)
-    }
-    
-    public func scrollToVisibleInput(_ input: InputProtocol) {
-        guard let row = input.getInputView().getParentCell() else { return }
-        contentView.scrollToVisible(row: row)
+        if contentView.numberOfRows() == 1 {
+            contentView.scrollToVisible(row: row)
+        } else {
+            contentView.scrollTo(row: row)
+        }
     }
 
     open func validateForm() {
-        var firstInvalidInput: InputProtocol?
+        var topInvalidInput: InputProtocol?
         for validator in inputValidators {
             let status = validator.validate()
             if status.isValid { continue }
-            if firstInvalidInput == nil {
-                firstInvalidInput = validator.input
+            if topInvalidInput == nil {
+                topInvalidInput = validator.input
             }
             guard let callback = validator.input.didValidationErrorAction else { continue }
             callback(status)
         }
-        firstInvalidInput == nil ? didValidationSuccess() : didValidationFailed()
-        reloadTableView()
-        if let invalidInput = firstInvalidInput {
+        if let invalidInput = topInvalidInput {
+            didValidationFailed()
+            reloadTableView()
             scrollToInput(invalidInput)
+        } else {
+            didValidationSuccess()
+            reloadTableView()
         }
     }
 
