@@ -17,7 +17,7 @@ public class PasswordRule: Rule {
 
     override public func validate(_ value: String) -> ValidationStatus {
         let status = super.validate(value)
-        status.isValid = value.isValid(regexRule: RegexString.passwordRegex)
+        status.isValid = value.isValid(regexRule: RegexString.password)
         return status
     }
 }

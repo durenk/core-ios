@@ -110,12 +110,12 @@ open class TableView: View {
         return hasSectionAtIndex(index: indexPath.section) && sections[indexPath.section].hasRowAtIndex(index: indexPath.row)
     }
 
-    public func appendSection(section: TableViewSection) {
+    open func appendSection(section: TableViewSection) {
         section.tag = sections.count
         self.sections.append(section)
     }
 
-   public func appendSections(sections: [TableViewSection]) {
+    public func appendSections(sections: [TableViewSection]) {
         for section in sections {
             appendSection(section: section)
         }
@@ -156,9 +156,10 @@ open class TableView: View {
 
     public func scrollTo(row: TableViewCell) {
         let indexPath = indexPathOfCell(cell: row)
+        if indexPath.isEmpty { return }
         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
-    
+
     public func scrollToVisible(row: TableViewCell) {
         guard let superview = row.superview else { return }
         let visibleRect = tableView.convert(row.frame, to: superview)

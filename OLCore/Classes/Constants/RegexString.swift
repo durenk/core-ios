@@ -9,6 +9,7 @@
 import Foundation
 
 public struct RegexString {
-    public static let passwordRegex = "^(?=.*\\d)(?=.*[a-zA-Z]).{6,}$"
-    public static let fullNameRegex = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
+    public static let password = "^(?=.*\\d)(?=.*[a-zA-Z]).{6,}$"
+    public static let personName = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
+    public static let email = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
 }

@@ -11,11 +11,11 @@ import UIKit
 extension FormTableViewController: UITextViewDelegate {
     public func textViewDidBeginEditing(_ textView: UITextView) {
         guard let textArea = textView as? TextArea else { return }
-        scrollToVisibleInput(textArea)
+        scrollToInput(textArea)
     }
 
     public func textViewDidEndEditing(_ textView: UITextView) {
-        dismissObsoleteErrorMessage()
+        refreshErrorMessage()
     }
 
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {

@@ -1,5 +1,5 @@
 //
-//  FullNameRule.swift
+//  PersonNameRule.swift
 //  OLCore
 //
 //  Created by Steven Tiolie on 13/03/19.
@@ -8,16 +8,19 @@
 
 import Foundation
 
-public class FullNameRule: Rule {
+public class PersonNameRule: Rule {
     override public init(name: String, message: String = DefaultValue.EmptyString) {
         super.init(name: name, message: message)
         if message != DefaultValue.EmptyString { return }
-        self.message = ValidationErrorMessage.instance.getErrorMessageFormat(FullNameRule.className)
+        self.message = String(
+            format: ValidationErrorMessage.instance.getErrorMessageFormat(PersonNameRule.className),
+            name
+        )
     }
 
     override public func validate(_ value: String) -> ValidationStatus {
         let status = super.validate(value)
-        status.isValid = value.trimmingCharacters(in: .whitespacesAndNewlines).isValid(regexRule: RegexString.fullNameRegex)
+        status.isValid = value.trimmingCharacters(in: .whitespacesAndNewlines).isValid(regexRule: RegexString.personName)
         return status
     }
 }

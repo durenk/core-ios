@@ -44,6 +44,15 @@ open class FormTableViewController: TableViewController {
         inputValidators.append(InputValidator(input: input, rules: rules))
     }
 
+    open func getNextInput(currentInput: UITextField) -> InputProtocol? {
+        for inputValidator in inputValidators {
+            if inputValidator.input.getTag() > currentInput.tag {
+                return inputValidator.input
+            }
+        }
+        return nil
+    }
+
     private func addKeyboardListener() {
         let showSelector = #selector(FormTableViewController.keyboardWillShow(notification:))
         let hideSelector = #selector(FormTableViewController.keyboardWillHide(notification:))
@@ -77,47 +86,49 @@ open class FormTableViewController: TableViewController {
 
     public func scrollToInput(_ input: InputProtocol) {
         guard let row = input.getInputView().getParentCell() else { return }
-        contentView.scrollTo(row: row)
-    }
-    
-    public func scrollToVisibleInput(_ input: InputProtocol) {
-        guard let row = input.getInputView().getParentCell() else { return }
-        contentView.scrollToVisible(row: row)
+        if contentView.numberOfRows() == 1 {
+            contentView.scrollToVisible(row: row)
+        } else {
+            contentView.scrollTo(row: row)
+        }
     }
 
     open func validateForm() {
-        var firstInvalidInput: InputProtocol?
+        var topInvalidInput: InputProtocol?
         for validator in inputValidators {
             let status = validator.validate()
             if status.isValid { continue }
-            if firstInvalidInput == nil {
-                firstInvalidInput = validator.input
+            if topInvalidInput == nil {
+                topInvalidInput = validator.input
             }
             guard let callback = validator.input.didValidationErrorAction else { continue }
             callback(status)
         }
-        firstInvalidInput == nil ? didValidationSuccess() : didValidationFailed()
-        contentView.tableView.reloadData()
-        if let invalidInput = firstInvalidInput {
+        if let invalidInput = topInvalidInput {
+            didValidationFailed()
+            reloadTableView()
             scrollToInput(invalidInput)
+        } else {
+            didValidationSuccess()
+            reloadTableView()
         }
     }
 
-    public func dismissObsoleteErrorMessage() {
-        var needToReloadData = false
+    public func refreshErrorMessage() {
         for validator in inputValidators {
+            if validator.getLastStatus().isValid { continue }
             let status = validator.validate()
             if status.isValid {
-                needToReloadData = true
                 guard let callback = validator.input.didValidationSuccessAction else { continue }
+                callback(status)
+            } else {
+                guard let callback = validator.input.didValidationErrorAction else { continue }
                 callback(status)
             }
         }
-        if needToReloadData {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                if self.isShowingKeyboard { return }
-                self.contentView.tableView.reloadData()
-            }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            if self.isShowingKeyboard { return }
+            self.reloadTableView()
         }
     }
 

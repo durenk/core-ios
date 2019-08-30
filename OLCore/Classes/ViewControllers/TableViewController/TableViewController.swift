@@ -53,6 +53,10 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
         pagination.reset()
     }
 
+    open func reloadTableView() {
+        contentView.tableView.reloadDataWithoutScrollAnimation()
+    }
+
     private func renderRefreshControl() {
         if pullToRefreshEnabled {
             refreshControl.tintColor = refreshControlTintColor
@@ -101,13 +105,13 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
         } else {
             contentView.appendSection(section: sectionCollection.activityIndicator)
         }
-        contentView.tableView.reloadData()
+        reloadTableView()
     }
 
     open func stopLoading() {
         contentView.removeAllSection()
         render()
-        contentView.tableView.reloadData()
+        reloadTableView()
     }
 
     open func createCellWithIdentifier(_ identifier: String) -> TableViewCell {
@@ -121,12 +125,12 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
 
     @objc open func reload() {
         load()
-        contentView.tableView.reloadData()
+        reloadTableView()
     }
 
     @objc open func rerender() {
         render()
-        contentView.tableView.reloadData()
+        reloadTableView()
     }
 
     open func setInfiniteScrollEnabled(_ enabled: Bool = true) {

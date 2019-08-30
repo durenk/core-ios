@@ -10,6 +10,6 @@ import Foundation
 
 extension FormTableViewController: RadioButtonDelegate {
     public func radioButtonDidEndEditing(_ radioButton: RadioButton) {
-        dismissObsoleteErrorMessage()
+        refreshErrorMessage()
     }
 }
