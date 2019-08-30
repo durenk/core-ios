@@ -11,23 +11,21 @@ import UIKit
 open class NestedTableViewContainer: View {
     private var heightConstraint: NSLayoutConstraint?
     private var contentView: NestedTableView = NestedTableView() {
-        didSet {
-            while (true) {
-                setupConstraint()
-                if contentView.tableView.visibleCells.count >= contentView.numberOfRows() {
-                    return
-                }
-            }
-        }
+        didSet { setupConstraint() }
     }
     private var minimumContentHeight: CGFloat = 0
 
     private func setupConstraint() {
-        removeAllSubviews()
-        addSubview(contentView)
-        contentView.setParentConstraint(parentView: self)
-        contentView.tableView.layoutIfNeeded()
-        setupHeightConstraint()
+        while (true) {
+            removeAllSubviews()
+            addSubview(contentView)
+            contentView.setParentConstraint(parentView: self)
+            contentView.tableView.layoutIfNeeded()
+            setupHeightConstraint()
+            if contentView.tableView.visibleCells.count >= contentView.numberOfRows() {
+                return
+            }
+        }
     }
 
     private func setupHeightConstraint() {
@@ -45,5 +43,10 @@ open class NestedTableViewContainer: View {
     public func setContentView(contentView: NestedTableView, minimumContentHeight: CGFloat = 0) {
         self.minimumContentHeight = minimumContentHeight
         self.contentView = contentView
+    }
+
+    public func reloadTableView() {
+        contentView.tableView.reloadData()
+        setupConstraint()
     }
 }

@@ -12,14 +12,12 @@ public typealias PressButtonHandler = () -> Void
 
 open class Button: UIButton {
     private var gradientLayer: CAGradientLayer = CAGradientLayer()
+    public var didPressAction: PressButtonHandler?
     public var style: ButtonStyle = DefaultButtonStyle() {
         didSet { applyStyle() }
     }
-    public var didPressAction: PressButtonHandler?
     override open var isEnabled:Bool {
-        didSet {
-            isEnabled ? applyEnabledStyle() : applyDisabledStyle()
-        }
+        didSet { applyStyle() }
     }
 
     convenience public init(type buttonType: UIButton.ButtonType) {
@@ -42,7 +40,7 @@ open class Button: UIButton {
 
     private func applyStyle() {
         clipsToBounds = true
-        applyEnabledStyle()
+        isEnabled ? applyEnabledStyle() : applyDisabledStyle()
         layer.borderColor = style.borderColor.cgColor
         layer.borderWidth = style.borderWidth
         layer.cornerRadius = style.cornerRadius
@@ -80,14 +78,15 @@ open class Button: UIButton {
         gradientLayer.endPoint = style.buttonGradientEndPoint
         gradientLayer.colors = cgColors
         if gradientLayer.superlayer == nil {
-            layer.insertSublayer(gradientLayer, at: 1)
+            layer.insertSublayer(gradientLayer, below: titleLabel?.layer)
         }
     }
 
     public func setTextWithPartialHighlight(
         fullText: String,
-        highlightText: String,
-        highlightFont: UIFont
+        highlightText: String = DefaultValue.EmptyString,
+        highlightFont: UIFont,
+        highlightColor: UIColor? = nil
     ) {
         let attribute = NSMutableAttributedString(string: fullText)
         let highlightRange = NSRange(
@@ -103,6 +102,11 @@ open class Button: UIButton {
             NSAttributedString.Key.foregroundColor,
             value: style.textColorEnabled,
             range: NSRange(location: 0, length: fullText.count)
+        )
+        attribute.addAttribute(
+            NSAttributedString.Key.foregroundColor,
+            value: highlightColor ?? style.textColorEnabled,
+            range: highlightRange
         )
         setAttributedTitle(attribute, for: .normal)
     }

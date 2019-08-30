@@ -20,6 +20,7 @@ public protocol InputProtocol {
     func getValue() -> AnyObject
     func getText() -> String
     func getInputView() -> UIView
+    func getTag() -> Int
     func resetValue()
     func isEmpty() -> Bool
 }
