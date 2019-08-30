@@ -115,25 +115,20 @@ open class FormTableViewController: TableViewController {
     }
 
     public func refreshErrorMessage() {
-        var needToReloadData = false
         for validator in inputValidators {
             if validator.getLastStatus().isValid { continue }
             let status = validator.validate()
             if status.isValid {
-                needToReloadData = true
                 guard let callback = validator.input.didValidationSuccessAction else { continue }
                 callback(status)
             } else {
-                needToReloadData = true
                 guard let callback = validator.input.didValidationErrorAction else { continue }
                 callback(status)
             }
         }
-        if needToReloadData {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                if self.isShowingKeyboard { return }
-                self.reloadTableView()
-            }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            if self.isShowingKeyboard { return }
+            self.reloadTableView()
         }
     }
 
