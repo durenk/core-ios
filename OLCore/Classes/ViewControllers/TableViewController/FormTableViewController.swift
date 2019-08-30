@@ -117,6 +117,7 @@ open class FormTableViewController: TableViewController {
     public func refreshErrorMessage() {
         var needToReloadData = false
         for validator in inputValidators {
+            if validator.getLastStatus().isValid { continue }
             let status = validator.validate()
             if status.isValid {
                 needToReloadData = true
