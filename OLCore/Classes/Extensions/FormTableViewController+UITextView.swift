@@ -15,7 +15,7 @@ extension FormTableViewController: UITextViewDelegate {
     }
 
     public func textViewDidEndEditing(_ textView: UITextView) {
-        dismissObsoleteErrorMessage()
+        refreshErrorMessage()
     }
 
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {

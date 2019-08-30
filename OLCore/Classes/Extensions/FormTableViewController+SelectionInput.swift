@@ -10,6 +10,6 @@ import Foundation
 
 extension FormTableViewController: SelectionInputDelegate {
     public func selectionInputDidEndEditing(_ selectionInput: SelectionInput) {
-        dismissObsoleteErrorMessage()
+        refreshErrorMessage()
     }
 }

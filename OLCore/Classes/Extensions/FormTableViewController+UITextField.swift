@@ -1,5 +1,5 @@
 //
-//  FormTableViewController+TextField.swift
+//  FormTableViewController+UITextField.swift
 //  OLCore
 //
 //  Created by DENZA on 09/03/19.
@@ -17,7 +17,7 @@ extension FormTableViewController: UITextFieldDelegate {
     public func textFieldDidEndEditing(_ textField: UITextField) {
         guard let textField = textField as? TextField else { return }
         textField.didEndEditingHandler(textField)
-        dismissObsoleteErrorMessage()
+        refreshErrorMessage()
     }
 
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -30,6 +30,7 @@ extension FormTableViewController: UITextFieldDelegate {
                 textField.resignFirstResponder()
                 return true
             }
+            refreshErrorMessage()
             nextInput.becomeFirstResponder()
             return false
         }
