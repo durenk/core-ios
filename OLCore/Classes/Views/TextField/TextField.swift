@@ -103,7 +103,7 @@ open class TextField: UITextField {
         style: ButtonStyle,
         imageRenderingMode: UIImage.RenderingMode = .automatic,
         action: @escaping () -> Void
-        ) {
+    ) {
         rightIconContainerSize = frame.size.height
         let button = Button(type: .custom)
         button.setImage(icon.withRenderingMode(imageRenderingMode), for: .normal)
