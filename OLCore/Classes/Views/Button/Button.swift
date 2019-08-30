@@ -78,7 +78,7 @@ open class Button: UIButton {
         gradientLayer.endPoint = style.buttonGradientEndPoint
         gradientLayer.colors = cgColors
         if gradientLayer.superlayer == nil {
-            layer.insertSublayer(gradientLayer, at: 1)
+            layer.insertSublayer(gradientLayer, below: titleLabel?.layer)
         }
     }
 
