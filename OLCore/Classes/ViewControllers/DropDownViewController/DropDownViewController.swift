@@ -24,12 +24,16 @@ open class DropDownViewController: TableViewController {
         startLoading()
     }
 
-    override open func render() {
-        super.render()
+    override open func viewDidLoad() {
+        super.viewDidLoad()
         contentView.tableView.register(
             DropDownItemCell.self,
             forCellReuseIdentifier: DropDownItemCell.className
         )
+    }
+
+    override open func render() {
+        super.render()
         let section = TableViewSection()
         for option in options {
             section.appendRow(createItemCell(option))

@@ -78,6 +78,11 @@ open class DropDownItemCell: TableViewCell {
         )
     }
 
+    public func setContent(leftText: String, rightText: String = DefaultValue.EmptyString) {
+        mainLabel.text = leftText
+        descriptionLabel.text = rightText
+    }
+
     public func render() {
         isUserInteractionEnabled = option.isActive
         renderMainLabel()

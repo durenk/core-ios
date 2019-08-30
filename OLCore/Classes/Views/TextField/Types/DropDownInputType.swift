@@ -8,6 +8,8 @@
 
 import UIKit
 
+public typealias DropDownTextFormatHandler = (_ option: Option) -> String
+
 open class DropDownInputType: InputType {
     private var controller: DropDownViewController = DropDownViewController()
     private var navigationController: UINavigationController = UINavigationController()
@@ -21,7 +23,8 @@ open class DropDownInputType: InputType {
         textField: TextField,
         navigationController: UINavigationController,
         controller: DropDownViewController = DropDownViewController(),
-        defaultValue: Option = Option()
+        defaultValue: Option = Option(),
+        textFormat: DropDownTextFormatHandler? = nil
     ) {
         self.textField = textField
         self.navigationController = navigationController
