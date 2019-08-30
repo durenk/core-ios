@@ -12,7 +12,10 @@ public class PhoneRule: Rule {
     override public init(name: String, message: String = DefaultValue.EmptyString) {
         super.init(name: name, message: message)
         if message != DefaultValue.EmptyString { return }
-        self.message = ValidationErrorMessage.instance.getErrorMessageFormat(PhoneRule.className)
+        self.message = String(
+            format: ValidationErrorMessage.instance.getErrorMessageFormat(PhoneRule.className),
+            name
+        )
     }
 
     override public func validate(_ value: String) -> ValidationStatus {
