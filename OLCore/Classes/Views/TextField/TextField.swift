@@ -101,12 +101,11 @@ open class TextField: UITextField {
     open func setRightButton(
         icon: UIImage,
         style: ButtonStyle,
-        imageRenderingMode: UIImage.RenderingMode = .automatic,
         action: @escaping () -> Void
     ) {
         rightIconContainerSize = frame.size.height
         let button = Button(type: .custom)
-        button.setImage(icon.withRenderingMode(imageRenderingMode), for: .normal)
+        button.setImage(icon.withRenderingMode(style.imageRenderingMode), for: .normal)
         button.frame = CGRect(
             x: frame.size.width - rightIconContainerSize,
             y: 0,

@@ -45,7 +45,6 @@ open class DropDownInputType: InputType {
         textField.setRightButton(
             icon: CoreStyle.Image.DropDownArrow,
             style: arrowStyle,
-            imageRenderingMode: .alwaysTemplate,
             action: {
                 self.didBeginEditingHandler(self.textField)
             }

@@ -26,4 +26,5 @@ import UIKit
     var cornerRadius: CGFloat { get }
     var contentEdgeInsets: UIEdgeInsets { get }
     var indicatorStyle: UIActivityIndicatorView.Style { get }
+    var imageRenderingMode: UIImage.RenderingMode { get }
 }
