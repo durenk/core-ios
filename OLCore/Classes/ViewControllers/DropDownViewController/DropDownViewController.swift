@@ -14,10 +14,12 @@ open class DropDownViewController: TableViewController {
     public var selectedOption: Option = Option()
     public var options: [Option] = [Option]()
     public var didSelectAction: OptionSelectionHandler?
-    public var separatorColor: UIColor = .clear
     public var textFont: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
     public var textActiveColor: UIColor = .black
     public var textInactiveColor: UIColor = .gray
+    public var separatorColor: UIColor = UITableView().separatorColor ?? .clear
+    public var separatorInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
+    public var contentInset: UIEdgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
 
     override open func load() {
         super.load()
@@ -41,14 +43,9 @@ open class DropDownViewController: TableViewController {
         contentView.appendSection(section: section)
         contentView.setTableViewSeparator(
             show: true,
-            separatorColor: UITableView().separatorColor,
+            separatorColor: separatorColor,
             separatorStyle: .singleLine,
-            separatorInset: UIEdgeInsets(
-                top: 0,
-                left: DropDownItemCellContentMargin.horizontal,
-                bottom: 0,
-                right: 0
-            )
+            separatorInset: separatorInset
         )
     }
 
@@ -58,6 +55,7 @@ open class DropDownViewController: TableViewController {
         cell.textFont = textFont
         cell.textActiveColor = textActiveColor
         cell.textInactiveColor = textInactiveColor
+        cell.contentInset = contentInset
         cell.didSelectAction = didSelectCell
         cell.render()
         return cell

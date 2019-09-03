@@ -8,22 +8,20 @@
 
 import UIKit
 
-internal struct DropDownItemCellContentMargin {
-    static let vertical = CGFloat(20)
-    static let horizontal = CGFloat(20)
-}
-
 open class DropDownItemCell: TableViewCell {
     public var option: Option = Option()
     public var textFont: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
     public var textActiveColor: UIColor = .black
     public var textInactiveColor: UIColor = .gray
+    public var contentInset: UIEdgeInsets = UIEdgeInsets.zero
     private var mainLabel: Label = Label()
     private var descriptionLabel: Label = Label()
-    private let containerWidth = SizeHelper.getWidth(
-        containerWidth: SizeHelper.ScreenWidth,
-        horizontalPadding: DropDownItemCellContentMargin.horizontal
-    )
+    private var containerWidth = DefaultValue.EmptyCGFloat
+
+    override open func awakeFromNib() {
+        super.awakeFromNib()
+        containerWidth = SizeHelper.ScreenWidth - (contentInset.left + contentInset.right)
+    }
 
     override open func loadView() {
         super.loadView()
@@ -32,20 +30,19 @@ open class DropDownItemCell: TableViewCell {
         Constraint(
             parentView: contentView,
             childView: mainLabel,
-            leading: DropDownItemCellContentMargin.horizontal,
-            trailing: DropDownItemCellContentMargin.horizontal + (containerWidth - mainLabel.frame.size.width),
-            top: DropDownItemCellContentMargin.vertical,
-            bottom: DropDownItemCellContentMargin.vertical
+            leading: contentInset.left,
+            trailing: contentInset.right + (containerWidth - mainLabel.frame.size.width),
+            top: contentInset.top,
+            bottom: contentInset.bottom
         ).activate()
         if !option.description.isEmpty {
             contentView.addSubview(descriptionLabel)
             Constraint(
                 parentView: contentView,
                 childView: descriptionLabel,
-                leading: DropDownItemCellContentMargin.horizontal + (containerWidth - descriptionLabel.frame.size.width),
-                trailing: DropDownItemCellContentMargin.horizontal,
-                top: DropDownItemCellContentMargin.vertical,
-                bottom: DropDownItemCellContentMargin.vertical
+                leading: contentInset.left + (containerWidth - descriptionLabel.frame.size.width),
+                trailing: contentInset.top,
+                bottom: contentInset.bottom
             ).activate()
         }
     }
