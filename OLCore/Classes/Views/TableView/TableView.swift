@@ -16,11 +16,10 @@ import UIKit
 
 open class TableView: View {
     private var sections: [TableViewSection] = [TableViewSection]()
+    private var tableViewConstraint: Constraint!
     public weak var delegate: TableViewDelegate?
     public var tableView: UITableView!
-    public var tableViewConstraint: Constraint!
     public var registeredCellIdentifiers: [String] = [String]()
-    public var rememberTableViewContentOffset: CGPoint = CGPoint(x: 0, y: 0)
 
     open func commonInit(sender: TableViewContainerProtocol, isRender: Bool = true) {
         sender.registerNibs()
