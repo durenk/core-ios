@@ -26,6 +26,7 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
     open var refreshControlTintColor: UIColor { get { return UIColor.white } }
     open var pullToRefreshEnabled: Bool { get { return false } }
     open var tableViewBackgroundColor: UIColor { get { return CoreStyle.Color.PrimaryBackground } }
+    open var tableViewInset: UIEdgeInsets { get { return UIEdgeInsets.zero } }
     open func registerNibs() {}
 
     override open func viewDidLoad() {
@@ -73,11 +74,12 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
     open func createContentView() {
         var frame = UIScreen.main.bounds
         frame.size.height = SizeHelper.WindowHeight
-        contentView = TableView(frame: frame)
+        contentView = TableView(frame: frame, inset: tableViewInset)
         contentView.delegate = self
         contentView.commonInit(sender: self)
         contentView.tableView.backgroundColor = tableViewBackgroundColor
         renderRefreshControl()
+        view.backgroundColor = contentView.tableView.backgroundColor
         view.addSubview(contentView)
         setContentViewParentConstraint()
     }

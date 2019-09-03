@@ -17,9 +17,23 @@ import UIKit
 open class TableView: View {
     private var sections: [TableViewSection] = [TableViewSection]()
     private var tableViewConstraint: Constraint!
+    private var tableViewInset: UIEdgeInsets = UIEdgeInsets.zero
     public weak var delegate: TableViewDelegate?
     public var tableView: UITableView!
     public var registeredCellIdentifiers: [String] = [String]()
+
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+
+    override public init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+
+    public convenience init(frame: CGRect, inset: UIEdgeInsets = UIEdgeInsets.zero) {
+        self.init(frame: frame)
+        self.tableViewInset = inset
+    }
 
     open func commonInit(sender: TableViewContainerProtocol, isRender: Bool = true) {
         sender.registerNibs()
@@ -54,6 +68,10 @@ open class TableView: View {
     private func createTableViewConstraint() {
         resetTableViewConstraint()
         tableViewConstraint = Constraint(parentView: self, childView: tableView)
+        tableViewConstraint.leading.constant = tableViewInset.left
+        tableViewConstraint.trailing.constant = tableViewInset.right
+        tableViewConstraint.top.constant = tableViewInset.top
+        tableViewConstraint.bottom.constant = tableViewInset.bottom
         tableView.translatesAutoresizingMaskIntoConstraints = false
         self.addConstraint(tableViewConstraint.leading)
         self.addConstraint(tableViewConstraint.trailing)
