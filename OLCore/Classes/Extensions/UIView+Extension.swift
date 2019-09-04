@@ -126,7 +126,6 @@ extension UIView {
     internal func getFirstTextField() -> TextField? {
         var textField: TextField? = nil
         for subview in subviews {
-            dump(subview)
             if let subview = subview as? TextField {
                 return subview
             }
