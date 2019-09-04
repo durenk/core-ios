@@ -21,6 +21,7 @@ open class DropDownViewController: FormTableViewController {
     public var separatorInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
     public var contentInset: UIEdgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     private var searchInputCell: TableViewCell?
+    open var searchEnabled: Bool { get { return false } }
 
     override open func load() {
         super.load()
@@ -36,6 +37,7 @@ open class DropDownViewController: FormTableViewController {
     }
 
     private func renderSearchInputCell() {
+        if !searchEnabled { return }
         if searchInputCell == nil {
             searchInputCell = createSearchBarCell()
         }
