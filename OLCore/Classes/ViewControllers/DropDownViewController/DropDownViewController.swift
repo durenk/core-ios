@@ -48,6 +48,7 @@ open class DropDownViewController: FormTableViewController {
             searchTextField.delegate = self
             searchTextField.returnKeyType = .search
         }
+        contentView.setContentMargin(top: searchInputCell.frame.size.height)
         contentView.addSubview(searchInputCell)
     }
 

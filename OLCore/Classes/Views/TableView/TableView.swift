@@ -231,6 +231,22 @@ open class TableView: View {
     public func isEmpty() -> Bool {
         return numberOfRows() <= DefaultValue.EmptyInt
     }
+
+    public func setContentMargin(top: CGFloat) {
+        tableViewConstraint.top.constant = top
+    }
+
+    public func setContentMargin(bottom: CGFloat) {
+        tableViewConstraint.bottom.constant = bottom
+    }
+
+    public func setContentMargin(left: CGFloat) {
+        tableViewConstraint.leading.constant = left
+    }
+
+    public func setContentMargin(right: CGFloat) {
+        tableViewConstraint.trailing.constant = right
+    }
 }
 
 extension TableView: UITableViewDelegate, UITableViewDataSource {
