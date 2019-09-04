@@ -100,8 +100,8 @@ open class TextField: UITextField {
 
     open func setRightButton(
         icon: UIImage,
-        style: ButtonStyle,
-        action: @escaping () -> Void
+        style: ButtonStyle = DefaultButtonStyle(),
+        action: @escaping () -> Void = {}
     ) {
         rightIconContainerSize = frame.size.height
         let button = Button(type: .custom)

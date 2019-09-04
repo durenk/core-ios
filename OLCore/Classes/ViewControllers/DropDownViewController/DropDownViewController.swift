@@ -10,7 +10,7 @@ import UIKit
 
 public typealias OptionSelectionHandler = (_ option: Option) -> Void
 
-open class DropDownViewController: TableViewController {
+open class DropDownViewController: FormTableViewController {
     public var selectedOption: Option = Option()
     public var options: [Option] = [Option]()
     public var didSelectAction: OptionSelectionHandler?
