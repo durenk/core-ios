@@ -232,20 +232,8 @@ open class TableView: View {
         return numberOfRows() <= DefaultValue.EmptyInt
     }
 
-    public func setContentMargin(top: CGFloat) {
-        tableViewConstraint.top.constant = top
-    }
-
-    public func setContentMargin(bottom: CGFloat) {
-        tableViewConstraint.bottom.constant = bottom
-    }
-
-    public func setContentMargin(left: CGFloat) {
-        tableViewConstraint.leading.constant = left
-    }
-
-    public func setContentMargin(right: CGFloat) {
-        tableViewConstraint.trailing.constant = right
+    public func scrollToTop() {
+        tableView.setContentOffset(.zero, animated: true)
     }
 }
 

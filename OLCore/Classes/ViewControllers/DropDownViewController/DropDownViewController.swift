@@ -121,6 +121,7 @@ extension DropDownViewController {
         if !searchEnabled { return }
         searchKeyword = keyword
         render()
-        reloadTableView()
+        contentView.tableView.reloadData()
+        contentView.scrollToTop()
     }
 }
