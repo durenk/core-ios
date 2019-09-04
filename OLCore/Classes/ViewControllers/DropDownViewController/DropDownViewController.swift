@@ -20,6 +20,7 @@ open class DropDownViewController: FormTableViewController {
     public var separatorColor: UIColor = UITableView().separatorColor ?? .clear
     public var separatorInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
     public var contentInset: UIEdgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+    private var searchInputCell: TableViewCell?
 
     override open func load() {
         super.load()
@@ -34,8 +35,23 @@ open class DropDownViewController: FormTableViewController {
         )
     }
 
+    private func renderSearchInputCell() {
+        if searchInputCell == nil {
+            searchInputCell = createSearchBarCell()
+        }
+        guard let searchInputCell = searchInputCell else { return }
+        if searchInputCell.superview != nil { return }
+        searchInputCell.frame.size.width = contentView.bounds.width
+        if let searchTextField = searchInputCell.getFirstTextField() {
+            searchTextField.delegate = self
+            searchTextField.returnKeyType = .search
+        }
+        contentView.addSubview(searchInputCell)
+    }
+
     override open func render() {
         super.render()
+        renderSearchInputCell()
         let section = TableViewSection()
         for option in options {
             section.appendRow(createItemCell(option))
@@ -74,5 +90,9 @@ open class DropDownViewController: FormTableViewController {
 
     open func resetSelection() {
         selectedOption = Option()
+    }
+
+    open func createSearchBarCell() -> TableViewCell? {
+        return nil
     }
 }
