@@ -54,6 +54,7 @@ open class ViewController: UIViewController {
 
     private func stylingNavigation() {
         guard let navigation = navigationController else { return }
+        if navigation.navigationBar.isTranslucent { return }
         navigation.setNavigationBarColor(navigationBarColor)
         navigation.navigationBar.barStyle = navigationBarStyle
         navigation.navigationBar.tintColor = navigationBarTintColor

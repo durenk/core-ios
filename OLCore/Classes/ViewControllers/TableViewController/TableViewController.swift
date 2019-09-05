@@ -41,7 +41,9 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
 
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        view.backgroundColor = contentView.tableView.backgroundColor
+        if contentView.tableView.backgroundColor != UIColor.clear {
+            view.backgroundColor = contentView.tableView.backgroundColor
+        }
     }
 
     override open func viewWillDisappear(_ animated: Bool) {
