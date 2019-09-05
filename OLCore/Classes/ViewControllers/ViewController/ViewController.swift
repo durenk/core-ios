@@ -125,4 +125,14 @@ open class ViewController: UIViewController {
         guard let viewIfLoaded = self.viewIfLoaded else { return false }
         return viewIfLoaded.window != nil
     }
+
+    open func setBackground(image: UIImage, visibleFromTop: Bool = true) {
+        let backgroundView = UIImageView(frame: view.bounds)
+        backgroundView.image = image
+        view.addSubview(backgroundView)
+        view.sendSubviewToBack(backgroundView)
+        if visibleFromTop {
+            navigationController?.applyTransparentStyle()
+        }
+    }
 }
