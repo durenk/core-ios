@@ -127,14 +127,14 @@ open class TableView: View {
         return hasSectionAtIndex(index: indexPath.section) && sections[indexPath.section].hasRowAtIndex(index: indexPath.row)
     }
 
-    open func appendSection(section: TableViewSection) {
+    open func appendSection(_ section: TableViewSection) {
         section.tag = sections.count
         self.sections.append(section)
     }
 
-    public func appendSections(sections: [TableViewSection]) {
+    public func appendSections(_ sections: [TableViewSection]) {
         for section in sections {
-            appendSection(section: section)
+            appendSection(section)
         }
     }
 

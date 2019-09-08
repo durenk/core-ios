@@ -65,7 +65,7 @@ open class DropDownViewController: FormTableViewController {
             }
             section.appendRow(createItemCell(option))
         }
-        contentView.appendSection(section: section)
+        contentView.appendSection(section)
         contentView.setTableViewSeparator(
             show: true,
             separatorColor: separatorColor,

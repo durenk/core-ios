@@ -75,7 +75,7 @@ open class SelectionInputViewController: TableViewController {
     }
 
     private func renderHeaderSection() {
-        contentView.appendSection(section: createHeaderSection(screenTitle))
+        contentView.appendSection(createHeaderSection(screenTitle))
     }
 
     private func renderOptionsSection() {
@@ -86,7 +86,7 @@ open class SelectionInputViewController: TableViewController {
             cell.render(option: option, isChecked: temporarySelectedOptions.contains(option))
             section.appendRow(cell)
         }
-        contentView.appendSection(section: section)
+        contentView.appendSection(section)
     }
 
     open override func render() {

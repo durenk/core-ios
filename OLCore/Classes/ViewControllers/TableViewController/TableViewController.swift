@@ -105,9 +105,9 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
     open func startLoading(withLightStyle: Bool = false) {
         contentView.removeAllSectionForLoadingPurpose()
         if withLightStyle {
-            contentView.appendSection(section: sectionCollection.lightActivityIndicator)
+            contentView.appendSection(sectionCollection.lightActivityIndicator)
         } else {
-            contentView.appendSection(section: sectionCollection.activityIndicator)
+            contentView.appendSection(sectionCollection.activityIndicator)
         }
         reloadTableView()
     }
