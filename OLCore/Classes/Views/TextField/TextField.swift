@@ -119,17 +119,25 @@ open class TextField: UITextField {
         rightViewMode = .always
     }
 
-    open func resetState() {
-        let button = Button(type: .custom)
-        button.didPressAction = nil
-        button.style = DefaultButtonStyle()
+    open func removeRightButton() {
         rightButton = nil
         rightView = rightButton
         rightViewMode = .never
         rightIconContainerSize = 0
+    }
+
+    open func removeLeftIcon() {
         leftView = nil
         leftViewMode = .never
         leftIconContainerSize = 0
+    }
+
+    open func resetState() {
+        let button = Button(type: .custom)
+        button.didPressAction = nil
+        button.style = DefaultButtonStyle()
+        removeRightButton()
+        removeLeftIcon()
         inputView = nil
         inputType = FreeTextInputType(textField: self)
         inputType.render()
