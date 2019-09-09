@@ -68,7 +68,6 @@ open class TextField: UITextField {
         textColor = style.color
         attributedPlaceholder = NSAttributedString(string: placeholder ?? DefaultValue.EmptyString, attributes: [NSAttributedString.Key.foregroundColor: style.placeholderColor])
         backgroundColor = style.backgroundColor
-        renderBorder()
     }
 
     open func setLeftIcon(_ image: UIImage) {
@@ -193,7 +192,7 @@ open class TextField: UITextField {
 
     override open func draw(_ rect: CGRect) {
         super.draw(rect)
-        applyStyle()
+        renderBorder()
     }
 }
 
