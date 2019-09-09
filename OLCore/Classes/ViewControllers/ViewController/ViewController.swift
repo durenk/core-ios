@@ -90,7 +90,7 @@ open class ViewController: UIViewController {
 
     open func customizeNavigationController() {
         guard let navigation = navigationController else { return }
-        navigation.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: CoreStyle.Font.NavigationTitle]
+        navigation.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: CoreStyle.Color.NavigationText, NSAttributedString.Key.font: CoreStyle.Font.NavigationTitle]
         navigationItem.leftBarButtonItems = leftBarButtonItems()
         navigationItem.rightBarButtonItems = rightBarButtonItems()
     }
