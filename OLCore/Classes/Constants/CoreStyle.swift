@@ -10,7 +10,7 @@ import UIKit
 
 public struct CoreStyle {
     public struct Font {
-        public static var NavigationTitle: UIFont = UIFont()
+        public static var NavigationTitle: UIFont = UIFont.systemFont(ofSize: 10)
     }
     public struct Image {
         public static var NavigationBackButton: UIImage = UIImage()
