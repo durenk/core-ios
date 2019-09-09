@@ -20,6 +20,11 @@ open class TableViewSection {
         self.keepWhileLoading = keepWhileLoading
     }
 
+    public init(_ cell: TableViewCell, keepWhileLoading: Bool = false) {
+        appendRow(cell)
+        self.keepWhileLoading = keepWhileLoading
+    }
+
     public func numberOfRows() -> NSInteger {
         return cells.count
     }

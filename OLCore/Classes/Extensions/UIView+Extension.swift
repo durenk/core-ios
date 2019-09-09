@@ -122,4 +122,16 @@ extension UIView {
         
         return borders
     }
+
+    internal func getFirstTextField() -> TextField? {
+        var textField: TextField? = nil
+        for subview in subviews {
+            if let subview = subview as? TextField {
+                return subview
+            }
+            textField = subview.getFirstTextField()
+            if textField != nil { return textField }
+        }
+        return textField
+    }
 }

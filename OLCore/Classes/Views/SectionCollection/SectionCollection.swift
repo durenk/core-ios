@@ -9,6 +9,7 @@
 import UIKit
 
 private struct EmptySize {
+    static let XXSmall = CGFloat(4)
     static let XSmall = CGFloat(10)
     static let Small = CGFloat(20)
     static let Medium = CGFloat(30)
@@ -22,6 +23,13 @@ open class SectionCollection {
 
     public init() {}
 
+    public var emptyXXSmall: EmptySection {
+        get {
+            let section = EmptySection()
+            section.configure(contentView: contentView, height: EmptySize.XXSmall)
+            return section
+        }
+    }
     public var emptyXSmall: EmptySection {
         get {
             let section = EmptySection()

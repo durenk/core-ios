@@ -10,14 +10,19 @@ import UIKit
 
 public typealias OptionSelectionHandler = (_ option: Option) -> Void
 
-open class DropDownViewController: TableViewController {
+open class DropDownViewController: FormTableViewController {
     public var selectedOption: Option = Option()
     public var options: [Option] = [Option]()
     public var didSelectAction: OptionSelectionHandler?
-    public var separatorColor: UIColor = .clear
     public var textFont: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
     public var textActiveColor: UIColor = .black
     public var textInactiveColor: UIColor = .gray
+    public var separatorColor: UIColor = UITableView().separatorColor ?? .clear
+    public var separatorInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
+    public var contentInset: UIEdgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+    private var searchInputCell: TableViewCell?
+    private var searchKeyword: String = DefaultValue.EmptyString
+    open var searchEnabled: Bool { get { return false } }
 
     override open func load() {
         super.load()
@@ -32,23 +37,40 @@ open class DropDownViewController: TableViewController {
         )
     }
 
+    private func renderSearchInputCell() {
+        if !searchEnabled { return }
+        if searchInputCell == nil {
+            searchInputCell = createSearchBarCell()
+        }
+        guard let searchInputCell = searchInputCell else { return }
+        if searchInputCell.superview != nil { return }
+        searchInputCell.frame.size.width = contentView.bounds.width
+        if let searchTextField = searchInputCell.getFirstTextField() {
+            searchTextField.delegate = self
+            searchTextField.returnKeyType = .search
+            searchTextField.didChangeAction = didChangeSearchKeyword
+        }
+        contentView.addSubview(searchInputCell)
+        contentView.sendSubviewToBack(searchInputCell)
+    }
+
     override open func render() {
         super.render()
+        renderSearchInputCell()
         let section = TableViewSection()
         for option in options {
+            if !searchKeyword.isEmpty
+                && !option.text.lowercased().contains(searchKeyword.lowercased()) {
+                continue
+            }
             section.appendRow(createItemCell(option))
         }
-        contentView.appendSection(section: section)
+        contentView.appendSection(section)
         contentView.setTableViewSeparator(
             show: true,
-            separatorColor: UITableView().separatorColor,
+            separatorColor: separatorColor,
             separatorStyle: .singleLine,
-            separatorInset: UIEdgeInsets(
-                top: 0,
-                left: DropDownItemCellContentMargin.horizontal,
-                bottom: 0,
-                right: 0
-            )
+            separatorInset: separatorInset
         )
     }
 
@@ -58,6 +80,7 @@ open class DropDownViewController: TableViewController {
         cell.textFont = textFont
         cell.textActiveColor = textActiveColor
         cell.textInactiveColor = textInactiveColor
+        cell.contentInset = contentInset
         cell.didSelectAction = didSelectCell
         cell.render()
         return cell
@@ -76,5 +99,30 @@ open class DropDownViewController: TableViewController {
 
     open func resetSelection() {
         selectedOption = Option()
+    }
+
+    open func createSearchBarCell() -> TableViewCell? {
+        return nil
+    }
+
+    private func didChangeSearchKeyword(_ input: InputProtocol) {
+        search(keyword: input.getText())
+    }
+}
+
+extension DropDownViewController {
+    override public func textFieldDidEndEditing(_ textField: UITextField) {
+        super.textFieldDidEndEditing(textField)
+        if let keyword = textField.text {
+            search(keyword: keyword)
+        }
+    }
+
+    private func search(keyword: String) {
+        if !searchEnabled { return }
+        searchKeyword = keyword
+        render()
+        contentView.tableView.reloadData()
+        contentView.scrollToTop()
     }
 }

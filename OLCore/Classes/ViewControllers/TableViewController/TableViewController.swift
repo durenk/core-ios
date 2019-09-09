@@ -26,6 +26,7 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
     open var refreshControlTintColor: UIColor { get { return UIColor.white } }
     open var pullToRefreshEnabled: Bool { get { return false } }
     open var tableViewBackgroundColor: UIColor { get { return CoreStyle.Color.PrimaryBackground } }
+    open var tableViewInset: UIEdgeInsets { get { return UIEdgeInsets.zero } }
     open func registerNibs() {}
 
     override open func viewDidLoad() {
@@ -40,7 +41,9 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
 
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        view.backgroundColor = contentView.tableView.backgroundColor
+        if contentView.tableView.backgroundColor != UIColor.clear {
+            view.backgroundColor = contentView.tableView.backgroundColor
+        }
     }
 
     override open func viewWillDisappear(_ animated: Bool) {
@@ -73,11 +76,12 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
     open func createContentView() {
         var frame = UIScreen.main.bounds
         frame.size.height = SizeHelper.WindowHeight
-        contentView = TableView(frame: frame)
+        contentView = TableView(frame: frame, inset: tableViewInset)
         contentView.delegate = self
         contentView.commonInit(sender: self)
         contentView.tableView.backgroundColor = tableViewBackgroundColor
         renderRefreshControl()
+        view.backgroundColor = contentView.tableView.backgroundColor
         view.addSubview(contentView)
         setContentViewParentConstraint()
     }
@@ -101,9 +105,9 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
     open func startLoading(withLightStyle: Bool = false) {
         contentView.removeAllSectionForLoadingPurpose()
         if withLightStyle {
-            contentView.appendSection(section: sectionCollection.lightActivityIndicator)
+            contentView.appendSection(sectionCollection.lightActivityIndicator)
         } else {
-            contentView.appendSection(section: sectionCollection.activityIndicator)
+            contentView.appendSection(sectionCollection.activityIndicator)
         }
         reloadTableView()
     }

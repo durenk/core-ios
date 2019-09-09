@@ -22,7 +22,7 @@ open class NestedTableViewConnector: NSObject {
         containerTableView: TableView,
         minimumContentHeight: CGFloat = 0,
         withStartLoading isLoading: Bool = false,
-        delegate: NestedTableViewDelegate
+        delegate: NestedTableViewDelegate?
     ) {
         if cell == nil {
             cell = containerCell

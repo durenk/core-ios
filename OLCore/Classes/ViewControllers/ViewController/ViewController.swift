@@ -52,8 +52,10 @@ open class ViewController: UIViewController {
         DeeplinkManager.instance.checkIncomingUrl()
     }
 
-    private func stylingNavigation() {
+    open func stylingNavigation() {
         guard let navigation = navigationController else { return }
+        navigation.navigationBar.isTranslucent = false
+        if navigation.view.backgroundColor == UIColor.clear { return }
         navigation.setNavigationBarColor(navigationBarColor)
         navigation.navigationBar.barStyle = navigationBarStyle
         navigation.navigationBar.tintColor = navigationBarTintColor
@@ -123,5 +125,12 @@ open class ViewController: UIViewController {
     open func isPresenting() -> Bool {
         guard let viewIfLoaded = self.viewIfLoaded else { return false }
         return viewIfLoaded.window != nil
+    }
+
+    open func setBackground(image: UIImage) {
+        let backgroundView = UIImageView(frame: view.bounds)
+        backgroundView.image = image
+        view.addSubview(backgroundView)
+        view.sendSubviewToBack(backgroundView)
     }
 }

@@ -68,7 +68,6 @@ open class TextField: UITextField {
         textColor = style.color
         attributedPlaceholder = NSAttributedString(string: placeholder ?? DefaultValue.EmptyString, attributes: [NSAttributedString.Key.foregroundColor: style.placeholderColor])
         backgroundColor = style.backgroundColor
-        renderBorder()
     }
 
     open func setLeftIcon(_ image: UIImage) {
@@ -100,13 +99,12 @@ open class TextField: UITextField {
 
     open func setRightButton(
         icon: UIImage,
-        style: ButtonStyle,
-        imageRenderingMode: UIImage.RenderingMode = .automatic,
-        action: @escaping () -> Void
+        style: ButtonStyle = DefaultButtonStyle(),
+        action: @escaping () -> Void = {}
     ) {
         rightIconContainerSize = frame.size.height
         let button = Button(type: .custom)
-        button.setImage(icon.withRenderingMode(imageRenderingMode), for: .normal)
+        button.setImage(icon.withRenderingMode(style.imageRenderingMode), for: .normal)
         button.frame = CGRect(
             x: frame.size.width - rightIconContainerSize,
             y: 0,
@@ -120,17 +118,25 @@ open class TextField: UITextField {
         rightViewMode = .always
     }
 
-    open func resetState() {
-        let button = Button(type: .custom)
-        button.didPressAction = nil
-        button.style = DefaultButtonStyle()
+    open func removeRightButton() {
         rightButton = nil
         rightView = rightButton
         rightViewMode = .never
         rightIconContainerSize = 0
+    }
+
+    open func removeLeftIcon() {
         leftView = nil
         leftViewMode = .never
         leftIconContainerSize = 0
+    }
+
+    open func resetState() {
+        let button = Button(type: .custom)
+        button.didPressAction = nil
+        button.style = DefaultButtonStyle()
+        removeRightButton()
+        removeLeftIcon()
         inputView = nil
         inputType = FreeTextInputType(textField: self)
         inputType.render()
@@ -186,7 +192,7 @@ open class TextField: UITextField {
 
     override open func draw(_ rect: CGRect) {
         super.draw(rect)
-        applyStyle()
+        renderBorder()
     }
 }
 
