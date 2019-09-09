@@ -10,7 +10,7 @@ import UIKit
 
 public struct CoreStyle {
     public struct Font {
-        public static var NavigationTitle: UIFont = UIFont()
+        public static var NavigationTitle: UIFont = UIFont.systemFont(ofSize: 10)
     }
     public struct Image {
         public static var NavigationBackButton: UIImage = UIImage()
@@ -22,9 +22,9 @@ public struct CoreStyle {
         public static var EyeButtonClose: UIImage = UIImage()
     }
     public struct Color {
-        public static var NavigationBackground: UIColor = .groupTableViewBackground
+        public static var NavigationBackground: UIColor = UIColor.white
         public static var NavigationText: UIColor = .black
-        public static var PrimaryBackground: UIColor = .groupTableViewBackground
+        public static var PrimaryBackground: UIColor = UIColor.white
         public static var ImageBackground: UIColor = .gray
         public static var InputAccessoryActive: UIColor = .clear
         public static var InputAccessoryInactive: UIColor = .clear

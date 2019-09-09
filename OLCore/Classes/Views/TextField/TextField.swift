@@ -57,9 +57,9 @@ open class TextField: UITextField {
         if leftIconContainerSize != 0 {
             padding.left = leftIconContainerSize + 8
         }
-        if rightIconContainerSize != 0 {
-            padding.right = rightIconContainerSize
-        }
+//        if rightIconContainerSize != 0 {
+//            padding.right = rightIconContainerSize
+//        }
         return padding
     }
 
