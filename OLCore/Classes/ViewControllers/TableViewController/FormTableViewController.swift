@@ -134,7 +134,10 @@ open class FormTableViewController: TableViewController {
 
     public func isRequiredInputCompleted() -> Bool {
         for validator in inputValidators {
-            let status = validator.validate(ruleType: RequiredRule.self)
+            let status = validator.validate(
+                ruleType: RequiredRule.self,
+                isNeedToTrackResult: false
+            )
             if !status.isValid {
                 return false
             }

@@ -18,17 +18,20 @@ public class InputValidator {
         self.rules = rules
     }
 
-    public func validate(ruleType: AnyClass? = nil) -> ValidationStatus {
-        lastStatus = ValidationStatus()
+    public func validate(ruleType: AnyClass? = nil, isNeedToTrackResult: Bool = true) -> ValidationStatus {
+        var result = ValidationStatus()
         for rule in rules {
             if ruleType != nil && !rule.isKind(of: ruleType!) { continue }
             let status = rule.validate(input.getText())
             if !status.isValid {
-                lastStatus = status
-                return lastStatus
+                result = status
+                break
             }
         }
-        return lastStatus
+        if isNeedToTrackResult {
+            lastStatus = result
+        }
+        return result
     }
 
     public func getLastStatus() -> ValidationStatus {
