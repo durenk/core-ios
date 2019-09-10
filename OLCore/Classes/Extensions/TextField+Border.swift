@@ -40,7 +40,7 @@ extension TextField {
     }
 
     private func clearBorder() {
-        borderStyle = .none
+        borderStyle = style.borderStyle == .bezel ? .roundedRect : .none
         removeBottomLine()
         removeBezelBorder()
     }

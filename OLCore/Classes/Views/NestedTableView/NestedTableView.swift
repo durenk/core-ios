@@ -47,7 +47,7 @@ open class NestedTableView: TableView, TableViewContainerProtocol {
     }
 
     open func renderLoadingState() {
-        appendSection(section: sectionCollection.activityIndicator)
+        appendSection(sectionCollection.activityIndicator)
     }
 
     open func render() {

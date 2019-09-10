@@ -41,4 +41,9 @@ public class NavigationHelper {
         }
         return nvc
     }
+
+    public static func openAppSettings() {
+        guard let url = NSURL(string: UIApplication.openSettingsURLString) as URL? else { return }
+        UIApplication.shared.openURL(url)
+    }
 }

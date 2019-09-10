@@ -16,11 +16,24 @@ import UIKit
 
 open class TableView: View {
     private var sections: [TableViewSection] = [TableViewSection]()
+    private var tableViewConstraint: Constraint!
+    private var tableViewInset: UIEdgeInsets = UIEdgeInsets.zero
     public weak var delegate: TableViewDelegate?
     public var tableView: UITableView!
-    public var tableViewConstraint: Constraint!
     public var registeredCellIdentifiers: [String] = [String]()
-    public var rememberTableViewContentOffset: CGPoint = CGPoint(x: 0, y: 0)
+
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+
+    override public init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+
+    public convenience init(frame: CGRect, inset: UIEdgeInsets = UIEdgeInsets.zero) {
+        self.init(frame: frame)
+        self.tableViewInset = inset
+    }
 
     open func commonInit(sender: TableViewContainerProtocol, isRender: Bool = true) {
         sender.registerNibs()
@@ -55,6 +68,10 @@ open class TableView: View {
     private func createTableViewConstraint() {
         resetTableViewConstraint()
         tableViewConstraint = Constraint(parentView: self, childView: tableView)
+        tableViewConstraint.leading.constant = tableViewInset.left
+        tableViewConstraint.trailing.constant = tableViewInset.right
+        tableViewConstraint.top.constant = tableViewInset.top
+        tableViewConstraint.bottom.constant = tableViewInset.bottom
         tableView.translatesAutoresizingMaskIntoConstraints = false
         self.addConstraint(tableViewConstraint.leading)
         self.addConstraint(tableViewConstraint.trailing)
@@ -110,14 +127,14 @@ open class TableView: View {
         return hasSectionAtIndex(index: indexPath.section) && sections[indexPath.section].hasRowAtIndex(index: indexPath.row)
     }
 
-    open func appendSection(section: TableViewSection) {
+    open func appendSection(_ section: TableViewSection) {
         section.tag = sections.count
         self.sections.append(section)
     }
 
-    public func appendSections(sections: [TableViewSection]) {
+    public func appendSections(_ sections: [TableViewSection]) {
         for section in sections {
-            appendSection(section: section)
+            appendSection(section)
         }
     }
 
@@ -213,6 +230,10 @@ open class TableView: View {
 
     public func isEmpty() -> Bool {
         return numberOfRows() <= DefaultValue.EmptyInt
+    }
+
+    public func scrollToTop() {
+        tableView.setContentOffset(.zero, animated: true)
     }
 }
 
