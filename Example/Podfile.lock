@@ -1,11 +1,11 @@
 PODS:
   - DLRadioButton (1.4.12)
-  - OLCore (0.6.3):
+  - OLCore (0.6.5):
     - DLRadioButton
     - SDWebImage
-  - SDWebImage (5.1.0):
-    - SDWebImage/Core (= 5.1.0)
-  - SDWebImage/Core (5.1.0)
+  - SDWebImage (5.1.1):
+    - SDWebImage/Core (= 5.1.1)
+  - SDWebImage/Core (5.1.1)
 
 DEPENDENCIES:
   - OLCore (from `../`)
@@ -21,8 +21,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   DLRadioButton: d7c4e225ed0e8013cef7be61455230c7557ad7c1
-  OLCore: b1d81536f5e8dc88d9f7d6c6ea437e59c66db65b
-  SDWebImage: fb387001955223213dde14bc08c8b73f371f8d8f
+  OLCore: dd98959bdf768511d1cb06ebe8cda97e54c74f92
+  SDWebImage: 96d7f03415ccb28d299d765f93557ff8a617abd8
 
 PODFILE CHECKSUM: 053b24881255c4db817adba2b0e1553c5b594edf
 
