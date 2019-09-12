@@ -103,7 +103,7 @@ open class PickerInputType: InputType {
         overlay.alpha = 0.8
         overlay.isHidden =  true
         sender.navigationController?.view.addSubview(overlay)
-        sender.navigationController?.view.bringSubviewToFront(overlay)
+        sender.navigationController?.view.bringSubview(toFront: overlay)
     }
 
     private func renderBorder() {

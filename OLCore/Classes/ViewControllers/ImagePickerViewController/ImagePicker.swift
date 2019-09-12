@@ -109,7 +109,7 @@ class ImagePicker: NSObject {
             title: settingsButtonText,
             style: .default,
             handler: { (action) in
-                guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+                guard let url = URL(string: UIApplicationOpenSettingsURLString) else { return }
                 if UIApplication.shared.canOpenURL(url) {
                     if #available(iOS 10.0, *) {
                         UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -137,7 +137,7 @@ class ImagePicker: NSObject {
     private func pickerController(_ controller: UIImagePickerController, didSelect image: UIImage?) {
         controller.dismiss(animated: true, completion: nil)
         if let tempImage = image {
-            if let imageData = tempImage.jpegData(compressionQuality: self.compressionQuality) {
+            if let imageData = UIImageJPEGRepresentation(tempImage, self.compressionQuality) {
                 let imageSizeinKB: Int = imageData.count / 1000
                 guard let selectedImage = UIImage(data: imageData) else { return }
                 self.delegate?.imagePickerDidSelect(image: selectedImage, fileSizeInKB: imageSizeinKB)
@@ -151,8 +151,10 @@ extension ImagePicker: UIImagePickerControllerDelegate {
         self.pickerController(picker, didSelect: nil)
     }
 
-    public func imagePickerController(_ picker: UIImagePickerController,
-                                      didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+    public func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+    ) {
         guard let image = info[.originalImage] as? UIImage else {
             return self.pickerController(picker, didSelect: nil)
         }

@@ -51,7 +51,7 @@ open class DropDownViewController: FormTableViewController {
             searchTextField.didChangeAction = didChangeSearchKeyword
         }
         contentView.addSubview(searchInputCell)
-        contentView.sendSubviewToBack(searchInputCell)
+        contentView.sendSubview(toBack: searchInputCell)
     }
 
     override open func render() {

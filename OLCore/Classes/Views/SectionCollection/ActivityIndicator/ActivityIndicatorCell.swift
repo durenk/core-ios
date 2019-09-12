@@ -11,7 +11,7 @@ import UIKit
 open class ActivityIndicatorCell: TableViewCell {
     private var height = CGFloat(80)
     private var style: UIActivityIndicatorView.Style = .gray
-    private var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .gray)
+    private var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
 
     public func setHeight(_ height: CGFloat) {
         self.height = height
@@ -35,7 +35,7 @@ open class ActivityIndicatorCell: TableViewCell {
     }
 
     private func createActivityIndicator() {
-        activityIndicator = UIActivityIndicatorView(style: style)
+        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: style)
         activityIndicator.hidesWhenStopped = true
         contentView.addSubview(activityIndicator)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false

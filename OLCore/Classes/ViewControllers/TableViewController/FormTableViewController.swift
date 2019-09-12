@@ -56,8 +56,8 @@ open class FormTableViewController: TableViewController {
     private func addKeyboardListener() {
         let showSelector = #selector(FormTableViewController.keyboardWillShow(notification:))
         let hideSelector = #selector(FormTableViewController.keyboardWillHide(notification:))
-        NotificationCenter.default.addObserver(self, selector: showSelector, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: hideSelector, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: showSelector, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: hideSelector, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
 
     @objc open func keyboardWillShow(notification: NSNotification? = nil) {
@@ -71,7 +71,7 @@ open class FormTableViewController: TableViewController {
         } else { return }
         guard let notif = currentNotification else { return }
         guard let userInfo = notif.userInfo else { return }
-        guard let keyboard = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        guard let keyboard = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue else { return }
         let insets = UIEdgeInsets(top: 0, left: 0, bottom: keyboard.cgRectValue.height, right: 0)
         contentView.tableView.contentInset = insets
         contentView.tableView.scrollIndicatorInsets = insets

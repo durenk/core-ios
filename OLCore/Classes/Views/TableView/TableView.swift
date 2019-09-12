@@ -92,7 +92,7 @@ open class TableView: View {
     open func configureTableView() {
         tableView.delegate = self
         tableView.estimatedRowHeight = 44.0
-        tableView.rowHeight = UITableView.automaticDimension
+        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         tableView.separatorColor = UIColor.black
         tableView.separatorStyle = .none

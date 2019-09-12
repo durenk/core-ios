@@ -131,6 +131,6 @@ open class ViewController: UIViewController {
         let backgroundView = UIImageView(frame: view.bounds)
         backgroundView.image = image
         view.addSubview(backgroundView)
-        view.sendSubviewToBack(backgroundView)
+        view.sendSubview(toBack: backgroundView)
     }
 }

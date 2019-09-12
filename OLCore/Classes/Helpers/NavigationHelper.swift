@@ -43,7 +43,7 @@ public class NavigationHelper {
     }
 
     public static func openAppSettings() {
-        guard let url = NSURL(string: UIApplication.openSettingsURLString) as URL? else { return }
+        guard let url = NSURL(string: UIApplicationOpenSettingsURLString) as URL? else { return }
         UIApplication.shared.openURL(url)
     }
 }

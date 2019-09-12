@@ -41,15 +41,15 @@ open class TextField: UITextField {
     }
 
     override open func textRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: calculateContentPadding())
+        return UIEdgeInsetsInsetRect(bounds, calculateContentPadding())
     }
 
     override open func placeholderRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: calculateContentPadding())
+        return UIEdgeInsetsInsetRect(bounds, calculateContentPadding())
     }
 
     override open func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.inset(by: calculateContentPadding())
+        return UIEdgeInsetsInsetRect(bounds, calculateContentPadding())
     }
 
     private func calculateContentPadding() -> UIEdgeInsets {
