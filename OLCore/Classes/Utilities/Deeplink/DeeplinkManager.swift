@@ -18,7 +18,7 @@ public class DeeplinkManager {
     }
 
     private func findLinker(path: String) -> Deeplinker {
-        for linker in linkers where linker.path == path { return linker }
+        for linker in linkers where path.contains(linker.path) { return linker }
         return Deeplinker()
     }
 
@@ -37,6 +37,7 @@ public class DeeplinkManager {
         if let queryItems = component.queryItems {
             linker.queryItems = queryItems
         }
+        linker.urlString = url.absoluteString
         linker.execute(success: { self.resetIncomingUrl() })
     }
 }
