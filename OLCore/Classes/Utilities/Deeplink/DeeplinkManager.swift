@@ -18,7 +18,7 @@ public class DeeplinkManager {
     }
 
     private func findLinker(path: String) -> Deeplinker {
-        for linker in linkers where path.contains(linker.path) { return linker }
+        for linker in linkers where linker.path == path { return linker }
         return Deeplinker()
     }
 
@@ -33,7 +33,8 @@ public class DeeplinkManager {
     public func checkIncomingUrl() {
         guard let url = incomingUrl else { return }
         guard let component = URLComponents(url: url, resolvingAgainstBaseURL: false) else { return }
-        let linker = findLinker(path: component.path)
+        let firstPath = url.pathComponents.prefix(2).joined()
+        let linker = findLinker(path: firstPath)
         if let queryItems = component.queryItems {
             linker.queryItems = queryItems
         }
