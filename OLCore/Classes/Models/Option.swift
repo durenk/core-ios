@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class Option: Model {
+open class Option {
     public var id: String = DefaultValue.EmptyString
     public var text: String = DefaultValue.EmptyString
     public var isActive: Bool = true
