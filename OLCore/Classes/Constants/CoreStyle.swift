@@ -10,23 +10,23 @@ import UIKit
 
 public struct CoreStyle {
     public struct Font {
-        public static var NavigationTitle: UIFont = UIFont.systemFont(ofSize: 10)
+        public static var navigationTitle: UIFont = UIFont.systemFont(ofSize: 10)
     }
     public struct Image {
-        public static var NavigationBackButton: UIImage = UIImage()
-        public static var NavigationCloseButton: UIImage = UIImage()
-        public static var DropDownArrow: UIImage = UIImage()
-        public static var CurrencyIDRActive: UIImage = UIImage()
-        public static var CurrencyIDRInactive: UIImage = UIImage()
-        public static var EyeButtonOpen: UIImage = UIImage()
-        public static var EyeButtonClose: UIImage = UIImage()
+        public static var navigationBackButton: UIImage = UIImage()
+        public static var navigationCloseButton: UIImage = UIImage()
+        public static var dropDownArrow: UIImage = UIImage()
+        public static var currencyIDRActive: UIImage = UIImage()
+        public static var currencyIDRInactive: UIImage = UIImage()
+        public static var eyeButtonOpen: UIImage = UIImage()
+        public static var eyeButtonClose: UIImage = UIImage()
     }
     public struct Color {
-        public static var NavigationBackground: UIColor = .groupTableViewBackground
-        public static var NavigationText: UIColor = .black
-        public static var PrimaryBackground: UIColor = .groupTableViewBackground
-        public static var ImageBackground: UIColor = .gray
-        public static var InputAccessoryActive: UIColor = .clear
-        public static var InputAccessoryInactive: UIColor = .clear
+        public static var navigationBackground: UIColor = .groupTableViewBackground
+        public static var navigationText: UIColor = .black
+        public static var primaryBackground: UIColor = .groupTableViewBackground
+        public static var imageBackground: UIColor = .gray
+        public static var inputAccessoryActive: UIColor = .clear
+        public static var inputAccessoryInactive: UIColor = .clear
     }
 }

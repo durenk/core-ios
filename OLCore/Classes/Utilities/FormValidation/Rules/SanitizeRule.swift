@@ -11,7 +11,7 @@ import Foundation
 public class SanitizeRule: Rule {
     private var rejectedValues: [String] = [String]()
 
-    public init(name: String, rejectedValues: [String] = [String](), message: String = DefaultValue.EmptyString) {
+    public init(name: String, rejectedValues: [String] = [String](), message: String = DefaultValue.emptyString) {
         super.init(name: name, message: message)
         self.rejectedValues = rejectedValues
     }
@@ -19,7 +19,7 @@ public class SanitizeRule: Rule {
     override public func validate(_ value: String) -> ValidationStatus {
         let status = super.validate(value)
         status.isValid = !rejectedValues.contains(value)
-        if self.message == DefaultValue.EmptyString {
+        if self.message == DefaultValue.emptyString {
             status.message = String(
                 format: ValidationErrorMessage.instance.getErrorMessageFormat(SanitizeRule.className),
                 name,

@@ -11,7 +11,7 @@ public extension UIFont {
     private static func registerFont(filename: String, bundle: Bundle?) {
         let token = String(format: DispatchTokenKey.registerFont, filename)
         DispatchQueue.once(token: token) {
-            let keys = filename.split(separator: Character(Separator.FileExtension))
+            let keys = filename.split(separator: Character(Separator.fileExtension))
             let ext = keys.count > 1
                 ? String(keys.last ?? Substring(FileExtension.Font.ttf))
                 : FileExtension.Font.ttf

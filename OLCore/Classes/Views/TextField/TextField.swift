@@ -25,10 +25,10 @@ open class TextField: UITextField {
             applyStyle()
         }
     }
-    open var name: String = DefaultValue.EmptyString {
+    open var name: String = DefaultValue.emptyString {
         didSet {
             self.accessibilityIdentifier = String(
-                format: AccessibilityIdentifier.Textfield,
+                format: AccessibilityIdentifier.textfield,
                 name.toAccessibilityFormat()
             )
         }
@@ -66,7 +66,7 @@ open class TextField: UITextField {
     private func applyStyle() {
         font = style.font
         textColor = style.color
-        attributedPlaceholder = NSAttributedString(string: placeholder ?? DefaultValue.EmptyString, attributes: [NSAttributedString.Key.foregroundColor: style.placeholderColor])
+        attributedPlaceholder = NSAttributedString(string: placeholder ?? DefaultValue.emptyString, attributes: [NSAttributedString.Key.foregroundColor: style.placeholderColor])
         backgroundColor = style.backgroundColor
     }
 
@@ -140,13 +140,13 @@ open class TextField: UITextField {
         inputView = nil
         inputType = FreeTextInputType(textField: self)
         inputType.render()
-        text = DefaultValue.EmptyString
+        text = DefaultValue.emptyString
         inputAccessoryView = nil
     }
 
     open func secureInput(_ secure: Bool = true) {
         isSecureTextEntry = secure
-        let icon = isSecureTextEntry ? CoreStyle.Image.EyeButtonClose : CoreStyle.Image.EyeButtonOpen
+        let icon = isSecureTextEntry ? CoreStyle.Image.eyeButtonClose : CoreStyle.Image.eyeButtonOpen
         setRightButton(
             icon: icon,
             style: DefaultButtonStyle(),
@@ -202,22 +202,22 @@ extension TextField: InputProtocol {
     }
 
     open func getValue() -> AnyObject {
-        if inputType == nil { return DefaultValue.EmptyString as AnyObject }
+        if inputType == nil { return DefaultValue.emptyString as AnyObject }
         return inputType.getValue()
     }
 
     open func getText() -> String {
-        return text ?? DefaultValue.EmptyString
+        return text ?? DefaultValue.emptyString
     }
 
     open func resetValue() {
-        text = DefaultValue.EmptyString
+        text = DefaultValue.emptyString
         tag = 0
         inputType.resetValue()
     }
 
     open func isEmpty() -> Bool {
-        return getText() == DefaultValue.EmptyString
+        return getText() == DefaultValue.emptyString
     }
 
     open func setInputType(_ inputType: InputType) {

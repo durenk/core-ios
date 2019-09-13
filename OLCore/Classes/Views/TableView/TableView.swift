@@ -229,7 +229,7 @@ open class TableView: View {
     }
 
     public func isEmpty() -> Bool {
-        return numberOfRows() <= DefaultValue.EmptyInt
+        return numberOfRows() <= DefaultValue.emptyInt
     }
 
     public func scrollToTop() {

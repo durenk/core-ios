@@ -11,10 +11,10 @@ import UIKit
 public class MinSelectionRule: Rule {
     private var minSelected: Int = 0
 
-    public init(name: String, minSelected: Int, message: String = DefaultValue.EmptyString) {
+    public init(name: String, minSelected: Int, message: String = DefaultValue.emptyString) {
         super.init(name: name, message: message)
         self.minSelected = minSelected
-        if message != DefaultValue.EmptyString { return }
+        if message != DefaultValue.emptyString { return }
         self.message = String(
             format: ValidationErrorMessage.instance.getErrorMessageFormat(MinSelectionRule.className),
             String(minSelected),
@@ -25,7 +25,7 @@ public class MinSelectionRule: Rule {
     override public func validate(_ value: String) -> ValidationStatus {
         let status = super.validate(value)
         status.isValid = !value.trimmingCharacters(in: .whitespaces).isEmpty
-            && value.components(separatedBy: Separator.Phrase).count >= minSelected
+            && value.components(separatedBy: Separator.phrase).count >= minSelected
         return status
     }
 }

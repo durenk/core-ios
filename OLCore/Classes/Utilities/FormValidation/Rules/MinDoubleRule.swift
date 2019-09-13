@@ -10,10 +10,10 @@ import Foundation
 public class MinDoubleRule: Rule {
     private var minValue: Double = 0
 
-    public init(name: String, minValue: Double, message: String = DefaultValue.EmptyString) {
+    public init(name: String, minValue: Double, message: String = DefaultValue.emptyString) {
         super.init(name: name, message: message)
         self.minValue = minValue
-        if message != DefaultValue.EmptyString { return }
+        if message != DefaultValue.emptyString { return }
         self.message = String(
             format: ValidationErrorMessage.instance.getErrorMessageFormat(MinDoubleRule.className),
             name,

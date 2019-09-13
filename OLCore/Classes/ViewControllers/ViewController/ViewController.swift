@@ -11,17 +11,17 @@ import UIKit
 open class ViewController: UIViewController {
     open var didLoadData: Bool = false
     open var navigationBarStyle: UIBarStyle { get { return UIBarStyle.default } }
-    open var navigationBarColor: UIColor { get { return CoreStyle.Color.NavigationBackground } }
-    open var navigationBarTintColor: UIColor { get { return CoreStyle.Color.NavigationText } }
+    open var navigationBarColor: UIColor { get { return CoreStyle.Color.navigationBackground } }
+    open var navigationBarTintColor: UIColor { get { return CoreStyle.Color.navigationText } }
     open var closeButtonPosition: LayoutPosition { get { return .none } }
     open var closeButton: UIBarButtonItem {
         get {
-            return UIBarButtonItem(image: CoreStyle.Image.NavigationCloseButton, style: .plain, target: self, action: #selector(closeButtonPressed))
+            return UIBarButtonItem(image: CoreStyle.Image.navigationCloseButton, style: .plain, target: self, action: #selector(closeButtonPressed))
         }
     }
     open var backButton: UIBarButtonItem {
         get {
-            return UIBarButtonItem(image: CoreStyle.Image.NavigationBackButton, style: .plain, target: self, action: #selector(backButtonPressed))
+            return UIBarButtonItem(image: CoreStyle.Image.navigationBackButton, style: .plain, target: self, action: #selector(backButtonPressed))
         }
     }
     open func load() {}
@@ -92,7 +92,7 @@ open class ViewController: UIViewController {
 
     open func customizeNavigationController() {
         guard let navigation = navigationController else { return }
-        navigation.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: CoreStyle.Color.NavigationText, NSAttributedString.Key.font: CoreStyle.Font.NavigationTitle]
+        navigation.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: CoreStyle.Color.navigationText, NSAttributedString.Key.font: CoreStyle.Font.navigationTitle]
         navigationItem.leftBarButtonItems = leftBarButtonItems()
         navigationItem.rightBarButtonItems = rightBarButtonItems()
     }

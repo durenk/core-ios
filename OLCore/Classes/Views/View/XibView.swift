@@ -11,7 +11,7 @@ import UIKit
 open class XibView: View {
     public var view: UIView!
     open var nibName: String {
-        return DefaultValue.EmptyString
+        return DefaultValue.emptyString
     }
     override open var backgroundColor: UIColor? {
         didSet {

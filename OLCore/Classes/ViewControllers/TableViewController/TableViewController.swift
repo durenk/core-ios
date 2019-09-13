@@ -25,7 +25,7 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
     }()
     open var refreshControlTintColor: UIColor { get { return UIColor.white } }
     open var pullToRefreshEnabled: Bool { get { return false } }
-    open var tableViewBackgroundColor: UIColor { get { return CoreStyle.Color.PrimaryBackground } }
+    open var tableViewBackgroundColor: UIColor { get { return CoreStyle.Color.primaryBackground } }
     open var tableViewInset: UIEdgeInsets { get { return UIEdgeInsets.zero } }
     open func registerNibs() {}
 

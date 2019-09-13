@@ -9,6 +9,6 @@
 import Foundation
 
 public struct Language {
-    public static let Bahasa = "id"
-    public static let English = "en"
+    public static let bahasa = "id"
+    public static let english = "en"
 }

@@ -14,7 +14,7 @@ open class DropDownInputType: InputType {
     private var controller: DropDownViewController = DropDownViewController()
     private var navigationController: UINavigationController = UINavigationController()
     private var textField: TextField = TextField()
-    private var arrowImage: UIImage = CoreStyle.Image.DropDownArrow
+    private var arrowImage: UIImage = CoreStyle.Image.dropDownArrow
     open var identifier: InputTypeIdentifier = .dropdown
     open var arrowStyle: ButtonStyle = DefaultButtonStyle()
     open func didEndEditingHandler(_ textField: TextField) {}
@@ -26,13 +26,13 @@ open class DropDownInputType: InputType {
         controller: DropDownViewController = DropDownViewController(),
         defaultValue: Option = Option(),
         textFormat: DropDownTextFormatHandler? = nil,
-        arrowImage: UIImage = CoreStyle.Image.DropDownArrow
+        arrowImage: UIImage = CoreStyle.Image.dropDownArrow
     ) {
         self.textField = textField
         self.navigationController = navigationController
         self.controller = controller
         self.arrowImage = arrowImage
-        if defaultValue.id != DefaultValue.EmptyString {
+        if defaultValue.id != DefaultValue.emptyString {
             self.controller.selectedOption = defaultValue
             self.textField.text = defaultValue.text
         }
