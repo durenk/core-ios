@@ -57,6 +57,10 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
     }
 
     open func reloadTableView() {
+        if pullToRefreshEnabled {
+            contentView.tableView.reloadData()
+            return
+        }
         contentView.tableView.reloadDataWithoutScrollAnimation()
     }
 
