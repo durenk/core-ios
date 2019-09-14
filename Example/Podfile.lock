@@ -1,19 +1,22 @@
 PODS:
   - DLRadioButton (1.4.12)
-  - OLCore (0.6.5):
+  - OLCore (0.7.0):
     - DLRadioButton
     - SDWebImage
   - SDWebImage (5.1.1):
     - SDWebImage/Core (= 5.1.1)
   - SDWebImage/Core (5.1.1)
+  - SwiftLint (0.35.0)
 
 DEPENDENCIES:
   - OLCore (from `../`)
+  - SwiftLint
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - DLRadioButton
     - SDWebImage
+    - SwiftLint
 
 EXTERNAL SOURCES:
   OLCore:
@@ -21,9 +24,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   DLRadioButton: d7c4e225ed0e8013cef7be61455230c7557ad7c1
-  OLCore: dd98959bdf768511d1cb06ebe8cda97e54c74f92
+  OLCore: df81ec3e332233b09b6a55569e102e5f949ce374
   SDWebImage: 96d7f03415ccb28d299d765f93557ff8a617abd8
+  SwiftLint: 5553187048b900c91aa03552807681bb6b027846
 
-PODFILE CHECKSUM: 053b24881255c4db817adba2b0e1553c5b594edf
+PODFILE CHECKSUM: 559f88d32bd026dd1a6a2cc6bc9edb63292a237d
 
-COCOAPODS: 1.7.3
+COCOAPODS: 1.7.5
