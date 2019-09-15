@@ -19,6 +19,7 @@ open class TextField: UITextField {
     open var didChangeAction: InputDidChangeHandler?
     open var didValidationErrorAction: InputDidValidationError?
     open var didValidationSuccessAction: InputDidValidationSuccess?
+    public var isAvoidWhitespaces: Bool = false
     public var maxLength: Int = 255
     public var style: TextFieldStyle! {
         didSet {
@@ -37,7 +38,6 @@ open class TextField: UITextField {
     override open func awakeFromNib() {
         super.awakeFromNib()
         inputType = FreeTextInputType(textField: self)
-        addTarget(self, action: #selector(didChange(_:)), for: .editingChanged)
     }
 
     override open func textRect(forBounds bounds: CGRect) -> CGRect {
@@ -170,7 +170,7 @@ open class TextField: UITextField {
         inputType.didEndEditingHandler(textField)
     }
 
-    @objc private func didChange(_ textField: UITextField) {
+    @objc func didChange(_ textField: UITextField) {
         guard let didChangeAction = didChangeAction else { return }
         guard let textField = textField as? TextField else { return }
         inputType.didChangeHandler(textField)

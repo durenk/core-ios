@@ -131,4 +131,8 @@ extension String {
             with: Separator.accessibilityId
         ).lowercased()
     }
+
+    public func removeAllWhitespaces() -> String {
+        return String(self.filter{ !" \n\t\r".contains($0) })
+    }
 }
