@@ -143,4 +143,8 @@ extension String {
         }
         return String(suffix(length))
     }
+
+    public func getFirstWord() -> String {
+        return components(separatedBy: DefaultValue.whitespace).first ?? DefaultValue.emptyString
+    }
 }

@@ -10,6 +10,7 @@ import Foundation
 
 public struct DefaultValue {
     public static let placeholder = "-"
+    public static let whitespace = " "
     public static let emptyString = ""
     public static let emptyInt = 0
     public static let emptyInt32 = Int32(0)
