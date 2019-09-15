@@ -135,4 +135,12 @@ extension String {
     public func removeAllWhitespaces() -> String {
         return String(self.filter{ !" \n\t\r".contains($0) })
     }
+
+    public func getSuffix(_ maxLength: Int) -> String {
+        var length = maxLength
+        if self.count < maxLength {
+            length = self.count
+        }
+        return String(suffix(length))
+    }
 }
