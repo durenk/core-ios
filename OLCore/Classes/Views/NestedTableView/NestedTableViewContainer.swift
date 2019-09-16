@@ -8,12 +8,15 @@
 
 import UIKit
 
+public typealias ReceiveSizeHandler = (_ size: CGSize) -> Void
+
 open class NestedTableViewContainer: View {
     private var heightConstraint: NSLayoutConstraint?
     private var contentView: NestedTableView = NestedTableView() {
         didSet { setupConstraint() }
     }
     private var minimumContentHeight: CGFloat = 0
+    public var didReceiveSizeAction: ReceiveSizeHandler?
 
     private func setupConstraint() {
         while (true) {
@@ -23,6 +26,13 @@ open class NestedTableViewContainer: View {
             contentView.tableView.layoutIfNeeded()
             setupHeightConstraint()
             if contentView.tableView.visibleCells.count >= contentView.numberOfRows() {
+                guard let didReceiveSizeAction = didReceiveSizeAction else { return }
+                guard let heightConstraint = heightConstraint else { return }
+                let size = CGSize(
+                    width: bounds.size.width,
+                    height: heightConstraint.constant
+                )
+                didReceiveSizeAction(size)
                 return
             }
         }
