@@ -41,10 +41,7 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
 
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if contentView.tableView.backgroundColor != UIColor.clear {
-            view.backgroundColor = contentView.tableView.backgroundColor
-            view.superview?.backgroundColor = contentView.tableView.backgroundColor
-        }
+        configureBackgroundColor()
     }
 
     override open func viewWillDisappear(_ animated: Bool) {
@@ -84,11 +81,10 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
         contentView = TableView(frame: frame, inset: tableViewInset)
         contentView.delegate = self
         contentView.commonInit(sender: self)
-        contentView.tableView.backgroundColor = tableViewBackgroundColor
         renderRefreshControl()
-        view.backgroundColor = contentView.tableView.backgroundColor
         view.addSubview(contentView)
         setContentViewParentConstraint()
+        configureBackgroundColor()
     }
 
     open func setContentViewParentConstraint() {
@@ -148,6 +144,14 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
 
     open func setInfiniteScrollLoadingState(isLoading: Bool) {
         infiniteScroll.isLoading = isLoading
+    }
+
+    open func configureBackgroundColor() {
+        contentView.tableView.backgroundColor = tableViewBackgroundColor
+        if tableViewBackgroundColor != UIColor.clear {
+            view.backgroundColor = tableViewBackgroundColor
+            view.superview?.backgroundColor = tableViewBackgroundColor
+        }
     }
 }
 
