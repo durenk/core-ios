@@ -43,6 +43,7 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
         super.viewDidAppear(animated)
         if contentView.tableView.backgroundColor != UIColor.clear {
             view.backgroundColor = contentView.tableView.backgroundColor
+            view.superview?.backgroundColor = contentView.tableView.backgroundColor
         }
     }
 
