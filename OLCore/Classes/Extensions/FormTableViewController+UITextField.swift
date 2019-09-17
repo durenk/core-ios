@@ -53,6 +53,10 @@ extension FormTableViewController: UITextFieldDelegate {
             replacementString = replacementString.removeAllWhitespaces()
             result = false
         }
+        if tf.keyboardType == .numberPad {
+            replacementString = replacementString.digits
+            result = false
+        }
         if !result {
             let text = tf.text ?? DefaultValue.emptyString
             tf.text = (text as NSString).replacingCharacters(in: range, with: replacementString)
