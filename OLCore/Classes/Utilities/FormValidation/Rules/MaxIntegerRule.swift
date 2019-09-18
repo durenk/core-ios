@@ -11,10 +11,10 @@ import Foundation
 public class MaxIntegerRule: Rule {
     private var maxValue: Int = 0
 
-    public init(name: String, maxValue: Int, message: String = DefaultValue.EmptyString) {
+    public init(name: String, maxValue: Int, message: String = DefaultValue.emptyString) {
         super.init(name: name, message: message)
         self.maxValue = maxValue
-        if message != DefaultValue.EmptyString { return }
+        if message != DefaultValue.emptyString { return }
         self.message = String(
             format: ValidationErrorMessage.instance.getErrorMessageFormat(MaxIntegerRule.className),
             name,
@@ -24,7 +24,7 @@ public class MaxIntegerRule: Rule {
 
     override public func validate(_ value: String) -> ValidationStatus {
         let status = super.validate(value)
-        let number = Int(value.digits) ?? DefaultValue.EmptyInt
+        let number = Int(value.digits) ?? DefaultValue.emptyInt
         status.isValid = number <= maxValue
         return status
     }

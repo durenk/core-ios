@@ -11,10 +11,10 @@ import Foundation
 public class MinLengthRule: Rule {
     private var minLength: Int = 0
 
-    public init(name: String, minLength: Int, message: String = DefaultValue.EmptyString) {
+    public init(name: String, minLength: Int, message: String = DefaultValue.emptyString) {
         super.init(name: name, message: message)
         self.minLength = minLength
-        if message != DefaultValue.EmptyString { return }
+        if message != DefaultValue.emptyString { return }
         self.message = String(
             format: ValidationErrorMessage.instance.getErrorMessageFormat(MinLengthRule.className),
             name,

@@ -25,7 +25,7 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
     }()
     open var refreshControlTintColor: UIColor { get { return UIColor.white } }
     open var pullToRefreshEnabled: Bool { get { return false } }
-    open var tableViewBackgroundColor: UIColor { get { return CoreStyle.Color.PrimaryBackground } }
+    open var tableViewBackgroundColor: UIColor { get { return CoreStyle.Color.primaryBackground } }
     open var tableViewInset: UIEdgeInsets { get { return UIEdgeInsets.zero } }
     open func registerNibs() {}
 
@@ -41,9 +41,7 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
 
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if contentView.tableView.backgroundColor != UIColor.clear {
-            view.backgroundColor = contentView.tableView.backgroundColor
-        }
+        configureBackgroundColor()
     }
 
     override open func viewWillDisappear(_ animated: Bool) {
@@ -57,6 +55,10 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
     }
 
     open func reloadTableView() {
+        if pullToRefreshEnabled {
+            contentView.tableView.reloadData()
+            return
+        }
         contentView.tableView.reloadDataWithoutScrollAnimation()
     }
 
@@ -79,11 +81,10 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
         contentView = TableView(frame: frame, inset: tableViewInset)
         contentView.delegate = self
         contentView.commonInit(sender: self)
-        contentView.tableView.backgroundColor = tableViewBackgroundColor
         renderRefreshControl()
-        view.backgroundColor = contentView.tableView.backgroundColor
         view.addSubview(contentView)
         setContentViewParentConstraint()
+        configureBackgroundColor()
     }
 
     open func setContentViewParentConstraint() {
@@ -143,6 +144,14 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
 
     open func setInfiniteScrollLoadingState(isLoading: Bool) {
         infiniteScroll.isLoading = isLoading
+    }
+
+    open func configureBackgroundColor() {
+        contentView.tableView.backgroundColor = tableViewBackgroundColor
+        if tableViewBackgroundColor != UIColor.clear {
+            view.backgroundColor = tableViewBackgroundColor
+            view.superview?.backgroundColor = tableViewBackgroundColor
+        }
     }
 }
 

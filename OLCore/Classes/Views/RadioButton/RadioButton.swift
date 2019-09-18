@@ -17,7 +17,7 @@ open class RadioButton: DLRadioButton {
     private var container: UIView = UIView()
     private var bottomView: UIView = UIView()
     weak public var delegate: RadioButtonDelegate?
-    public var name: String = DefaultValue.EmptyString
+    public var name: String = DefaultValue.emptyString
     public var didChangeAction: InputDidChangeHandler?
     public var didValidationErrorAction: InputDidValidationError?
     public var didValidationSuccessAction: InputDidValidationSuccess?
@@ -26,7 +26,7 @@ open class RadioButton: DLRadioButton {
         didSet {
             setTitle(option.text, for: .normal)
             accessibilityIdentifier = String(
-                format: AccessibilityIdentifier.RadioButton,
+                format: AccessibilityIdentifier.radioButton,
                 name,
                 option.text
             ).toAccessibilityFormat()
@@ -42,7 +42,7 @@ open class RadioButton: DLRadioButton {
         iconColor: UIColor,
         container: UIView,
         bottomView: UIView,
-        name: String = DefaultValue.EmptyString
+        name: String = DefaultValue.emptyString
     ) {
         super.init(frame: frame)
         setup(
@@ -67,7 +67,7 @@ open class RadioButton: DLRadioButton {
         iconColor: UIColor,
         container: UIView,
         bottomView: UIView,
-        name: String = DefaultValue.EmptyString
+        name: String = DefaultValue.emptyString
     ) {
         self.name = name
         self.option = option
@@ -228,7 +228,7 @@ extension RadioButton: InputProtocol {
     }
 
     public func isEmpty() -> Bool {
-        return getText() == DefaultValue.EmptyString
+        return getText() == DefaultValue.emptyString
     }
 
     public func getTag() -> Int {

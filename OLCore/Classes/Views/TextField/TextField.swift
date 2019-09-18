@@ -19,16 +19,17 @@ open class TextField: UITextField {
     open var didChangeAction: InputDidChangeHandler?
     open var didValidationErrorAction: InputDidValidationError?
     open var didValidationSuccessAction: InputDidValidationSuccess?
+    public var isAvoidWhitespaces: Bool = false
     public var maxLength: Int = 255
     public var style: TextFieldStyle! {
         didSet {
             applyStyle()
         }
     }
-    open var name: String = DefaultValue.EmptyString {
+    open var name: String = DefaultValue.emptyString {
         didSet {
             self.accessibilityIdentifier = String(
-                format: AccessibilityIdentifier.Textfield,
+                format: AccessibilityIdentifier.textfield,
                 name.toAccessibilityFormat()
             )
         }
@@ -37,7 +38,6 @@ open class TextField: UITextField {
     override open func awakeFromNib() {
         super.awakeFromNib()
         inputType = FreeTextInputType(textField: self)
-        addTarget(self, action: #selector(didChange(_:)), for: .editingChanged)
     }
 
     override open func textRect(forBounds bounds: CGRect) -> CGRect {
@@ -66,7 +66,7 @@ open class TextField: UITextField {
     private func applyStyle() {
         font = style.font
         textColor = style.color
-        attributedPlaceholder = NSAttributedString(string: placeholder ?? DefaultValue.EmptyString, attributes: [NSAttributedString.Key.foregroundColor: style.placeholderColor])
+        attributedPlaceholder = NSAttributedString(string: placeholder ?? DefaultValue.emptyString, attributes: [NSAttributedString.Key.foregroundColor: style.placeholderColor])
         backgroundColor = style.backgroundColor
     }
 
@@ -140,13 +140,13 @@ open class TextField: UITextField {
         inputView = nil
         inputType = FreeTextInputType(textField: self)
         inputType.render()
-        text = DefaultValue.EmptyString
+        text = DefaultValue.emptyString
         inputAccessoryView = nil
     }
 
     open func secureInput(_ secure: Bool = true) {
         isSecureTextEntry = secure
-        let icon = isSecureTextEntry ? CoreStyle.Image.EyeButtonClose : CoreStyle.Image.EyeButtonOpen
+        let icon = isSecureTextEntry ? CoreStyle.Image.eyeButtonClose : CoreStyle.Image.eyeButtonOpen
         setRightButton(
             icon: icon,
             style: DefaultButtonStyle(),
@@ -170,7 +170,7 @@ open class TextField: UITextField {
         inputType.didEndEditingHandler(textField)
     }
 
-    @objc private func didChange(_ textField: UITextField) {
+    @objc func didChange(_ textField: UITextField) {
         guard let didChangeAction = didChangeAction else { return }
         guard let textField = textField as? TextField else { return }
         inputType.didChangeHandler(textField)
@@ -202,22 +202,22 @@ extension TextField: InputProtocol {
     }
 
     open func getValue() -> AnyObject {
-        if inputType == nil { return DefaultValue.EmptyString as AnyObject }
+        if inputType == nil { return DefaultValue.emptyString as AnyObject }
         return inputType.getValue()
     }
 
     open func getText() -> String {
-        return text ?? DefaultValue.EmptyString
+        return text ?? DefaultValue.emptyString
     }
 
     open func resetValue() {
-        text = DefaultValue.EmptyString
+        text = DefaultValue.emptyString
         tag = 0
         inputType.resetValue()
     }
 
     open func isEmpty() -> Bool {
-        return getText() == DefaultValue.EmptyString
+        return getText() == DefaultValue.emptyString
     }
 
     open func setInputType(_ inputType: InputType) {

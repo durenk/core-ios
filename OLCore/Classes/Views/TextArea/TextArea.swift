@@ -13,13 +13,13 @@ public typealias TextAreaDidChangeHandler = (_ textarea: TextArea) -> Void
 open class TextArea: UITextView {
     private var showingPlaceholder: Bool = false
     internal var bottomLineLayer: CALayer = CALayer()
-    public var name: String = DefaultValue.EmptyString
+    public var name: String = DefaultValue.emptyString
     public var style: TextFieldStyle! {
         didSet {
             applyStyle()
         }
     }
-    public var placeholder: String = DefaultValue.EmptyString {
+    public var placeholder: String = DefaultValue.emptyString {
         didSet {
             renderPlaceholder(text: placeholder)
         }
@@ -32,7 +32,7 @@ open class TextArea: UITextView {
     override open func awakeFromNib() {
         super.awakeFromNib()
         scrollRangeToVisible(NSRange(location: 0, length: 0))
-        setValue(DefaultValue.EmptyString)
+        setValue(DefaultValue.emptyString)
     }
 
     private func applyStyle() {
@@ -111,17 +111,17 @@ extension TextArea: InputProtocol {
     }
 
     public func getText() -> String {
-        if showingPlaceholder { return DefaultValue.EmptyString }
-        return text ?? DefaultValue.EmptyString
+        if showingPlaceholder { return DefaultValue.emptyString }
+        return text ?? DefaultValue.emptyString
     }
 
     public func resetValue() {
-        text = DefaultValue.EmptyString
+        text = DefaultValue.emptyString
         tag = 0
     }
 
     public func isEmpty() -> Bool {
-        return showingPlaceholder || getText() == DefaultValue.EmptyString
+        return showingPlaceholder || getText() == DefaultValue.emptyString
     }
 
     public func getTag() -> Int {

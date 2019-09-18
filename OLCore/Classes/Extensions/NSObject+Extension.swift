@@ -10,10 +10,10 @@ import Foundation
 
 extension NSObject {
     public var className: String {
-        return String(describing: type(of: self)).components(separatedBy: ".").last ?? DefaultValue.EmptyString
+        return String(describing: type(of: self)).components(separatedBy: ".").last ?? DefaultValue.emptyString
     }
 
     public class var className: String {
-        return String(describing: self).components(separatedBy: ".").last ?? DefaultValue.EmptyString
+        return String(describing: self).components(separatedBy: ".").last ?? DefaultValue.emptyString
     }
 }

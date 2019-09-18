@@ -9,5 +9,5 @@
 import Foundation
 
 public struct CountryCode {
-    public static let Indonesia = "62"
+    public static let indonesia = "62"
 }

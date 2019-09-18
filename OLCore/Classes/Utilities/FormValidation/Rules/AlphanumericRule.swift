@@ -1,26 +1,25 @@
 //
-//  PhoneRule.swift
+//  AlphanumericRule.swift
 //  OLCore
 //
-//  Created by DENZA on 01/03/19.
-//  Copyright © 2019 NDV6. All rights reserved.
+//  Created by DENZA on 14/09/19.
 //
 
 import UIKit
 
-public class PhoneRule: Rule {
+public class AlphanumericRule: Rule {
     override public init(name: String, message: String = DefaultValue.emptyString) {
         super.init(name: name, message: message)
         if message != DefaultValue.emptyString { return }
         self.message = String(
-            format: ValidationErrorMessage.instance.getErrorMessageFormat(PhoneRule.className),
+            format: ValidationErrorMessage.instance.getErrorMessageFormat(AlphanumericRule.className),
             name
         )
     }
 
     override public func validate(_ value: String) -> ValidationStatus {
         let status = super.validate(value)
-        status.isValid = value.prefix(2) == "08" && value.count >= 10 && value.count <= 13
+        status.isValid = value.trimmingCharacters(in: .whitespacesAndNewlines).isValid(regexRule: RegexString.alphanumeric)
         return status
     }
 }

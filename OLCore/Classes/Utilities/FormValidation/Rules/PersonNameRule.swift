@@ -9,9 +9,9 @@
 import Foundation
 
 public class PersonNameRule: Rule {
-    override public init(name: String, message: String = DefaultValue.EmptyString) {
+    override public init(name: String, message: String = DefaultValue.emptyString) {
         super.init(name: name, message: message)
-        if message != DefaultValue.EmptyString { return }
+        if message != DefaultValue.emptyString { return }
         self.message = String(
             format: ValidationErrorMessage.instance.getErrorMessageFormat(PersonNameRule.className),
             name

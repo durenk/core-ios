@@ -9,13 +9,13 @@
 import UIKit
 
 private struct EmptySize {
-    static let XXSmall = CGFloat(4)
-    static let XSmall = CGFloat(10)
-    static let Small = CGFloat(20)
-    static let Medium = CGFloat(30)
-    static let Large = CGFloat(40)
-    static let XLarge = CGFloat(80)
-    static let XXLarge = CGFloat(120)
+    static let xxSmall = CoreStyle.EmptySection.xxSmall
+    static let xSmall = CoreStyle.EmptySection.xSmall
+    static let small = CoreStyle.EmptySection.small
+    static let medium = CoreStyle.EmptySection.medium
+    static let large = CoreStyle.EmptySection.large
+    static let xLarge = CoreStyle.EmptySection.xLarge
+    static let xxLarge = CoreStyle.EmptySection.xxLarge
 }
 
 open class SectionCollection {
@@ -26,49 +26,49 @@ open class SectionCollection {
     public var emptyXXSmall: EmptySection {
         get {
             let section = EmptySection()
-            section.configure(contentView: contentView, height: EmptySize.XXSmall)
+            section.configure(contentView: contentView, height: EmptySize.xxSmall)
             return section
         }
     }
     public var emptyXSmall: EmptySection {
         get {
             let section = EmptySection()
-            section.configure(contentView: contentView, height: EmptySize.XSmall)
+            section.configure(contentView: contentView, height: EmptySize.xSmall)
             return section
         }
     }
     public var emptySmall: EmptySection {
         get {
             let section = EmptySection()
-            section.configure(contentView: contentView, height: EmptySize.Small)
+            section.configure(contentView: contentView, height: EmptySize.small)
             return section
         }
     }
     public var emptyMedium: EmptySection {
         get {
             let section = EmptySection()
-            section.configure(contentView: contentView, height: EmptySize.Medium)
+            section.configure(contentView: contentView, height: EmptySize.medium)
             return section
         }
     }
     public var emptyLarge: EmptySection {
         get {
             let section = EmptySection()
-            section.configure(contentView: contentView, height: EmptySize.Large)
+            section.configure(contentView: contentView, height: EmptySize.large)
             return section
         }
     }
     public var emptyXLarge: EmptySection {
         get {
             let section = EmptySection()
-            section.configure(contentView: contentView, height: EmptySize.XLarge)
+            section.configure(contentView: contentView, height: EmptySize.xLarge)
             return section
         }
     }
     public var emptyXXLarge: EmptySection {
         get {
             let section = EmptySection()
-            section.configure(contentView: contentView, height: EmptySize.XXLarge)
+            section.configure(contentView: contentView, height: EmptySize.xxLarge)
             return section
         }
     }

@@ -15,11 +15,11 @@ extension String {
     static let numberFormatter = NumberFormatter()
 
     public var doubleValue: Double {
-        String.numberFormatter.decimalSeparator = Separator.DecimalEN
+        String.numberFormatter.decimalSeparator = Separator.decimalEN
         if let result =  String.numberFormatter.number(from: self) {
             return result.doubleValue
         } else {
-            String.numberFormatter.decimalSeparator = Separator.DecimalID
+            String.numberFormatter.decimalSeparator = Separator.decimalID
             if let result = String.numberFormatter.number(from: self) {
                 return result.doubleValue
             }
@@ -28,11 +28,11 @@ extension String {
     }
 
     public var floatValue: Float {
-        String.numberFormatter.decimalSeparator = Separator.DecimalEN
+        String.numberFormatter.decimalSeparator = Separator.decimalEN
         if let result =  String.numberFormatter.number(from: self) {
             return result.floatValue
         } else {
-            String.numberFormatter.decimalSeparator = Separator.DecimalID
+            String.numberFormatter.decimalSeparator = Separator.decimalID
             if let result = String.numberFormatter.number(from: self) {
                 return result.floatValue
             }
@@ -57,7 +57,7 @@ extension String {
     }
 
     public func withThousandSeparator() -> String {
-        return Formatter.thousandSeparator.string(for: Int(self.digits)) ?? DefaultValue.EmptyString
+        return Formatter.thousandSeparator.string(for: Int(self.digits)) ?? DefaultValue.emptyString
     }
 
     public func toDate(format: String) -> Date {
@@ -101,24 +101,24 @@ extension String {
 
     public func formatDBDateStringToFullDateString() -> String {
         let dateFormatter = DateHelper.dateFormatter
-        dateFormatter.dateFormat = DateFormat.DBDate
+        dateFormatter.dateFormat = DateFormat.dBDate
         guard let date = dateFormatter.date(from: self) else {
-            return DefaultValue.EmptyString
+            return DefaultValue.emptyString
         }
-        dateFormatter.dateFormat = DateFormat.Date
+        dateFormatter.dateFormat = DateFormat.date
         return dateFormatter.string(from: date)
     }
 
     public func formatInFullDateToDate() -> Date {
-        return self.toDate(format: DateFormat.Date)
+        return self.toDate(format: DateFormat.date)
     }
 
     public func formatInPeriodValueToDate() -> Date {
-        return self.toDate(format: DateFormat.PeriodValue)
+        return self.toDate(format: DateFormat.periodValue)
     }
 
     public func formatInPeriodDBToDate() -> Date {
-        return self.toDate(format: DateFormat.PeriodDB)
+        return self.toDate(format: DateFormat.periodDB)
     }
 
     public func isValid(regexRule: String) -> Bool {
@@ -127,8 +127,24 @@ extension String {
 
     public func toAccessibilityFormat() -> String {
         return self.replacingOccurrences(
-            of: Separator.Whitespace,
-            with: Separator.AccessibilityId
+            of: Separator.whitespace,
+            with: Separator.accessibilityId
         ).lowercased()
+    }
+
+    public func removeAllWhitespaces() -> String {
+        return String(self.filter{ !" \n\t\r".contains($0) })
+    }
+
+    public func getSuffix(_ maxLength: Int) -> String {
+        var length = maxLength
+        if self.count < maxLength {
+            length = self.count
+        }
+        return String(suffix(length))
+    }
+
+    public func getFirstWord() -> String {
+        return components(separatedBy: DefaultValue.whitespace).first ?? DefaultValue.emptyString
     }
 }

@@ -48,11 +48,11 @@ open class TableViewSection {
     }
 
     public func indexOfCell(cell: TableViewCell) -> NSInteger {
-        if cells.isEmpty { return DefaultValue.EmptyIndex }
+        if cells.isEmpty { return DefaultValue.emptyIndex }
         for index in 0...(cells.count - 1) where cells[index] == cell {
             return index
         }
-        return DefaultValue.EmptyIndex
+        return DefaultValue.emptyIndex
     }
 
     public func removeAllRows() {

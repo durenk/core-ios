@@ -21,7 +21,7 @@ open class DropDownViewController: FormTableViewController {
     public var separatorInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
     public var contentInset: UIEdgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     private var searchInputCell: TableViewCell?
-    private var searchKeyword: String = DefaultValue.EmptyString
+    private var searchKeyword: String = DefaultValue.emptyString
     open var searchEnabled: Bool { get { return false } }
 
     override open func load() {

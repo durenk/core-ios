@@ -19,10 +19,10 @@ extension FormTableViewController: UIPickerViewDelegate, UIPickerViewDataSource 
         }
         return  PickerInputType(
             textField: TextField(),
-            instruction: DefaultValue.EmptyString,
+            instruction: DefaultValue.emptyString,
             sender: self,
             items: [String](),
-            defaultValue: DefaultValue.EmptyString)
+            defaultValue: DefaultValue.emptyString)
     }
 
     public func numberOfComponents(in pickerView: UIPickerView) -> Int {

@@ -21,8 +21,8 @@ extension Array where Element: Option {
         }
     }
 
-    public func displayText(separator: String = Separator.Phrase) -> String {
-        var result = DefaultValue.EmptyString
+    public func displayText(separator: String = Separator.phrase) -> String {
+        var result = DefaultValue.emptyString
         for option in self {
             if !result.isEmpty {
                 result += separator

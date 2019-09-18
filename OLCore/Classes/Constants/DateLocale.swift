@@ -9,5 +9,5 @@
 import Foundation
 
 public struct DateLocale {
-    public static let Indonesian = "id_ID"
+    public static let indonesian = "id_ID"
 }

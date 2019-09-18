@@ -11,7 +11,7 @@ import UIKit
 open class PickerInputType: InputType {
     open var identifier: InputTypeIdentifier = .picker
     private var overlay: Button = Button()
-    private var instruction: String = DefaultValue.EmptyString
+    private var instruction: String = DefaultValue.emptyString
     private var textField: TextField = TextField()
     private var sender: FormTableViewController = FormTableViewController()
     open var pickerView = UIPickerView()
@@ -22,7 +22,7 @@ open class PickerInputType: InputType {
     open var buttonColor: UIColor = .clear
     open var borderWidth: CGFloat = 0
     open var borderColor: UIColor = .clear
-    open var doneButtonText: String = DefaultValue.EmptyString
+    open var doneButtonText: String = DefaultValue.emptyString
     open func didBeginEditingHandler(_ textField: TextField) {}
     open func didEndEditingHandler(_ textField: TextField) {}
     open func didChangeHandler(_ textField: TextField) {}

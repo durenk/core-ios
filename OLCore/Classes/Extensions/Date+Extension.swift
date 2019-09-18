@@ -10,40 +10,40 @@ import Foundation
 
 extension Date {
     public func formatInMonth() -> String {
-        return formatIn(format: DateFormat.Month)
+        return formatIn(format: DateFormat.month)
     }
 
     public func formatInFullDate() -> String {
-        return formatIn(format: DateFormat.Date)
+        return formatIn(format: DateFormat.date)
     }
     
     public func formatInDay() -> String {
-        return formatIn(format: DateFormat.Day)
+        return formatIn(format: DateFormat.day)
     }
 
     public func formatInDayWithMonth() -> String {
-        return formatIn(format: DateFormat.DayWithMonth)
+        return formatIn(format: DateFormat.dayWithMonth)
     }
 
     public func formatInPeriodDisplay() -> String {
-        return formatIn(format: DateFormat.PeriodDisplay)
+        return formatIn(format: DateFormat.periodDisplay)
     }
 
     public func formatInPeriodValue() -> Int {
-        return Int(formatIn(format: DateFormat.PeriodValue)) ?? DefaultValue.EmptyInt
+        return Int(formatIn(format: DateFormat.periodValue)) ?? DefaultValue.emptyInt
     }
 
     public func formatInPeriodDB() -> String {
-        return formatIn(format: DateFormat.PeriodDB)
+        return formatIn(format: DateFormat.periodDB)
     }
 
     public func formatInDBDate() -> String {
-        return formatIn(format: DateFormat.DBDate)
+        return formatIn(format: DateFormat.dBDate)
     }
 
     public func formatIn(format: String) -> String {
         let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: Language.Bahasa)
+        formatter.locale = Locale(identifier: Language.bahasa)
         formatter.dateFormat = format
         return formatter.string(from: self)
     }
@@ -118,7 +118,7 @@ extension Date {
         let date = Date(timeIntervalSince1970: interval)
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale.current
-        dateFormatter.dateFormat = DateFormat.Time
+        dateFormatter.dateFormat = DateFormat.time
         let strDate = dateFormatter.string(from: date)
         return strDate
     }
@@ -140,15 +140,15 @@ extension Date {
         let startYear = calendar.component(.year, from: self)
         let endYear = calendar.component(.year, from: until)
         let fullFormat = DateFormatter()
-        fullFormat.locale = Locale(identifier: Language.Bahasa)
-        fullFormat.dateFormat = DateFormat.Date
+        fullFormat.locale = Locale(identifier: Language.bahasa)
+        fullFormat.dateFormat = DateFormat.date
         if startYear == endYear {
             let periodFormat = DateFormatter()
-            periodFormat.locale = Locale(identifier: Language.Bahasa)
-            periodFormat.dateFormat = DateFormat.DayWithMonth
-            return "\(periodFormat.string(from: self)) \(Separator.RangePeriod) \(fullFormat.string(from: until))"
+            periodFormat.locale = Locale(identifier: Language.bahasa)
+            periodFormat.dateFormat = DateFormat.dayWithMonth
+            return "\(periodFormat.string(from: self)) \(Separator.rangePeriod) \(fullFormat.string(from: until))"
         }
-        return "\(fullFormat.string(from: self)) \(Separator.RangePeriod) \(fullFormat.string(from: until))"
+        return "\(fullFormat.string(from: self)) \(Separator.rangePeriod) \(fullFormat.string(from: until))"
     }
 
     public func getHumanDate(interval: TimeInterval, todayText: String, yesterdayText: String) -> String {
@@ -162,7 +162,7 @@ extension Date {
         }
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale.current
-        dateFormatter.dateFormat = DateFormat.Date
+        dateFormatter.dateFormat = DateFormat.date
         let strDate = dateFormatter.string(from: date)
         return strDate
     }

@@ -12,7 +12,7 @@ public typealias OptionsSelectionHandler = (_ options: [Option]) -> Void
 
 open class SelectionInputViewController: TableViewController {
     override open var closeButtonPosition: LayoutPosition { get { return .left } }
-    open var doneButtonTitle: String { get { return DefaultValue.EmptyString } }
+    open var doneButtonTitle: String { get { return DefaultValue.emptyString } }
     open var doneButtonStyleAttributes: [NSAttributedString.Key: Any]? {
         get { return nil }
     }
@@ -27,7 +27,7 @@ open class SelectionInputViewController: TableViewController {
     private var temporarySelectedOptions: [Option] = [Option]()
     public var selectedOptions: [Option] = [Option]()
     public var options: [Option] = [Option]()
-    public var screenTitle: String = DefaultValue.EmptyString
+    public var screenTitle: String = DefaultValue.emptyString
     public var didSelectAction: OptionsSelectionHandler?
 
     override open func viewWillAppear(_ animated: Bool) {

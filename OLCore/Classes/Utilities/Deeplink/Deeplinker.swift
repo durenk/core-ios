@@ -15,9 +15,9 @@ public struct DeeplinkHandler {
 }
 
 open class Deeplinker {
-    open var path: String { get { return DefaultValue.EmptyString } }
+    open var path: String { get { return DefaultValue.emptyString } }
     open var isRequiredAuthToken: Bool { get { return true } }
-    open var urlString: String = DefaultValue.EmptyString
+    open var urlString: String = DefaultValue.emptyString
     open var queryItems: [URLQueryItem] = [URLQueryItem]()
     open func execute(
         success: @escaping DeeplinkHandler.Success,

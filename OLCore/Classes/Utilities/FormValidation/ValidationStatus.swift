@@ -10,5 +10,5 @@ import Foundation
 
 public class ValidationStatus {
     public var isValid: Bool = true
-    public var message: String = DefaultValue.EmptyString
+    public var message: String = DefaultValue.emptyString
 }

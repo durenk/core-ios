@@ -39,13 +39,29 @@ extension FormTableViewController: UITextFieldDelegate {
     }
 
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let tf: TextField = textField as? TextField else {
-            return true
+        guard let tf: TextField = textField as? TextField else { return true }
+        guard let initialText: String = tf.text else { return true }
+        let isValidLength = tf.maxLength == 0 || initialText.count + string.count - range.length <= tf.maxLength
+        var result = isValidLength && tf.shouldChangeCharactersIn(range: range, replacementString: string)
+        if !result { return false }
+        var replacementString = string
+        if tf.autocapitalizationType == .allCharacters {
+            replacementString = replacementString.uppercased()
+            result = false
         }
-        guard let text: String = tf.text else {
-            return true
+        if tf.isAvoidWhitespaces {
+            replacementString = replacementString.removeAllWhitespaces()
+            result = false
         }
-        let isValidLength = tf.maxLength == 0 || text.count + string.count - range.length <= tf.maxLength
-        return isValidLength && tf.shouldChangeCharactersIn(range: range, replacementString: string)
+        if tf.keyboardType == .numberPad {
+            replacementString = replacementString.digits
+            result = false
+        }
+        if !result {
+            let text = tf.text ?? DefaultValue.emptyString
+            tf.text = (text as NSString).replacingCharacters(in: range, with: replacementString)
+        }
+        if result || initialText != tf.text { tf.didChange(tf) }
+        return result
     }
 }
