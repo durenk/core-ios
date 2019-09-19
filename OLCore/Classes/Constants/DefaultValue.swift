@@ -13,6 +13,7 @@ public struct DefaultValue {
     public static let whitespace = " "
     public static let emptyString = ""
     public static let emptyInt = 0
+    public static let emptyTimeInterval = TimeInterval(0)
     public static let emptyInt32 = Int32(0)
     public static let emptyInt64 = Int64(0)
     public static let emptyUInt = UInt(0)
