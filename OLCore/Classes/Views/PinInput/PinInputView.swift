@@ -27,35 +27,49 @@ open class PinInputView: View {
         super.init(frame: frame)
     }
 
-    private func calculateActualPanWidth(containerWidth: CGFloat) -> CGFloat {
-        if panWidth > DefaultValue.emptyCGFloat {
-            return panWidth
+    private func calibratePanWidth(containerSize: CGSize) {
+        if panWidth < DefaultValue.emptyCGFloat {
+            panWidth = DefaultValue.emptyCGFloat
+            return
         }
-        if panSpacing == DefaultValue.emptyCGFloat { return DefaultValue.emptyCGFloat }
-        let numberOfSpacing = length - 1
-        let totalSpacing = panSpacing * CGFloat(numberOfSpacing)
-        let freeSpace = containerWidth - totalSpacing
-        return freeSpace / CGFloat(length)
+        let maxPanWidth = containerSize.width / CGFloat(length)
+        if panWidth > maxPanWidth {
+            panWidth = maxPanWidth
+            return
+        }
     }
 
-    private func calculateActualPanSpacing(containerWidth: CGFloat) -> CGFloat {
-        if panWidth <= DefaultValue.emptyCGFloat {
-            return panSpacing
-        }
-        if panWidth == DefaultValue.emptyCGFloat { return DefaultValue.emptyCGFloat }
+    private func calibratePanSpacing(containerSize: CGSize) {
         let numberOfSpacing = length - 1
-        let totalPanWidth = panWidth * CGFloat(length)
-        let freeSpace = containerWidth - totalPanWidth
-        return freeSpace / CGFloat(numberOfSpacing)
+        let freeSpace = containerSize.width - getTotalPanWidth()
+        let maxPanSpacing = freeSpace / CGFloat(numberOfSpacing)
+        if panSpacing <= DefaultValue.emptyCGFloat || panSpacing > maxPanSpacing {
+            panSpacing = maxPanSpacing
+        }
     }
 
-    private func renderPinViews(containerSize: CGSize) {
+    private func getTotalPanWidth() -> CGFloat {
+        return panWidth * CGFloat(length)
+    }
+
+    private func getTotalPanSpacing() -> CGFloat {
+        return panSpacing * CGFloat(length - 1)
+    }
+
+    private func getContainerPadding(containerSize: CGSize) -> CGFloat {
+        let remainingWidth = containerSize.width - getTotalPanWidth() - getTotalPanSpacing()
+        return remainingWidth / 2
+    }
+
+    private func renderPanViews(containerSize: CGSize) {
         panViews.removeAll()
-        let panWidth = calculateActualPanWidth(containerWidth: containerSize.width)
-        let panSpacing = calculateActualPanSpacing(containerWidth: containerSize.width)
+        calibratePanWidth(containerSize: containerSize)
+        calibratePanSpacing(containerSize: containerSize)
+        if panWidth == DefaultValue.emptyCGFloat { return }
+        let containerPadding = getContainerPadding(containerSize: containerSize)
         for index in 0...(length - 1) {
             let frame = CGRect(
-                x: (panWidth * CGFloat(index)) + (panSpacing * CGFloat(index)),
+                x: containerPadding + (panWidth * CGFloat(index)) + (panSpacing * CGFloat(index)),
                 y: DefaultValue.emptyCGFloat,
                 width: panWidth,
                 height: containerSize.height
@@ -71,7 +85,7 @@ open class PinInputView: View {
         self.layoutIfNeeded()
         let containerSize = bounds.size
         if containerSize.width == DefaultValue.emptyCGFloat { return }
-        renderPinViews(containerSize: containerSize)
+        renderPanViews(containerSize: containerSize)
     }
 
     public func configure(
