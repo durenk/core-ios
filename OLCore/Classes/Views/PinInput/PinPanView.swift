@@ -10,12 +10,12 @@ import UIKit
 class PinPanView: View {
     private var pinLabel: UILabel = UILabel()
     private var bottomLineView: View = View()
-    private var style: PinInputStyle = DefaultPinInputStyle()
     private var value: String = DefaultValue.emptyString {
         didSet {
             pinLabel.text = value
         }
     }
+    private var style: PinInputStyle = DefaultPinInputStyle()
 
     private func renderContainerStyle() {
         backgroundColor = style.backgroundColor
@@ -65,7 +65,8 @@ class PinPanView: View {
         setValue(value)
     }
 
-    func render() {
+    func render(style: PinInputStyle) {
+        self.style = style
         removeAllSubviews()
         renderContainerStyle()
         renderPinLabel()

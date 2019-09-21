@@ -20,6 +20,7 @@ open class PinInputView: UIView {
     private var panSpacing: CGFloat = DefaultValue.emptyCGFloat
     private var keyboardButton: Button = Button()
     private var textField: TextField = TextField()
+    private var style: PinInputStyle = DefaultPinInputStyle()
 
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -84,7 +85,7 @@ open class PinInputView: UIView {
                 height: containerSize.height
             )
             let panView = PinPanView(frame: frame)
-            panView.render()
+            panView.render(style: style)
             panViews.append(panView)
             addSubview(panView)
         }
@@ -130,6 +131,7 @@ open class PinInputView: UIView {
         self.length = length
         self.panWidth = panWidth
         self.panSpacing = panSpacing
+        self.style = style
         self.render()
     }
 
