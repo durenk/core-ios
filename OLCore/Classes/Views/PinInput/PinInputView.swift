@@ -12,12 +12,14 @@ public enum PinInputType {
     case alphanumeric
 }
 
-open class PinInputView: View {
+open class PinInputView: UIView {
     private var type: PinInputType = .numeric
     private var length: Int = DefaultValue.emptyInt
     private var panViews: [PinPanView] = [PinPanView]()
     private var panWidth: CGFloat = DefaultValue.emptyCGFloat
     private var panSpacing: CGFloat = DefaultValue.emptyCGFloat
+    private var keyboardButton: Button = Button()
+    private var textField: TextField = TextField()
 
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -81,18 +83,44 @@ open class PinInputView: View {
         }
     }
 
+    private func renderTextField(containerSize: CGSize) {
+        textField = TextField(frame: CGRect(
+            origin: CGPoint(x: 0, y: 0),
+            size: containerSize
+        ))
+        textField.style = InvisibleTextFieldStyle()
+        textField.delegate = self
+        textField.autocorrectionType = .no
+        addSubview(textField)
+    }
+
+    private func renderKeyboardButton(containerSize: CGSize) {
+        keyboardButton = Button(frame: CGRect(
+            origin: CGPoint(x: 0, y: 0),
+            size: containerSize
+        ))
+        keyboardButton.backgroundColor = .clear
+        keyboardButton.didPressAction = {
+            self.textField.becomeFirstResponder()
+        }
+        addSubview(keyboardButton)
+    }
+
     private func render() {
         self.layoutIfNeeded()
         let containerSize = bounds.size
         if containerSize.width == DefaultValue.emptyCGFloat { return }
         renderPanViews(containerSize: containerSize)
+        renderTextField(containerSize: containerSize)
+        renderKeyboardButton(containerSize: containerSize)
     }
 
     public func configure(
         type: PinInputType,
         length: Int,
         panWidth: CGFloat = DefaultValue.emptyCGFloat,
-        panSpacing: CGFloat = DefaultValue.emptyCGFloat
+        panSpacing: CGFloat = DefaultValue.emptyCGFloat,
+        style: PinInputStyle = DefaultPinInputStyle()
     ) {
         self.type = type
         self.length = length
@@ -100,4 +128,15 @@ open class PinInputView: View {
         self.panSpacing = panSpacing
         self.render()
     }
+
+    public func getValue() -> String {
+        var value = DefaultValue.emptyString
+        for panView in panViews {
+            value += String(panView.getValue())
+        }
+        return value
+    }
+}
+
+extension PinInputView: UITextFieldDelegate {
 }

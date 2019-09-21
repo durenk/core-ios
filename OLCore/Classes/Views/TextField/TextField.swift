@@ -21,7 +21,7 @@ open class TextField: UITextField {
     open var didValidationSuccessAction: InputDidValidationSuccess?
     public var isAvoidWhitespaces: Bool = false
     public var maxLength: Int = 255
-    public var style: TextFieldStyle! {
+    public var style: TextFieldStyle = DefaultTextFieldStyle() {
         didSet {
             applyStyle()
         }
@@ -68,6 +68,7 @@ open class TextField: UITextField {
         textColor = style.color
         attributedPlaceholder = NSAttributedString(string: placeholder ?? DefaultValue.emptyString, attributes: [NSAttributedString.Key.foregroundColor: style.placeholderColor])
         backgroundColor = style.backgroundColor
+        tintColor = style.tintColor
     }
 
     open func setLeftIcon(_ image: UIImage) {

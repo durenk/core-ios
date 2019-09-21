@@ -18,4 +18,5 @@ public protocol TextFieldStyle {
     var borderWidth: CGFloat { get }
     var cornerRadius: CGFloat { get }
     var padding: UIEdgeInsets { get }
+    var tintColor: UIColor { get }
 }
