@@ -155,6 +155,10 @@ open class PinInputView: UIView {
     public func resetValue() {
         textField.text = DefaultValue.emptyString
     }
+
+    public func setEnabled(_ isEnabled: Bool = true) {
+        keyboardButton.isUserInteractionEnabled = isEnabled
+    }
 }
 
 extension PinInputView: UITextFieldDelegate {
