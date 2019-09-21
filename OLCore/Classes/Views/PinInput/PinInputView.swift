@@ -12,6 +12,10 @@ public enum PinInputType {
     case alphanumeric
 }
 
+public protocol PinInputViewDelegate: class {
+    func pinInputViewDidCompleted()
+}
+
 open class PinInputView: UIView {
     private var keyboardType: UIKeyboardType = .numberPad
     private var length: Int = DefaultValue.emptyInt
@@ -21,6 +25,7 @@ open class PinInputView: UIView {
     private var keyboardButton: Button = Button()
     private var textField: TextField = TextField()
     private var style: PinInputStyle = DefaultPinInputStyle()
+    public weak var delegate: PinInputViewDelegate?
 
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -34,6 +39,10 @@ open class PinInputView: UIView {
         let text = textField.getText()
         for index in 0...panViews.count - 1 {
             panViews[index].updateValue(text[index])
+        }
+        if text.count >= length {
+            textField.resignFirstResponder()
+            delegate?.pinInputViewDidCompleted()
         }
     }
 
@@ -141,6 +150,10 @@ open class PinInputView: UIView {
             value += String(panView.getValue())
         }
         return value
+    }
+
+    public func resetValue() {
+        textField.text = DefaultValue.emptyString
     }
 }
 
