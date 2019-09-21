@@ -14,6 +14,11 @@ import SafariServices
 extension String {
     static let numberFormatter = NumberFormatter()
 
+    subscript (i: Int) -> String {
+        if isEmpty || i >= count { return DefaultValue.emptyString }
+        return String(self[index(startIndex, offsetBy: i)])
+    }
+
     public var doubleValue: Double {
         String.numberFormatter.decimalSeparator = Separator.decimalEN
         if let result =  String.numberFormatter.number(from: self) {

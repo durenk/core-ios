@@ -13,7 +13,7 @@ public enum PinInputType {
 }
 
 open class PinInputView: UIView {
-    private var type: PinInputType = .numeric
+    private var keyboardType: UIKeyboardType = .numberPad
     private var length: Int = DefaultValue.emptyInt
     private var panViews: [PinPanView] = [PinPanView]()
     private var panWidth: CGFloat = DefaultValue.emptyCGFloat
@@ -27,6 +27,13 @@ open class PinInputView: UIView {
 
     override public init(frame: CGRect) {
         super.init(frame: frame)
+    }
+
+    @objc private func didChangedValue() {
+        let text = textField.getText()
+        for index in 0...panViews.count - 1 {
+            panViews[index].updateValue(text[index])
+        }
     }
 
     private func calibratePanWidth(containerSize: CGSize) {
@@ -83,22 +90,18 @@ open class PinInputView: UIView {
         }
     }
 
-    private func renderTextField(containerSize: CGSize) {
-        textField = TextField(frame: CGRect(
-            origin: CGPoint(x: 0, y: 0),
-            size: containerSize
-        ))
+    private func renderTextField() {
         textField.style = InvisibleTextFieldStyle()
         textField.delegate = self
+        textField.maxLength = length
         textField.autocorrectionType = .no
+        textField.keyboardType = keyboardType
+        textField.addTarget(self, action: #selector(PinInputView.didChangedValue), for: .editingChanged)
         addSubview(textField)
     }
 
     private func renderKeyboardButton(containerSize: CGSize) {
-        keyboardButton = Button(frame: CGRect(
-            origin: CGPoint(x: 0, y: 0),
-            size: containerSize
-        ))
+        keyboardButton.frame.size = containerSize
         keyboardButton.backgroundColor = .clear
         keyboardButton.didPressAction = {
             self.textField.becomeFirstResponder()
@@ -110,19 +113,21 @@ open class PinInputView: UIView {
         self.layoutIfNeeded()
         let containerSize = bounds.size
         if containerSize.width == DefaultValue.emptyCGFloat { return }
+        removeAllSubviews()
+        renderTextField()
         renderPanViews(containerSize: containerSize)
-        renderTextField(containerSize: containerSize)
         renderKeyboardButton(containerSize: containerSize)
+        didChangedValue()
     }
 
     public func configure(
-        type: PinInputType,
         length: Int,
         panWidth: CGFloat = DefaultValue.emptyCGFloat,
         panSpacing: CGFloat = DefaultValue.emptyCGFloat,
+        keyboardType: UIKeyboardType = UIKeyboardType.numberPad,
         style: PinInputStyle = DefaultPinInputStyle()
     ) {
-        self.type = type
+        self.keyboardType = keyboardType
         self.length = length
         self.panWidth = panWidth
         self.panSpacing = panSpacing
@@ -139,4 +144,10 @@ open class PinInputView: UIView {
 }
 
 extension PinInputView: UITextFieldDelegate {
+    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let tf: TextField = textField as? TextField else { return true }
+        guard let initialText: String = tf.text else { return true }
+        let isValidLength = tf.maxLength == 0 || initialText.count + string.count - range.length <= tf.maxLength
+        return isValidLength && tf.shouldChangeCharactersIn(range: range, replacementString: string)
+    }
 }
