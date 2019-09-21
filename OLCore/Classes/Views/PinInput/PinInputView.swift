@@ -94,7 +94,6 @@ open class PinInputView: UIView {
         textField.style = InvisibleTextFieldStyle()
         textField.delegate = self
         textField.maxLength = length
-        textField.autocorrectionType = .no
         textField.keyboardType = keyboardType
         textField.addTarget(self, action: #selector(PinInputView.didChangedValue), for: .editingChanged)
         addSubview(textField)
