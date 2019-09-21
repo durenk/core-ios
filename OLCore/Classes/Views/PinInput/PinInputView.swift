@@ -13,7 +13,7 @@ public enum PinInputType {
 }
 
 public protocol PinInputViewDelegate: class {
-    func pinInputViewDidCompleted()
+    func pinInputViewDidChangedValue(_ value: String)
 }
 
 open class PinInputView: UIView {
@@ -42,8 +42,8 @@ open class PinInputView: UIView {
         }
         if text.count >= length {
             textField.resignFirstResponder()
-            delegate?.pinInputViewDidCompleted()
         }
+        delegate?.pinInputViewDidChangedValue(text)
     }
 
     private func calibratePanWidth(containerSize: CGSize) {
@@ -166,6 +166,8 @@ extension PinInputView: UITextFieldDelegate {
         guard let tf: TextField = textField as? TextField else { return true }
         guard let initialText: String = tf.text else { return true }
         let isValidLength = tf.maxLength == 0 || initialText.count + string.count - range.length <= tf.maxLength
-        return isValidLength && tf.shouldChangeCharactersIn(range: range, replacementString: string)
+        let result = isValidLength && tf.shouldChangeCharactersIn(range: range, replacementString: string)
+        if !result { textField.resignFirstResponder() }
+        return result
     }
 }
