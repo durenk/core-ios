@@ -17,7 +17,7 @@ public class SanitizeRule: Rule {
     }
 
     override public func validate(_ value: String) -> ValidationStatus {
-        let status = super.validate(value)
+        status = super.validate(value)
         status.isValid = !rejectedValues.contains(value)
         if self.message == DefaultValue.emptyString {
             status.message = String(

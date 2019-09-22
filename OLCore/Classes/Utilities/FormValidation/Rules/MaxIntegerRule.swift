@@ -23,7 +23,7 @@ public class MaxIntegerRule: Rule {
     }
 
     override public func validate(_ value: String) -> ValidationStatus {
-        let status = super.validate(value)
+        status = super.validate(value)
         let number = Int(value.digits) ?? DefaultValue.emptyInt
         status.isValid = number <= maxValue
         return status

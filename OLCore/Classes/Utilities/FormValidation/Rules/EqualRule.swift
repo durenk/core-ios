@@ -19,7 +19,7 @@ public class EqualRule: Rule {
     }
 
     override public func validate(_ value: String) -> ValidationStatus {
-        let status = super.validate(value)
+        status = super.validate(value)
         status.isValid = value == coupleInput.getValue() as? String ?? DefaultValue.emptyString
         return status
     }

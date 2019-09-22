@@ -19,7 +19,7 @@ public class PhoneRule: Rule {
     }
 
     override public func validate(_ value: String) -> ValidationStatus {
-        let status = super.validate(value)
+        status = super.validate(value)
         status.isValid = value.prefix(2) == "08" && value.count >= 10 && value.count <= 13
         return status
     }

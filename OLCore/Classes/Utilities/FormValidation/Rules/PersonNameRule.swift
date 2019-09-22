@@ -19,7 +19,7 @@ public class PersonNameRule: Rule {
     }
 
     override public func validate(_ value: String) -> ValidationStatus {
-        let status = super.validate(value)
+        status = super.validate(value)
         status.isValid = value.trimmingCharacters(in: .whitespacesAndNewlines).isValid(regexRule: RegexString.personName)
         return status
     }

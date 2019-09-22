@@ -23,7 +23,7 @@ public class MinSelectionRule: Rule {
     }
 
     override public func validate(_ value: String) -> ValidationStatus {
-        let status = super.validate(value)
+        status = super.validate(value)
         status.isValid = !value.trimmingCharacters(in: .whitespaces).isEmpty
             && value.components(separatedBy: Separator.phrase).count >= minSelected
         return status
