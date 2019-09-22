@@ -134,7 +134,7 @@ open class RadioButton: DLRadioButton {
 
     @objc private func selectedRadioButton(_ sender: DLRadioButton) {
         guard let radioButton = sender as? RadioButton else { return }
-        if radioButton.option.id != selectedOption.id {
+        if radioButton.option.key != selectedOption.key {
             selectedOption = radioButton.option
         } else {
             selectedOption = Option()
@@ -194,14 +194,14 @@ open class RadioButton: DLRadioButton {
     }
 
     public func select(option selectOption: Option) {
-        if option.id == selectOption.id {
+        if option.key == selectOption.key {
             isSelected = true
             self.selectedOption = selectOption
             return
         }
         for button in otherButtons {
             guard let radioButton = button as? RadioButton else { continue }
-            if radioButton.option.id == selectOption.id {
+            if radioButton.option.key == selectOption.key {
                 radioButton.isSelected = true
                 self.selectedOption = selectOption
                 return

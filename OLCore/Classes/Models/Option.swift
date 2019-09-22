@@ -9,20 +9,20 @@
 import UIKit
 
 open class Option {
-    public var id: String = DefaultValue.emptyString
+    public var key: String = DefaultValue.emptyString
     public var text: String = DefaultValue.emptyString
     public var isActive: Bool = true
     public var description: String = DefaultValue.emptyString
     public var value: Any
 
     public init(
-        id: String = DefaultValue.emptyString,
+        key: String = DefaultValue.emptyString,
         text: String = DefaultValue.emptyString,
         isActive: Bool = true,
         description: String = DefaultValue.emptyString,
         value: Any = DefaultValue.emptyAny
     ) {
-        self.id = id
+        self.key = key
         self.text = text
         self.isActive = isActive
         self.description = description
