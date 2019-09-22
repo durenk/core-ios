@@ -30,9 +30,9 @@ public class NavigationHelper {
         icon: UIImage,
         font: UIFont,
         selectedIcon: UIImage?,
-        vc: UIViewController
+        controller: UIViewController
     ) -> NavigationController {
-        let nvc = NavigationController(rootViewController: vc)
+        let nvc = NavigationController(rootViewController: controller)
         nvc.tabBarItem.title = title
         nvc.tabBarItem.setTitleTextAttributes([NSAttributedString.Key.font: font], for: .normal)
         nvc.tabBarItem.image = icon
