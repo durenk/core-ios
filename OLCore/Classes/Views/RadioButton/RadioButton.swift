@@ -87,9 +87,9 @@ open class RadioButton: DLRadioButton {
         guard let titleLabel = titleLabel else { return }
         self.option = option
         if (options.count - 1) == otherButtons.count { return }
-        for i in 1..<options.count {
+        for index in 1..<options.count {
             let originX = frame.origin.x
-            let originY = frame.origin.y + CGFloat(40 * i)
+            let originY = frame.origin.y + CGFloat(40 * index)
             let radioButton = RadioButton(
                 frame: CGRect(
                     x: originX,
@@ -97,7 +97,7 @@ open class RadioButton: DLRadioButton {
                     width: frame.size.width,
                     height: frame.size.height
                 ),
-                option: options[i],
+                option: options[index],
                 titleColor: currentTitleColor,
                 titleFont: titleLabel.font,
                 iconColor: iconColor,
@@ -108,8 +108,8 @@ open class RadioButton: DLRadioButton {
             container.addSubview(radioButton)
             otherButtons.append(radioButton)
         }
-        for i in 0..<otherButtons.count {
-            applyRadioButtonConstraint(index: i)
+        for index in 0..<otherButtons.count {
+            applyRadioButtonConstraint(index: index)
         }
         setupAction()
     }

@@ -15,7 +15,8 @@ public class EqualRule: Rule {
         super.init(name: name, message: message)
         self.coupleInput = coupleInput
         if message != DefaultValue.emptyString { return }
-        self.message = String(format: ValidationErrorMessage.instance.getErrorMessageFormat(EqualRule.className), name, coupleInput.name)
+        let format = ValidationErrorMessage.instance.getErrorMessageFormat(EqualRule.className)
+        self.message = String(format: format, name, coupleInput.name)
     }
 
     override public func validate(_ value: String) -> ValidationStatus {

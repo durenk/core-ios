@@ -7,16 +7,14 @@
 //
 
 import Foundation
-
-import Foundation
 import SafariServices
 
 extension String {
     static let numberFormatter = NumberFormatter()
 
-    subscript (i: Int) -> String {
-        if isEmpty || i >= count { return DefaultValue.emptyString }
-        return String(self[index(startIndex, offsetBy: i)])
+    subscript (idx: Int) -> String {
+        if isEmpty || idx >= count { return DefaultValue.emptyString }
+        return String(self[index(startIndex, offsetBy: idx)])
     }
 
     public var doubleValue: Double {
@@ -138,7 +136,9 @@ extension String {
     }
 
     public func removeAllWhitespaces() -> String {
-        return String(self.filter{ !" \n\t\r".contains($0) })
+        return self.filter {
+            !" \n\t\r".contains($0)
+        }
     }
 
     public func getSuffix(_ maxLength: Int) -> String {

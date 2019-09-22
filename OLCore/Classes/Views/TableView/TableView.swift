@@ -103,7 +103,12 @@ open class TableView: View {
         }
     }
 
-    open func setTableViewSeparator(show: Bool, separatorColor: UIColor?, separatorStyle: UITableViewCell.SeparatorStyle?, separatorInset: UIEdgeInsets?) {
+    open func setTableViewSeparator(
+        show: Bool,
+        separatorColor: UIColor?,
+        separatorStyle: UITableViewCell.SeparatorStyle?,
+        separatorInset: UIEdgeInsets?
+    ) {
         if show {
             if separatorColor != nil {
                 tableView.separatorColor = separatorColor
@@ -124,7 +129,8 @@ open class TableView: View {
     }
 
     public func hasIndexPath(indexPath: IndexPath) -> Bool {
-        return hasSectionAtIndex(index: indexPath.section) && sections[indexPath.section].hasRowAtIndex(index: indexPath.row)
+        return hasSectionAtIndex(index: indexPath.section)
+            && sections[indexPath.section].hasRowAtIndex(index: indexPath.row)
     }
 
     open func appendSection(_ section: TableViewSection) {
@@ -191,7 +197,7 @@ open class TableView: View {
     }
 
     public func registerNib<T>(nibClass: T.Type, resource: String? = nil) where T: TableViewCell {
-        var bundle: Bundle? = nil
+        var bundle: Bundle?
         if let resource = resource {
             let nibBundle = Bundle(for: nibClass.self)
             guard let url = nibBundle.url(forResource: resource, withExtension: "bundle") else { return }
@@ -201,7 +207,10 @@ open class TableView: View {
         tableView.register(nib, forCellReuseIdentifier: nibClass.className)
     }
 
-    public func dequeueReusableNibCell<T>(nibClass: T.Type, resource: String? = nil) -> UITableViewCell where T: TableViewCell {
+    public func dequeueReusableNibCell<T>(
+        nibClass: T.Type,
+        resource: String? = nil
+    ) -> UITableViewCell where T: TableViewCell {
         registerNib(nibClass: nibClass, resource: resource)
         if let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: nibClass.className) {
             return cell

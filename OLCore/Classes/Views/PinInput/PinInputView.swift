@@ -164,11 +164,16 @@ open class PinInputView: UIView {
 }
 
 extension PinInputView: UITextFieldDelegate {
-    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let tf: TextField = textField as? TextField else { return true }
-        guard let initialText: String = tf.text else { return true }
-        let isValidLength = tf.maxLength == 0 || initialText.count + string.count - range.length <= tf.maxLength
-        let result = isValidLength && tf.shouldChangeCharactersIn(range: range, replacementString: string)
+    public func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String
+    ) -> Bool {
+        guard let textField: TextField = textField as? TextField else { return true }
+        guard let initialText: String = textField.text else { return true }
+        let isValidLength = textField.maxLength == 0
+            || initialText.count + string.count - range.length <= textField.maxLength
+        let result = isValidLength && textField.shouldChangeCharactersIn(range: range, replacementString: string)
         if !result { textField.resignFirstResponder() }
         return result
     }

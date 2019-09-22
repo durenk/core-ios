@@ -21,11 +21,11 @@ open class CompletionInput: Button {
             )
         }
     }
-    
+
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     open func setup(
         name: String,
         sender: CompletionInputTableViewCell,
@@ -34,7 +34,6 @@ open class CompletionInput: Button {
         self.name = name
         self.sender = sender
         self.didChangeAction = didChangeAction
-        
     }
 }
 
@@ -42,17 +41,17 @@ extension CompletionInput: InputProtocol {
     open func getInputView() -> UIView {
         return self
     }
-    
+
     open func getValue() -> AnyObject {
         return sender.getStatusComplete() as AnyObject
     }
-    
+
     open func getText() -> String {
         return sender.getStatusComplete() ? sender.className : DefaultValue.emptyString
     }
-    
+
     open func resetValue() { }
-    
+
     open func isEmpty() -> Bool {
         return getText() == DefaultValue.emptyString
     }
@@ -61,4 +60,3 @@ extension CompletionInput: InputProtocol {
         return tag
     }
 }
-

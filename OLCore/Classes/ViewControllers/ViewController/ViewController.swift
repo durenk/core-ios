@@ -11,19 +11,25 @@ import UIKit
 open class ViewController: UIViewController {
     private var foregroundObserver: NSObjectProtocol?
     open var didLoadData: Bool = false
-    open var navigationBarStyle: UIBarStyle { get { return UIBarStyle.default } }
-    open var navigationBarColor: UIColor { get { return CoreStyle.Color.navigationBackground } }
-    open var navigationBarTintColor: UIColor { get { return CoreStyle.Color.navigationText } }
-    open var closeButtonPosition: LayoutPosition { get { return .none } }
+    open var navigationBarStyle: UIBarStyle { return UIBarStyle.default }
+    open var navigationBarColor: UIColor { return CoreStyle.Color.navigationBackground }
+    open var navigationBarTintColor: UIColor { return CoreStyle.Color.navigationText }
+    open var closeButtonPosition: LayoutPosition { return .none }
     open var closeButton: UIBarButtonItem {
-        get {
-            return UIBarButtonItem(image: CoreStyle.Image.navigationCloseButton, style: .plain, target: self, action: #selector(closeButtonPressed))
-        }
+        return UIBarButtonItem(
+            image: CoreStyle.Image.navigationCloseButton,
+            style: .plain,
+            target: self,
+            action: #selector(closeButtonPressed)
+        )
     }
     open var backButton: UIBarButtonItem {
-        get {
-            return UIBarButtonItem(image: CoreStyle.Image.navigationBackButton, style: .plain, target: self, action: #selector(backButtonPressed))
-        }
+        return UIBarButtonItem(
+            image: CoreStyle.Image.navigationBackButton,
+            style: .plain,
+            target: self,
+            action: #selector(backButtonPressed)
+        )
     }
     open func load() {}
     open func loadMore() {}
@@ -73,7 +79,11 @@ open class ViewController: UIViewController {
     }
 
     private func setupForegroundObserver() {
-        foregroundObserver = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [unowned self] notification in
+        foregroundObserver = NotificationCenter.default.addObserver(
+            forName: UIApplication.willEnterForegroundNotification,
+            object: nil,
+            queue: .main
+        ) { [unowned self] _ in
             self.viewWillEnterForeground()
         }
     }
@@ -94,7 +104,10 @@ open class ViewController: UIViewController {
     }
 
     open func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(ViewController.dismissKeyboard)
+        )
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
@@ -118,7 +131,10 @@ open class ViewController: UIViewController {
 
     open func customizeNavigationController() {
         guard let navigation = navigationController else { return }
-        navigation.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: CoreStyle.Color.navigationText, NSAttributedString.Key.font: CoreStyle.Font.navigationTitle]
+        navigation.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: CoreStyle.Color.navigationText,
+            NSAttributedString.Key.font: CoreStyle.Font.navigationTitle
+        ]
         navigationItem.leftBarButtonItems = leftBarButtonItems()
         navigationItem.rightBarButtonItems = rightBarButtonItems()
     }

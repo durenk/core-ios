@@ -38,30 +38,35 @@ extension FormTableViewController: UITextFieldDelegate {
         return true
     }
 
-    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let tf: TextField = textField as? TextField else { return true }
-        guard let initialText: String = tf.text else { return true }
-        let isValidLength = tf.maxLength == 0 || initialText.count + string.count - range.length <= tf.maxLength
-        var result = isValidLength && tf.shouldChangeCharactersIn(range: range, replacementString: string)
+    public func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String
+    ) -> Bool {
+        guard let textField: TextField = textField as? TextField else { return true }
+        guard let initialText: String = textField.text else { return true }
+        let isValidLength = textField.maxLength == 0
+            || initialText.count + string.count - range.length <= textField.maxLength
+        var result = isValidLength && textField.shouldChangeCharactersIn(range: range, replacementString: string)
         if !result { return false }
         var replacementString = string
-        if tf.autocapitalizationType == .allCharacters {
+        if textField.autocapitalizationType == .allCharacters {
             replacementString = replacementString.uppercased()
             result = false
         }
-        if tf.isAvoidWhitespaces {
+        if textField.isAvoidWhitespaces {
             replacementString = replacementString.removeAllWhitespaces()
             result = false
         }
-        if tf.keyboardType == .numberPad {
+        if textField.keyboardType == .numberPad {
             replacementString = replacementString.digits
             result = false
         }
         if !result {
-            let text = tf.text ?? DefaultValue.emptyString
-            tf.text = (text as NSString).replacingCharacters(in: range, with: replacementString)
+            let text = textField.text ?? DefaultValue.emptyString
+            textField.text = (text as NSString).replacingCharacters(in: range, with: replacementString)
         }
-        if result || initialText != tf.text { tf.didChange(tf) }
+        if result || initialText != textField.text { textField.didChange(textField) }
         return result
     }
 }

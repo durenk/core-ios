@@ -16,7 +16,7 @@ extension Date {
     public func formatInFullDate() -> String {
         return formatIn(format: DateFormat.date)
     }
-    
+
     public func formatInDay() -> String {
         return formatIn(format: DateFormat.day)
     }

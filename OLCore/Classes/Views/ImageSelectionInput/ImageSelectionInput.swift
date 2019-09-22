@@ -26,13 +26,13 @@ open class ImageSelectionInput: Button {
             )
         }
     }
-    
+
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     open func resetState() {}
-    
+
     open func setup(
         name: String,
         sender: ImageInputTableViewCell,
@@ -46,7 +46,7 @@ open class ImageSelectionInput: Button {
         permissionText: String,
         compressionQuality: CGFloat,
         didChangeAction: @escaping InputDidChangeHandler = {_ in }
-        ) {
+    ) {
         self.name = name
         self.sender = sender
         self.senderParentView = senderParentView
@@ -63,42 +63,40 @@ open class ImageSelectionInput: Button {
             settingsButtonText: settingsButtonText,
             permissionText: permissionText
         )
-        
         self.didPressAction = showPhotoSourceOptions
-        
         if let defaultValue = defaultValue {
             self.sender.setImageUrl(urlImage: defaultValue)
         }
     }
-    
+
     private func showPhotoSourceOptions() {
-        imagePickerController.present(from: self.senderParentView.view,
-                                      menuTitle: self.menuTitle,
-                                      cameraButtonTitle: self.cameraButtonTitle,
-                                      galleryButtonTitle: self.galleryButtonTitle
+        imagePickerController.present(
+            from: self.senderParentView.view,
+            menuTitle: self.menuTitle,
+            cameraButtonTitle: self.cameraButtonTitle,
+            galleryButtonTitle: self.galleryButtonTitle
         )
     }
 }
-
 
 extension ImageSelectionInput: InputProtocol {
     open func getInputView() -> UIView {
         return self
     }
-    
+
     open func getValue() -> AnyObject {
         return sender.getImageUrl() as AnyObject
     }
-    
+
     open func getText() -> String {
         return sender.getImageUrl() == nil ? DefaultValue.emptyString : name
     }
-    
+
     open func resetValue() {
         sender.removeSelectedPhoto()
         sender.removeImageUrl()
     }
-    
+
     open func isEmpty() -> Bool {
         return getText() == DefaultValue.emptyString
     }
@@ -107,5 +105,3 @@ extension ImageSelectionInput: InputProtocol {
         return tag
     }
 }
-
-

@@ -10,9 +10,7 @@ import UIKit
 
 open class TabBarNavigationController: UITabBarController {
     open var navigationControllers: [NavigationController] {
-        get {
-            return [NavigationController]()
-        }
+        return [NavigationController]()
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -29,7 +27,9 @@ open class TabBarNavigationController: UITabBarController {
 
     public func getFirstNavigationController() -> NavigationController {
         guard let viewControllers = viewControllers else { return NavigationController() }
-        guard let navigationController = viewControllers.first as? NavigationController else { return NavigationController() }
+        guard let navigationController = viewControllers.first as? NavigationController else {
+            return NavigationController()
+        }
         return navigationController
     }
 
@@ -42,8 +42,8 @@ open class TabBarNavigationController: UITabBarController {
         if controllers.isEmpty { return }
         for index in 0...(controllers.count - 1) {
             guard let nvc = controllers[index] as? NavigationController else { continue }
-            guard let vc = nvc.viewControllers.first as? ViewController else { continue }
-            if vc.isMember(of: destinationClass.self) {
+            guard let firstVC = nvc.viewControllers.first as? ViewController else { continue }
+            if firstVC.isMember(of: destinationClass.self) {
                 selectedIndex = index
                 return
             }

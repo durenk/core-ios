@@ -19,21 +19,28 @@ extension UIImage {
 
     public func cropToSize(newSize: CGSize) -> UIImage {
         let size = self.size
-        var x: CGFloat!
-        var y: CGFloat!
-        x = (size.width - newSize.width) * 0.5
-        y = (size.height - newSize.height) * 0.5
+        var originX: CGFloat!
+        var originY: CGFloat!
+        originX = (size.width - newSize.width) * 0.5
+        originY = (size.height - newSize.height) * 0.5
         var tempNewSize = newSize
-        if (self.imageOrientation == .left || self.imageOrientation == .leftMirrored || self.imageOrientation == .right || self.imageOrientation == .rightMirrored) {
-            var temp = x
-            x = y
-            y = temp
-
+        if self.imageOrientation == .left
+            || self.imageOrientation == .leftMirrored
+            || self.imageOrientation == .right
+            || self.imageOrientation == .rightMirrored {
+            var temp = originX
+            originX = originY
+            originY = temp
             temp = tempNewSize.width
             tempNewSize.width = tempNewSize.height
             tempNewSize.height = temp!
         }
-        let cropRect = CGRect(x: x * self.scale, y: y * self.scale, width: tempNewSize.width * self.scale, height: tempNewSize.height * self.scale)
+        let cropRect = CGRect(
+            x: originX * self.scale,
+            y: originY * self.scale,
+            width: tempNewSize.width * self.scale,
+            height: tempNewSize.height * self.scale
+        )
         let croppedImageRef = self.cgImage!.cropping(to: cropRect)
         let cropped = UIImage(cgImage: croppedImageRef!, scale: self.scale, orientation: self.imageOrientation)
         return cropped

@@ -22,7 +22,7 @@ open class DropDownViewController: FormTableViewController {
     public var contentInset: UIEdgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     private var searchInputCell: TableViewCell?
     private var searchKeyword: String = DefaultValue.emptyString
-    open var searchEnabled: Bool { get { return false } }
+    open var searchEnabled: Bool { return false }
 
     override open func load() {
         super.load()
@@ -75,7 +75,9 @@ open class DropDownViewController: FormTableViewController {
     }
 
     open func createItemCell(_ option: Option) -> DropDownItemCell {
-        let cell = contentView.tableView.dequeueReusableCell(withIdentifier: DropDownItemCell.className) as? DropDownItemCell ?? DropDownItemCell()
+        let cell = contentView.tableView.dequeueReusableCell(
+            withIdentifier: DropDownItemCell.className
+        ) as? DropDownItemCell ?? DropDownItemCell()
         cell.option = option
         cell.textFont = textFont
         cell.textActiveColor = textActiveColor

@@ -26,7 +26,13 @@ open class DatePickerInputType: InputType {
     open func didChangeHandler(_ textField: TextField) {}
     open func resetValue() {}
 
-    public init(textField: TextField, instruction: String, sender: FormTableViewController, minimumDate: Date?, maximumDate: Date?, defaultValue: Date? = nil) {
+    public init(
+        textField: TextField,
+        instruction: String,
+        sender: FormTableViewController,
+        minimumDate: Date?, maximumDate: Date?,
+        defaultValue: Date? = nil
+    ) {
         self.textField = textField
         self.instruction = instruction
         self.sender = sender
@@ -80,7 +86,7 @@ open class DatePickerInputType: InputType {
     }
 
     private func createToolbarSpacing() -> UIBarButtonItem {
-        return UIBarButtonItem (
+        return UIBarButtonItem(
             barButtonSystemItem: .flexibleSpace,
             target: nil,
             action: nil
