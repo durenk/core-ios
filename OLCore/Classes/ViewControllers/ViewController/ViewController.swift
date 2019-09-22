@@ -40,9 +40,7 @@ open class ViewController: UIViewController {
 
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        DispatchQueue.main.async {
-            self.stylingNavigation()
-        }
+        self.stylingNavigation()
     }
 
     override open func viewDidAppear(_ animated: Bool) {
@@ -64,7 +62,9 @@ open class ViewController: UIViewController {
     }
 
     open func viewWillEnterForeground() {
-        viewWillAppear(true)
+        DispatchQueue.main.async {
+            self.viewWillAppear(true)
+        }
     }
 
     private func removeForegroundObserver() {
