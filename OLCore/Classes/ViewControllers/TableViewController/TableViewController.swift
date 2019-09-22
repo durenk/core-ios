@@ -36,7 +36,12 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
 
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        renderTabBar()
+        DispatchQueue.main.async {
+            self.renderTabBar()
+            if CoreConfig.TableViewController.isAutoRenderOnEveryViewWillAppear {
+                self.rerender()
+            }
+        }
     }
 
     override open func viewDidAppear(_ animated: Bool) {
@@ -80,7 +85,10 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
         frame.size.height = SizeHelper.WindowHeight
         contentView = TableView(frame: frame, inset: tableViewInset)
         contentView.delegate = self
-        contentView.commonInit(sender: self)
+        contentView.commonInit(
+            sender: self,
+            isRender: !CoreConfig.TableViewController.isAutoRenderOnEveryViewWillAppear
+        )
         renderRefreshControl()
         view.addSubview(contentView)
         setContentViewParentConstraint()
