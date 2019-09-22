@@ -37,6 +37,7 @@ open class PinInputView: UIView {
 
     @objc private func didChangedValue() {
         let text = textField.getText()
+        if text == getValue() { return }
         for index in 0...panViews.count - 1 {
             panViews[index].updateValue(text[index])
         }
@@ -95,6 +96,7 @@ open class PinInputView: UIView {
             )
             let panView = PinPanView(frame: frame)
             panView.render(style: style)
+            panView.setValue(textField.getText()[index])
             panViews.append(panView)
             addSubview(panView)
         }
