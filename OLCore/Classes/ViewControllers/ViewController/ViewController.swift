@@ -9,6 +9,7 @@
 import UIKit
 
 open class ViewController: UIViewController {
+    private var foregroundObserver: NSObjectProtocol?
     open var didLoadData: Bool = false
     open var navigationBarStyle: UIBarStyle { get { return UIBarStyle.default } }
     open var navigationBarColor: UIColor { get { return CoreStyle.Color.navigationBackground } }
@@ -44,12 +45,35 @@ open class ViewController: UIViewController {
 
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        if CoreConfig.TableViewController.isAutoRenderOnEveryViewWillAppear {
+            setupForegroundObserver()
+        }
         hideKeyboardWhenTappedAround()
         if !didLoadData {
             load()
         }
         didLoadData = true
         DeeplinkManager.instance.checkIncomingUrl()
+    }
+
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        removeForegroundObserver()
+    }
+
+    open func viewWillEnterForeground() {
+        viewWillAppear(true)
+    }
+
+    private func removeForegroundObserver() {
+        guard let foregroundObserver = foregroundObserver else { return }
+        NotificationCenter.default.removeObserver(foregroundObserver)
+    }
+
+    private func setupForegroundObserver() {
+        foregroundObserver = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [unowned self] notification in
+            self.viewWillEnterForeground()
+        }
     }
 
     open func stylingNavigation() {
