@@ -40,7 +40,7 @@ open class ViewController: UIViewController {
 
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.stylingNavigation()
+        stylingNavigation()
     }
 
     override open func viewDidAppear(_ animated: Bool) {
