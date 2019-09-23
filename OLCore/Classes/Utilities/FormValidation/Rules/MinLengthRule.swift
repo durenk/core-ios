@@ -23,7 +23,7 @@ public class MinLengthRule: Rule {
     }
 
     override public func validate(_ value: String) -> ValidationStatus {
-        let status = super.validate(value)
+        status = super.validate(value)
         status.isValid = value.count >= minLength
         return status
     }

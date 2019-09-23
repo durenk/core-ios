@@ -11,4 +11,7 @@ public struct CoreConfig {
     public struct FormTableViewController {
         public static var isAutoAvoidKeyboard: Bool = true
     }
+    public struct TableViewController {
+        public static var isAutoRenderOnEveryViewWillAppear: Bool = false
+    }
 }

@@ -21,7 +21,7 @@ open class TextField: UITextField {
     open var didValidationSuccessAction: InputDidValidationSuccess?
     public var isAvoidWhitespaces: Bool = false
     public var maxLength: Int = 255
-    public var style: TextFieldStyle! {
+    public var style: TextFieldStyle = DefaultTextFieldStyle() {
         didSet {
             applyStyle()
         }
@@ -68,6 +68,7 @@ open class TextField: UITextField {
         textColor = style.color
         attributedPlaceholder = NSAttributedString(string: placeholder ?? DefaultValue.emptyString, attributes: [NSAttributedString.Key.foregroundColor: style.placeholderColor])
         backgroundColor = style.backgroundColor
+        tintColor = style.tintColor
     }
 
     open func setLeftIcon(_ image: UIImage) {
@@ -139,7 +140,7 @@ open class TextField: UITextField {
         removeLeftIcon()
         inputView = nil
         inputType = FreeTextInputType(textField: self)
-        inputType.render()
+        getInputType().render()
         text = DefaultValue.emptyString
         inputAccessoryView = nil
     }
@@ -162,22 +163,25 @@ open class TextField: UITextField {
 
     open func didBeginEditingHandler(_ textField: UITextField) {
         guard let textField = textField as? TextField else { return }
-        inputType.didBeginEditingHandler(textField)
+        getInputType().didBeginEditingHandler(textField)
     }
 
     open func didEndEditingHandler(_ textField: UITextField) {
         guard let textField = textField as? TextField else { return }
-        inputType.didEndEditingHandler(textField)
+        getInputType().didEndEditingHandler(textField)
     }
 
     @objc func didChange(_ textField: UITextField) {
         guard let didChangeAction = didChangeAction else { return }
         guard let textField = textField as? TextField else { return }
-        inputType.didChangeHandler(textField)
+        getInputType().didChangeHandler(textField)
         didChangeAction(self)
     }
 
     open func getInputType() -> InputType {
+        if inputType == nil {
+            inputType = FreeTextInputType(textField: self)
+        }
         return inputType
     }
 
@@ -187,7 +191,7 @@ open class TextField: UITextField {
     }
 
     open func shouldChangeCharactersIn(range: NSRange, replacementString string: String) -> Bool {
-        return inputType.shouldChangeCharactersIn(range: range, replacementString: string)
+        return getInputType().shouldChangeCharactersIn(range: range, replacementString: string)
     }
 
     override open func draw(_ rect: CGRect) {
@@ -203,7 +207,7 @@ extension TextField: InputProtocol {
 
     open func getValue() -> AnyObject {
         if inputType == nil { return DefaultValue.emptyString as AnyObject }
-        return inputType.getValue()
+        return getInputType().getValue()
     }
 
     open func getText() -> String {
@@ -213,7 +217,7 @@ extension TextField: InputProtocol {
     open func resetValue() {
         text = DefaultValue.emptyString
         tag = 0
-        inputType.resetValue()
+        getInputType().resetValue()
     }
 
     open func isEmpty() -> Bool {
@@ -225,7 +229,7 @@ extension TextField: InputProtocol {
     }
 
     open func render() {
-        inputType.render()
+        getInputType().render()
     }
 
     public func getTag() -> Int {

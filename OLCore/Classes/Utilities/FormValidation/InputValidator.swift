@@ -9,7 +9,6 @@
 import Foundation
 
 public class InputValidator {
-    private var lastStatus = ValidationStatus()
     var input: InputProtocol = TextField()
     var rules: [Rule] = [Rule]()
 
@@ -23,18 +22,23 @@ public class InputValidator {
         for rule in rules {
             if ruleType != nil && !rule.isKind(of: ruleType!) { continue }
             let status = rule.validate(input.getText())
+            if !isNeedToTrackResult {
+                rule.resetStatus()
+            }
             if !status.isValid {
                 result = status
                 break
             }
         }
-        if isNeedToTrackResult {
-            lastStatus = result
-        }
         return result
     }
 
     public func getLastStatus() -> ValidationStatus {
-        return lastStatus
+        for rule in rules {
+            if !rule.status.isValid {
+                return rule.status
+            }
+        }
+        return ValidationStatus()
     }
 }

@@ -16,6 +16,7 @@ public protocol TimeCounterDelegate: class {
 public class TimeCounter {
     private var lowerLimit: TimeInterval = DefaultValue.emptyTimeInterval
     private var upperLimit: TimeInterval = DefaultValue.emptyTimeInterval
+    private var departureTime: TimeInterval = DefaultValue.emptyTimeInterval
     private var timer: Timer = Timer()
     private var direction: Int = DefaultValue.emptyInt
     private var interval: TimeInterval = DefaultValue.emptyTimeInterval
@@ -48,6 +49,7 @@ public class TimeCounter {
 
     private func startCounter(direction: Int, interval: TimeInterval) {
         if interval <= DefaultValue.emptyTimeInterval { return }
+        self.departureTime = TimeInterval(Date.currentUnixTimestamp())
         self.direction = direction
         self.interval = interval
         ticker = direction == -1 ? upperLimit : lowerLimit
@@ -62,11 +64,13 @@ public class TimeCounter {
     }
 
     @objc private func run() {
+        let seconds = TimeInterval(Date.currentUnixTimestamp()) - departureTime
+        ticker = direction == -1 ? upperLimit : lowerLimit
+        ticker += (seconds * TimeInterval(direction))
         if (direction == 1 && ticker >= upperLimit) || (direction == -1 && ticker <= lowerLimit) {
             stopCounter()
             return
         }
-        ticker += (interval * TimeInterval(direction))
         delegate?.timeCounterDidChanged(ticker: ticker)
     }
 }

@@ -9,6 +9,7 @@
 import Foundation
 
 open class Rule: NSObject {
+    internal var status: ValidationStatus = ValidationStatus()
     public var name: String = DefaultValue.emptyString
     public var message: String = DefaultValue.emptyString
 
@@ -19,9 +20,13 @@ open class Rule: NSObject {
     }
 
     open func validate(_ value: String) -> ValidationStatus {
-        let status = ValidationStatus()
+        resetStatus()
         status.isValid = true
         status.message = message
         return status
+    }
+
+    open func resetStatus() {
+        status = ValidationStatus()
     }
 }

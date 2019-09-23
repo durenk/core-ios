@@ -21,7 +21,7 @@ public class AtomicRule: Rule {
     }
 
     override public func validate(_ value: String) -> ValidationStatus {
-        let status = super.validate(value)
+        status = super.validate(value)
         if value.isEmpty {
             for coupleInput in coupleInputs {
                 if !coupleInput.getText().isEmpty {

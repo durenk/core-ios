@@ -22,7 +22,7 @@ public class NumberOfNumeric: Rule {
     }
 
     override public func validate(_ value: String) -> ValidationStatus {
-        let status = super.validate(value)
+        status = super.validate(value)
         var numericCounter = 0
         for letter in value.unicodeScalars {
             if 48...57 ~= letter.value {

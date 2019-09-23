@@ -24,7 +24,7 @@ public class MaxDoubleRule: Rule {
     }
 
     override public func validate(_ value: String) -> ValidationStatus {
-        let status = super.validate(value)
+        status = super.validate(value)
         status.isValid = value.doubleValue <= maxValue
         return status
     }
