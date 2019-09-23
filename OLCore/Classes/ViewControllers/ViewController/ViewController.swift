@@ -73,7 +73,11 @@ open class ViewController: UIViewController {
     }
 
     private func setupForegroundObserver() {
-        foregroundObserver = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [unowned self] notification in
+        foregroundObserver = NotificationCenter.default.addObserver(
+            forName: UIApplication.willEnterForegroundNotification,
+            object: nil,
+            queue: .main
+        ) { [unowned self] notification in
             self.viewWillEnterForeground()
         }
     }
