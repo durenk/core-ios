@@ -9,6 +9,10 @@
 import Foundation
 
 extension Date {
+    public func formatInMonthAndYear() -> String {
+        return formatIn(format: DateFormat.monthWithYear)
+    }
+
     public func formatInMonth() -> String {
         return formatIn(format: DateFormat.month)
     }
