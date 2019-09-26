@@ -7,8 +7,8 @@
 
 import UIKit
 
-open class MonthYearPickerInputType: InputType {
-    open var identifier: InputTypeIdentifier = .datepicker
+open class MonthYearPickerInputType {
+    open var identifier: InputTypeIdentifier = .monthyearpicker
     private var overlay: Button = Button()
     private var instruction: String = DefaultValue.emptyString
     private var textField: TextField = TextField()
@@ -21,9 +21,6 @@ open class MonthYearPickerInputType: InputType {
     open var borderWidth: CGFloat = 0
     open var borderColor: UIColor = .clear
     open var doneButtonText: String = DefaultValue.emptyString
-    open func didEndEditingHandler(_ textField: TextField) {}
-    open func didChangeHandler(_ textField: TextField) {}
-    open func resetValue() {}
 
     public init(textField: TextField, instruction: String, sender: FormTableViewController, minimumDate: Date?, maximumDate: Date?, defaultValue: Date? = nil) {
         self.textField = textField
@@ -52,11 +49,14 @@ open class MonthYearPickerInputType: InputType {
 
     private func createToolBar() {
         let toolBar = UIToolbar()
-        toolBar.setItems([
-            createInstruction(),
-            createToolbarSpacing(),
-            createDoneButton()
-            ], animated: false)
+        toolBar.setItems(
+            [
+                createInstruction(),
+                createToolbarSpacing(),
+                createDoneButton()
+            ],
+            animated: false
+        )
         toolBar.barStyle = .default
         toolBar.tintColor = buttonColor
         toolBar.isTranslucent = false
@@ -107,6 +107,14 @@ open class MonthYearPickerInputType: InputType {
         monthYearPicker.layer.borderWidth = borderWidth
         monthYearPicker.layer.borderColor = borderColor.cgColor
     }
+}
+
+extension MonthYearPickerInputType: InputType {
+    open func didEndEditingHandler(_ textField: TextField) {}
+
+    open func didChangeHandler(_ textField: TextField) {}
+
+    open func resetValue() {}
 
     open func render() {
         textField.inputView = monthYearPicker
