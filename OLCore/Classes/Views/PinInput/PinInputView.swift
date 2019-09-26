@@ -162,6 +162,10 @@ open class PinInputView: UIView {
         textField.text = DefaultValue.emptyString
     }
 
+    public func setValue(_ value: String) {
+        textField.text = value
+    }
+
     public func setEnabled(_ isEnabled: Bool = true) {
         keyboardButton.isUserInteractionEnabled = isEnabled
     }
