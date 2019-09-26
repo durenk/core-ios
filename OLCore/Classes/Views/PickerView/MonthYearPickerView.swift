@@ -37,8 +37,9 @@ open class MonthYearPickerView: UIPickerView {
     func commonSetup() {
         var years: [Int] = []
         if years.count == 0 {
-            let minimumYear = NSCalendar(identifier: NSCalendar.Identifier.gregorian)!.component(.year, from: minimumDate)
-            let maximumYear = NSCalendar(identifier: NSCalendar.Identifier.gregorian)!.component(.year, from: maximumDate)
+            guard let calendar = NSCalendar(identifier: NSCalendar.Identifier.gregorian) else { return }
+            let minimumYear = calendar.component(.year, from: minimumDate)
+            let maximumYear = calendar.component(.year, from: maximumDate)
             for year in minimumYear...maximumYear {
                 years.append(year)
             }
@@ -66,12 +67,14 @@ open class MonthYearPickerView: UIPickerView {
     }
     
     func resetMonth() {
-        let currentMonth = NSCalendar(identifier: NSCalendar.Identifier.gregorian)!.component(.month, from: defaultDate)
+        guard let calendar = NSCalendar(identifier: NSCalendar.Identifier.gregorian) else { return }
+        let currentMonth = calendar.component(.month, from: defaultDate)
         self.selectRow(currentMonth - 1, inComponent: 0, animated: true)
     }
     
     func resetYear() {
-        let currentYear = NSCalendar(identifier: NSCalendar.Identifier.gregorian)!.component(.year, from: defaultDate)
+        guard let calendar = NSCalendar(identifier: NSCalendar.Identifier.gregorian) else { return }
+        let currentYear = calendar.component(.year, from: defaultDate)
         self.selectRow(years.firstIndex(where: { $0 == currentYear }) ?? 0, inComponent: 1, animated: true)
     }
     
