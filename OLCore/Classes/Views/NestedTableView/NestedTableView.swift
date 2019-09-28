@@ -15,20 +15,21 @@ public protocol NestedTableViewDelegate: class {
 open class NestedTableView: TableView, TableViewContainerProtocol {
     private weak var nestedTableViewDelegate: NestedTableViewDelegate?
     private var isLoading: Bool = false
+    open var isStartWithLoading: Bool { return false }
     open var sectionCollection: SectionCollection = SectionCollection()
     open func registerNibs() {}
     open func renderContent() {}
 
     convenience init() {
         self.init(frame: CGRect.zero)
+        self.isLoading = isStartWithLoading
         commonInit(sender: self, isRender: false)
         tableView.showsVerticalScrollIndicator = false
         tableView.showsHorizontalScrollIndicator = false
         tableView.isScrollEnabled = false
     }
 
-    open func configure(isLoading: Bool = false, delegate: NestedTableViewDelegate?) {
-        self.isLoading = isLoading
+    open func configure(delegate: NestedTableViewDelegate?) {
         self.nestedTableViewDelegate = delegate
     }
 

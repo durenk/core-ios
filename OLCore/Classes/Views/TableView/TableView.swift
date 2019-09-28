@@ -198,6 +198,8 @@ open class TableView: View {
             bundle = Bundle(url: url)
         }
         let nib = UINib(nibName: nibClass.className, bundle: bundle)
+        if registeredCellIdentifiers.contains(nibClass.className) { return }
+        registeredCellIdentifiers.append(nibClass.className)
         tableView.register(nib, forCellReuseIdentifier: nibClass.className)
     }
 
