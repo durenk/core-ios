@@ -56,7 +56,7 @@ open class TextArea: UITextView {
 
     private func didChange(_ textArea: TextArea) {
         guard let didChangeAction = didChangeAction else { return }
-        didChangeAction(self)
+        didChangeAction(self, textArea.text)
     }
 
     open func shouldChangeTextHandler(range: NSRange, replacementText text: String) -> Bool {

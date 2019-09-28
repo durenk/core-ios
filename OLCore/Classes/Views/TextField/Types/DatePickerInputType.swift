@@ -44,7 +44,7 @@ open class DatePickerInputType: InputType {
         textField.resignFirstResponder()
         overlay.isHidden = true
         guard let didChangeAction = textField.didChangeAction else { return }
-        didChangeAction(textField)
+        didChangeAction(textField, datePicker.date)
     }
 
     @objc private func done() {

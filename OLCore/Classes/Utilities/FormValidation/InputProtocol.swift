@@ -8,7 +8,7 @@
 
 import UIKit
 
-public typealias InputDidChangeHandler = (_ input: InputProtocol) -> Void
+public typealias InputDidChangeHandler = (_ input: InputProtocol, _ newValue: Any) -> Void
 public typealias InputDidValidationError = (_ status: ValidationStatus) -> Void
 public typealias InputDidValidationSuccess = (_ status: ValidationStatus) -> Void
 

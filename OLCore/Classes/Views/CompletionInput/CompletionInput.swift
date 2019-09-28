@@ -29,12 +29,11 @@ open class CompletionInput: Button {
     open func setup(
         name: String,
         sender: CompletionInputTableViewCell,
-        didChangeAction: @escaping InputDidChangeHandler = {_ in }
-        ) {
+        didChangeAction: @escaping InputDidChangeHandler = {_,_  in }
+    ) {
         self.name = name
         self.sender = sender
         self.didChangeAction = didChangeAction
-        
     }
 }
 

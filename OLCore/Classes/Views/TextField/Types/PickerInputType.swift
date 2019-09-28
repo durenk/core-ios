@@ -44,7 +44,7 @@ open class PickerInputType: InputType {
         textField.resignFirstResponder()
         overlay.isHidden = true
         guard let didChangeAction = textField.didChangeAction else { return }
-        didChangeAction(textField)
+        didChangeAction(textField, textField.text ?? DefaultValue.emptyString)
     }
 
     @objc private func done() {

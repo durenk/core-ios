@@ -142,7 +142,7 @@ open class RadioButton: DLRadioButton {
         }
         delegate?.radioButtonDidEndEditing(self)
         guard let didChangeAction = didChangeAction else { return }
-        didChangeAction(self)
+        didChangeAction(self, selectedOption)
     }
 
     private func setConstraintTop(item: UIView, toItem: UIView) {

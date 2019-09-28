@@ -39,16 +39,15 @@ open class DropDownViewController: FormTableViewController {
 
     private func renderSearchInputCell() {
         if !searchEnabled { return }
-        if searchInputCell == nil {
-            searchInputCell = createSearchBarCell()
-        }
+        searchInputCell = createSearchBarCell()
         guard let searchInputCell = searchInputCell else { return }
-        if searchInputCell.superview != nil { return }
         searchInputCell.frame.size.width = contentView.bounds.width
+        searchInputCell.removeFromSuperview()
         if let searchTextField = searchInputCell.getFirstTextField() {
             searchTextField.delegate = self
             searchTextField.returnKeyType = .search
             searchTextField.didChangeAction = didChangeSearchKeyword
+            searchTextField.text = searchKeyword
         }
         contentView.addSubview(searchInputCell)
         contentView.sendSubviewToBack(searchInputCell)
@@ -105,8 +104,9 @@ open class DropDownViewController: FormTableViewController {
         return nil
     }
 
-    private func didChangeSearchKeyword(_ input: InputProtocol) {
-        search(keyword: input.getText())
+    private func didChangeSearchKeyword(_ input: InputProtocol, _ newValue: Any) {
+        guard let newValue = newValue as? String else { return }
+        search(keyword: newValue)
     }
 }
 

@@ -38,6 +38,7 @@ open class TextField: UITextField {
     override open func awakeFromNib() {
         super.awakeFromNib()
         inputType = FreeTextInputType(textField: self)
+        addTarget(self, action: #selector(TextField.didChange), for: UIControl.Event.editingChanged)
     }
 
     override open func textRect(forBounds bounds: CGRect) -> CGRect {
@@ -171,11 +172,11 @@ open class TextField: UITextField {
         getInputType().didEndEditingHandler(textField)
     }
 
-    @objc func didChange(_ textField: UITextField) {
+    @objc func didChange(textField: UITextField, newValue: String) {
         guard let didChangeAction = didChangeAction else { return }
         guard let textField = textField as? TextField else { return }
         getInputType().didChangeHandler(textField)
-        didChangeAction(self)
+        didChangeAction(self, newValue)
     }
 
     open func getInputType() -> InputType {

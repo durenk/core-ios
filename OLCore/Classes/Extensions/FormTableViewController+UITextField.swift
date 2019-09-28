@@ -57,11 +57,28 @@ extension FormTableViewController: UITextFieldDelegate {
             replacementString = replacementString.digits
             result = false
         }
+        let updatedText = getUpdatedText(
+            textField,
+            shouldChangeCharactersIn: range,
+            replacementString: replacementString
+        )
         if !result {
-            let text = tf.text ?? DefaultValue.emptyString
-            tf.text = (text as NSString).replacingCharacters(in: range, with: replacementString)
+            tf.text = updatedText
         }
-        if result || initialText != tf.text { tf.didChange(tf) }
+        if result || initialText != tf.text {
+            tf.didChange(textField: tf, newValue: updatedText)
+        }
         return result
+    }
+
+    private func getUpdatedText(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> String {
+        if let text = textField.text, let textRange = Range(range, in: text) {
+            let updatedText = text.replacingCharacters(
+                in: textRange,
+                with: string
+            )
+            return updatedText
+        }
+        return DefaultValue.emptyString
     }
 }

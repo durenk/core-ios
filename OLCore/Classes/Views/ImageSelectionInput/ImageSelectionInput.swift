@@ -45,7 +45,7 @@ open class ImageSelectionInput: Button {
         settingsButtonText: String,
         permissionText: String,
         compressionQuality: CGFloat,
-        didChangeAction: @escaping InputDidChangeHandler = {_ in }
+        didChangeAction: @escaping InputDidChangeHandler = {_,_  in }
         ) {
         self.name = name
         self.sender = sender
