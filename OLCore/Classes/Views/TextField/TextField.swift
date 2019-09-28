@@ -38,7 +38,6 @@ open class TextField: UITextField {
     override open func awakeFromNib() {
         super.awakeFromNib()
         inputType = FreeTextInputType(textField: self)
-        addTarget(self, action: #selector(TextField.didChange), for: UIControl.Event.editingChanged)
     }
 
     override open func textRect(forBounds bounds: CGRect) -> CGRect {
