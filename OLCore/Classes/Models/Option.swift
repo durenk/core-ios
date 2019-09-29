@@ -14,18 +14,21 @@ open class Option {
     public var isActive: Bool = true
     public var description: String = DefaultValue.emptyString
     public var value: Any
+    public var tag: String = DefaultValue.emptyString
 
     public init(
         id: String = DefaultValue.emptyString,
         text: String = DefaultValue.emptyString,
         isActive: Bool = true,
         description: String = DefaultValue.emptyString,
-        value: Any = DefaultValue.emptyAny
+        value: Any = DefaultValue.emptyAny,
+        tag: String = DefaultValue.emptyString
     ) {
         self.id = id
         self.text = text
         self.isActive = isActive
         self.description = description
         self.value = value
+        self.tag = tag
     }
 }
