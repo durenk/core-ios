@@ -14,6 +14,7 @@ open class MonthYearPickerInputType {
     private var textField: TextField = TextField()
     private var sender: FormTableViewController = FormTableViewController()
     private var monthYearPicker = MonthYearPickerView()
+    private var displayFormat: String = DefaultValue.emptyString
     open var instructionFont: UIFont = UIFont()
     open var instructionColor: UIColor = .clear
     open var buttonFont: UIFont = UIFont()
@@ -22,10 +23,19 @@ open class MonthYearPickerInputType {
     open var borderColor: UIColor = .clear
     open var doneButtonText: String = DefaultValue.emptyString
 
-    public init(textField: TextField, instruction: String, sender: FormTableViewController, minimumDate: Date?, maximumDate: Date?, defaultValue: Date? = nil) {
+    public init(
+        textField: TextField,
+        instruction: String,
+        sender: FormTableViewController,
+        minimumDate: Date?,
+        maximumDate: Date?,
+        defaultValue: Date? = nil,
+        displayFormat: String
+    ) {
         self.textField = textField
         self.instruction = instruction
         self.sender = sender
+        self.displayFormat = displayFormat
         monthYearPicker.backgroundColor = .white
         monthYearPicker.locale = Locale(identifier: DateLocale.indonesian)
         monthYearPicker.minimumDate = minimumDate ?? Date()
@@ -43,7 +53,7 @@ open class MonthYearPickerInputType {
     }
 
     @objc private func done() {
-        textField.text = monthYearPicker.defaultDate.formatInMonthAndYear()
+        textField.text = monthYearPicker.defaultDate.formatIn(format: displayFormat)
         close()
     }
 
