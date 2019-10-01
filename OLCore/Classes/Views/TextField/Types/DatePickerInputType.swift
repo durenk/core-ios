@@ -35,14 +35,16 @@ open class DatePickerInputType: InputType {
         minimumDate: Date?,
         maximumDate: Date?,
         defaultValue: Date? = nil,
-        calendarButtonImage: UIImage = CoreStyle.Image.calendarPicker
+        calendarButtonImage: UIImage = CoreStyle.Image.calendarPicker,
+        displayFormat: String = DateFormat.date,
+        locale: String = DateLocale.indonesian
     ) {
         self.textField = textField
         self.instruction = instruction
         self.presenter = presenter
         self.calendarButtonImage = calendarButtonImage
         datePicker.backgroundColor = .white
-        datePicker.locale = Locale(identifier: DateLocale.indonesian)
+        datePicker.locale = Locale(identifier: locale)
         datePicker.minimumDate = minimumDate
         datePicker.maximumDate = maximumDate
         datePicker.datePickerMode = .date
