@@ -15,13 +15,10 @@ open class MonthYearPickerInputType {
     private var sender: FormTableViewController = FormTableViewController()
     private var monthYearPicker = MonthYearPickerView()
     private var displayFormat: String = DefaultValue.emptyString
-    open var instructionFont: UIFont = UIFont()
-    open var instructionColor: UIColor = .clear
-    open var buttonFont: UIFont = UIFont()
-    open var buttonColor: UIColor = .clear
-    open var borderWidth: CGFloat = 0
-    open var borderColor: UIColor = .clear
     open var doneButtonText: String = DefaultValue.emptyString
+    public var style: DatePickerViewStyle = DefaultDatePickerStyle() {
+        didSet { applyStyle() }
+    }
 
     public init(
         textField: TextField,
@@ -36,7 +33,7 @@ open class MonthYearPickerInputType {
         self.instruction = instruction
         self.sender = sender
         self.displayFormat = displayFormat
-        monthYearPicker.backgroundColor = .white
+        monthYearPicker.backgroundColor = style.backgroundColor
         monthYearPicker.locale = Locale(identifier: DateLocale.indonesian)
         monthYearPicker.minimumDate = minimumDate ?? Date()
         monthYearPicker.maximumDate = maximumDate ?? Date()
@@ -67,9 +64,9 @@ open class MonthYearPickerInputType {
             ],
             animated: false
         )
-        toolBar.barStyle = .default
-        toolBar.tintColor = buttonColor
-        toolBar.isTranslucent = false
+        toolBar.barStyle = style.toolBarStyle
+        toolBar.tintColor = style.buttonColor
+        toolBar.isTranslucent = style.isToolBarTranslucent
         toolBar.sizeToFit()
         toolBar.isUserInteractionEnabled = true
         textField.inputAccessoryView = toolBar
@@ -82,8 +79,8 @@ open class MonthYearPickerInputType {
             target: self,
             action: #selector(self.done)
         )
-        button.setTitleTextAttributes([NSAttributedString.Key.font: buttonFont], for: .normal)
-        button.setTitleTextAttributes([NSAttributedString.Key.font: buttonFont], for: .highlighted)
+        button.setTitleTextAttributes([NSAttributedString.Key.font: style.buttonFont], for: .normal)
+        button.setTitleTextAttributes([NSAttributedString.Key.font: style.buttonFont], for: .highlighted)
         return button
     }
 
@@ -98,8 +95,8 @@ open class MonthYearPickerInputType {
     private func createInstruction() -> UIBarButtonItem {
         let instructionLabel = Label()
         instructionLabel.text = instruction
-        instructionLabel.font = instructionFont
-        instructionLabel.textColor = instructionColor
+        instructionLabel.font = style.instructionFont
+        instructionLabel.textColor = style.instructionColor
         return UIBarButtonItem(customView: instructionLabel)
     }
 
@@ -114,8 +111,12 @@ open class MonthYearPickerInputType {
     }
 
     private func renderBorder() {
-        monthYearPicker.layer.borderWidth = borderWidth
-        monthYearPicker.layer.borderColor = borderColor.cgColor
+        monthYearPicker.layer.borderWidth = style.borderWidth
+        monthYearPicker.layer.borderColor = style.borderColor.cgColor
+    }
+    
+    private func applyStyle() {
+        render()
     }
 }
 
