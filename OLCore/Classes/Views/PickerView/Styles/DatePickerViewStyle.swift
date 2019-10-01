@@ -22,4 +22,5 @@ import UIKit
     var calendarButtonImage: UIImage { get }
     var calendarButtonStyle: ButtonStyle { get }
     var textFieldTintColor: UIColor { get }
+    var displayFormat: String { get }
 }

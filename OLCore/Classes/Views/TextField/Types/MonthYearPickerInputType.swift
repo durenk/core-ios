@@ -12,9 +12,10 @@ open class MonthYearPickerInputType {
     private var overlay: Button = Button()
     private var instruction: String = DefaultValue.emptyString
     private var textField: TextField = TextField()
-    private var sender: FormTableViewController = FormTableViewController()
+    private var presenter: UINavigationController = UINavigationController()
     private var monthYearPicker = MonthYearPickerView()
     private var displayFormat: String = DefaultValue.emptyString
+    open var locale: Locale = Locale(identifier: DateLocale.indonesian)
     open var doneButtonText: String = DefaultValue.emptyString
     public var style: DatePickerViewStyle = DefaultDatePickerStyle() {
         didSet { applyStyle() }
@@ -23,24 +24,24 @@ open class MonthYearPickerInputType {
     public init(
         textField: TextField,
         instruction: String,
-        sender: FormTableViewController,
+        presenter: UINavigationController,
         minimumDate: Date?,
-        maximumDate: Date?,
-        defaultValue: Date? = nil,
-        displayFormat: String,
-        locale: Locale
+        maximumDate: Date?
     ) {
         self.textField = textField
         self.instruction = instruction
-        self.sender = sender
-        self.displayFormat = displayFormat
+        self.presenter = presenter
+        self.displayFormat = style.displayFormat
         monthYearPicker.backgroundColor = style.backgroundColor
         monthYearPicker.locale = locale
         monthYearPicker.minimumDate = minimumDate ?? Date()
         monthYearPicker.maximumDate = maximumDate ?? Date()
-        guard let date = defaultValue else { return }
-        monthYearPicker.defaultDate = date
-        self.textField.text = date.formatInMonthAndYear()
+    }
+
+    public func setValue(_ value: Date?) {
+        guard let value = value else { return }
+        monthYearPicker.defaultDate = value
+        textField.text = value.formatInMonthAndYear(locale: locale)
     }
 
     @objc private func close() {
@@ -51,7 +52,7 @@ open class MonthYearPickerInputType {
     }
 
     @objc private func done() {
-        textField.text = monthYearPicker.defaultDate.formatIn(format: displayFormat)
+        textField.text = monthYearPicker.defaultDate.formatIn(format: displayFormat, locale: locale)
         close()
     }
 
@@ -103,13 +104,18 @@ open class MonthYearPickerInputType {
 
     private func createOverlay() {
         if !style.isOverlayVisible { return }
-        overlay = Button(frame: CGRect(x: 0, y: 0, width: sender.view.frame.width, height: sender.view.frame.height))
+        overlay = Button(frame: CGRect(
+            x: 0,
+            y: 0,
+            width: presenter.view.frame.width,
+            height: presenter.view.frame.height
+        ))
         overlay.didPressAction = close
         overlay.backgroundColor = UIColor.black
         overlay.alpha = 0.8
         overlay.isHidden =  true
-        sender.navigationController?.view.addSubview(overlay)
-        sender.navigationController?.view.bringSubviewToFront(overlay)
+        presenter.view.addSubview(overlay)
+        presenter.view.bringSubviewToFront(overlay)
     }
 
     private func renderBorder() {

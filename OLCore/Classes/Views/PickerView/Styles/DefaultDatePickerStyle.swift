@@ -22,4 +22,5 @@ class DefaultDatePickerStyle: DatePickerViewStyle {
     var calendarButtonImage: UIImage = UIImage()
     var calendarButtonStyle: ButtonStyle = DefaultButtonStyle()
     var textFieldTintColor: UIColor = .clear
+    var displayFormat: String = DefaultValue.emptyString
 }
