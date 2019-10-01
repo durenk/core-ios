@@ -8,7 +8,7 @@
 import UIKit
 
 open class MonthYearPickerInputType {
-    open var identifier: InputTypeIdentifier = .monthyearpicker
+    open var identifier: InputTypeIdentifier = .monthYearpicker
     private var overlay: Button = Button()
     private var instruction: String = DefaultValue.emptyString
     private var textField: TextField = TextField()
@@ -65,7 +65,7 @@ open class MonthYearPickerInputType {
             animated: false
         )
         toolBar.barStyle = style.toolBarStyle
-        toolBar.tintColor = style.buttonColor
+        toolBar.tintColor = style.toolBarTintColor
         toolBar.isTranslucent = style.isToolBarTranslucent
         toolBar.sizeToFit()
         toolBar.isUserInteractionEnabled = true
@@ -79,8 +79,8 @@ open class MonthYearPickerInputType {
             target: self,
             action: #selector(self.done)
         )
-        button.setTitleTextAttributes([NSAttributedString.Key.font: style.buttonFont], for: .normal)
-        button.setTitleTextAttributes([NSAttributedString.Key.font: style.buttonFont], for: .highlighted)
+        button.setTitleTextAttributes([NSAttributedString.Key.font: style.doneButtonFont], for: .normal)
+        button.setTitleTextAttributes([NSAttributedString.Key.font: style.doneButtonFont], for: .highlighted)
         return button
     }
 
@@ -101,6 +101,7 @@ open class MonthYearPickerInputType {
     }
 
     private func createOverlay() {
+        if !style.isOverlayVisible { return }
         overlay = Button(frame: CGRect(x: 0, y: 0, width: sender.view.frame.width, height: sender.view.frame.height))
         overlay.didPressAction = close
         overlay.backgroundColor = UIColor.black
@@ -114,14 +115,28 @@ open class MonthYearPickerInputType {
         monthYearPicker.layer.borderWidth = style.borderWidth
         monthYearPicker.layer.borderColor = style.borderColor.cgColor
     }
-    
+
+    private func renderCalendarButton() {
+        self.textField.setRightButton(
+            icon: style.calendarButtonImage,
+            style: style.calendarButtonStyle,
+            action: {
+                self.didBeginEditingHandler(self.textField)
+            }
+        )
+        self.textField.tintColor = style.textFieldTintColor
+    }
+
     private func applyStyle() {
         render()
     }
 }
 
 extension MonthYearPickerInputType: InputType {
-    open func didEndEditingHandler(_ textField: TextField) {}
+    open func didEndEditingHandler(_ textField: TextField) {
+        if !doneButtonText.isEmpty { return }
+        textField.text = monthYearPicker.defaultDate.formatIn(format: displayFormat)
+    }
 
     open func didChangeHandler(_ textField: TextField) {}
 
@@ -129,12 +144,14 @@ extension MonthYearPickerInputType: InputType {
 
     open func render() {
         textField.inputView = monthYearPicker
+        renderCalendarButton()
         createToolBar()
         createOverlay()
         renderBorder()
     }
 
     open func didBeginEditingHandler(_ textField: TextField) {
+        textField.becomeFirstResponder()
         overlay.isHidden = false
     }
 

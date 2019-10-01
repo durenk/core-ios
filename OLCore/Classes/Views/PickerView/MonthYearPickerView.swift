@@ -13,8 +13,8 @@ open class MonthYearPickerView: UIPickerView {
             goToDefaultDate()
         }
     }
-    var months: [String] = []
-    var years: [Int] = []
+    var months: [String] = [String]()
+    var years: [Int] = [Int]()
     var locale: Locale = Locale(identifier: DateLocale.indonesian)
 
     override init(frame: CGRect) {
@@ -35,8 +35,8 @@ open class MonthYearPickerView: UIPickerView {
     }
 
     func commonSetup() {
-        var years: [Int] = []
-        if years.count == 0 {
+        var years: [Int] = [Int]()
+        if years.isEmpty {
             guard let calendar = NSCalendar(identifier: NSCalendar.Identifier.gregorian) else { return }
             let minimumYear = calendar.component(.year, from: minimumDate)
             let maximumYear = calendar.component(.year, from: maximumDate)
@@ -45,7 +45,7 @@ open class MonthYearPickerView: UIPickerView {
             }
         }
         self.years = years
-        var months: [String] = []
+        var months: [String] = [String]()
         var month = 0
         let formatter = DateFormatter()
         formatter.locale = self.locale

@@ -14,7 +14,7 @@ public enum InputTypeIdentifier {
     case datepicker
     case picker
     case amount
-    case monthyearpicker
+    case monthYearpicker
 }
 
 public protocol InputType {
