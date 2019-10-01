@@ -27,14 +27,15 @@ open class MonthYearPickerInputType {
         minimumDate: Date?,
         maximumDate: Date?,
         defaultValue: Date? = nil,
-        displayFormat: String
+        displayFormat: String,
+        locale: Locale
     ) {
         self.textField = textField
         self.instruction = instruction
         self.sender = sender
         self.displayFormat = displayFormat
         monthYearPicker.backgroundColor = style.backgroundColor
-        monthYearPicker.locale = Locale(identifier: DateLocale.indonesian)
+        monthYearPicker.locale = locale
         monthYearPicker.minimumDate = minimumDate ?? Date()
         monthYearPicker.maximumDate = maximumDate ?? Date()
         guard let date = defaultValue else { return }
