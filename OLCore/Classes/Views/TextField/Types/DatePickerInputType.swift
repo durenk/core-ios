@@ -15,7 +15,7 @@ open class DatePickerInputType: InputType {
     private var textField: TextField = TextField()
     private var presenter: UINavigationController = UINavigationController()
     private var datePicker = UIDatePicker()
-    private var calendarImage: UIImage = CoreStyle.Image.calendarPicker
+    private var calendarButtonImage: UIImage = CoreStyle.Image.calendarPicker
     open var instructionFont: UIFont = UIFont()
     open var instructionColor: UIColor = .clear
     open var buttonFont: UIFont = UIFont()
@@ -35,12 +35,12 @@ open class DatePickerInputType: InputType {
         minimumDate: Date?,
         maximumDate: Date?,
         defaultValue: Date? = nil,
-        calendarImage: UIImage = CoreStyle.Image.calendarPicker
+        calendarButtonImage: UIImage = CoreStyle.Image.calendarPicker
     ) {
         self.textField = textField
         self.instruction = instruction
         self.presenter = presenter
-        self.calendarImage = calendarImage
+        self.calendarButtonImage = calendarButtonImage
         datePicker.backgroundColor = .white
         datePicker.locale = Locale(identifier: DateLocale.indonesian)
         datePicker.minimumDate = minimumDate
@@ -130,7 +130,7 @@ open class DatePickerInputType: InputType {
 
     private func renderCalendarButton() {
         textField.setRightButton(
-            icon: calendarImage,
+            icon: calendarButtonImage,
             style: calendarButtonStyle,
             action: {
                 self.didBeginEditingHandler(self.textField)
