@@ -48,7 +48,7 @@ open class MonthYearPickerInputType {
         textField.resignFirstResponder()
         overlay.isHidden = true
         guard let didChangeAction = textField.didChangeAction else { return }
-        didChangeAction(textField)
+        didChangeAction(textField, monthYearPicker.defaultDate)
     }
 
     @objc private func done() {
