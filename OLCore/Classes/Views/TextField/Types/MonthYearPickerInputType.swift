@@ -14,10 +14,13 @@ open class MonthYearPickerInputType {
     private var textField: TextField = TextField()
     private var presenter: UINavigationController = UINavigationController()
     private var monthYearPicker = MonthYearPickerView()
-    private var displayFormat: String = DefaultValue.emptyString
-    open var locale: Locale = Locale(identifier: DateLocale.indonesian)
     open var doneButtonText: String = DefaultValue.emptyString
-    public var style: DatePickerViewStyle = DefaultDatePickerStyle() {
+    open var locale: Locale = Locale(identifier: DateLocale.indonesian) {
+        didSet {
+            monthYearPicker.locale = locale
+        }
+    }
+    public var style: DatePickerStyle = DefaultDatePickerStyle() {
         didSet { applyStyle() }
     }
 
@@ -31,9 +34,7 @@ open class MonthYearPickerInputType {
         self.textField = textField
         self.instruction = instruction
         self.presenter = presenter
-        self.displayFormat = style.displayFormat
         monthYearPicker.backgroundColor = style.backgroundColor
-        monthYearPicker.locale = locale
         monthYearPicker.minimumDate = minimumDate ?? Date()
         monthYearPicker.maximumDate = maximumDate ?? Date()
     }
@@ -52,7 +53,10 @@ open class MonthYearPickerInputType {
     }
 
     @objc private func done() {
-        textField.text = monthYearPicker.defaultDate.formatIn(format: displayFormat, locale: locale)
+        textField.text = monthYearPicker.defaultDate.formatIn(
+            format: style.displayFormat,
+            locale: locale
+        )
         close()
     }
 
@@ -81,8 +85,14 @@ open class MonthYearPickerInputType {
             target: self,
             action: #selector(self.done)
         )
-        button.setTitleTextAttributes([NSAttributedString.Key.font: style.doneButtonFont], for: .normal)
-        button.setTitleTextAttributes([NSAttributedString.Key.font: style.doneButtonFont], for: .highlighted)
+        button.setTitleTextAttributes(
+            [NSAttributedString.Key.font: style.doneButtonFont],
+            for: .normal
+        )
+        button.setTitleTextAttributes(
+            [NSAttributedString.Key.font: style.doneButtonFont],
+            for: .highlighted
+        )
         return button
     }
 
@@ -142,7 +152,7 @@ open class MonthYearPickerInputType {
 extension MonthYearPickerInputType: InputType {
     open func didEndEditingHandler(_ textField: TextField) {
         if !doneButtonText.isEmpty { return }
-        textField.text = monthYearPicker.defaultDate.formatIn(format: displayFormat)
+        textField.text = monthYearPicker.defaultDate.formatIn(format: style.displayFormat)
     }
 
     open func didChangeHandler(_ textField: TextField) {}

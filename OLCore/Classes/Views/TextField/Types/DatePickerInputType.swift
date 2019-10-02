@@ -15,16 +15,16 @@ open class DatePickerInputType: InputType {
     private var textField: TextField = TextField()
     private var presenter: UINavigationController = UINavigationController()
     private var datePicker = UIDatePicker()
-    private var calendarButtonImage: UIImage = CoreStyle.Image.calendarPicker
-    open var instructionFont: UIFont = UIFont()
-    open var instructionColor: UIColor = .clear
-    open var buttonFont: UIFont = UIFont()
-    open var buttonColor: UIColor = .clear
-    open var borderWidth: CGFloat = 0
-    open var borderColor: UIColor = .clear
     open var doneButtonText: String = DefaultValue.emptyString
-    open var calendarButtonStyle: ButtonStyle = DefaultButtonStyle()
-    open var isOverlayVisible: Bool = true
+    open var locale: Locale = Locale(identifier: DateLocale.indonesian) {
+        didSet {
+            datePicker.locale = locale
+        }
+    }
+    public var style: DatePickerStyle = DefaultDatePickerStyle() {
+        didSet { applyStyle() }
+    }
+
     open func didChangeHandler(_ textField: TextField) {}
     open func resetValue() {}
 
@@ -33,24 +33,19 @@ open class DatePickerInputType: InputType {
         instruction: String = DefaultValue.emptyString,
         presenter: UINavigationController,
         minimumDate: Date?,
-        maximumDate: Date?,
-        defaultValue: Date? = nil,
-        calendarButtonImage: UIImage = CoreStyle.Image.calendarPicker,
-        displayFormat: String = DateFormat.date,
-        locale: String = DateLocale.indonesian
+        maximumDate: Date?
     ) {
         self.textField = textField
         self.instruction = instruction
         self.presenter = presenter
-        self.calendarButtonImage = calendarButtonImage
         datePicker.backgroundColor = .white
-        datePicker.locale = Locale(identifier: locale)
         datePicker.minimumDate = minimumDate
         datePicker.maximumDate = maximumDate
         datePicker.datePickerMode = .date
-        guard let date = defaultValue else { return }
-        datePicker.date = date
-        self.textField.text = date.formatInFullDate()
+    }
+
+    private func applyStyle() {
+        render()
     }
 
     @objc private func close() {
@@ -73,9 +68,9 @@ open class DatePickerInputType: InputType {
             createToolbarSpacing(),
             createDoneButton()
         ], animated: false)
-        toolBar.barStyle = .default
-        toolBar.tintColor = buttonColor
-        toolBar.isTranslucent = false
+        toolBar.barStyle = style.toolBarStyle
+        toolBar.tintColor = style.toolBarTintColor
+        toolBar.isTranslucent = style.isToolBarTranslucent
         toolBar.sizeToFit()
         toolBar.isUserInteractionEnabled = true
         textField.inputAccessoryView = toolBar
@@ -88,8 +83,14 @@ open class DatePickerInputType: InputType {
             target: self,
             action: #selector(self.done)
         )
-        button.setTitleTextAttributes([NSAttributedString.Key.font: buttonFont], for: .normal)
-        button.setTitleTextAttributes([NSAttributedString.Key.font: buttonFont], for: .highlighted)
+        button.setTitleTextAttributes(
+            [NSAttributedString.Key.font: style.doneButtonFont],
+            for: .normal
+        )
+        button.setTitleTextAttributes(
+            [NSAttributedString.Key.font: style.doneButtonFont],
+            for: .highlighted
+        )
         return button
     }
 
@@ -104,13 +105,13 @@ open class DatePickerInputType: InputType {
     private func createInstruction() -> UIBarButtonItem {
         let instructionLabel = Label()
         instructionLabel.text = instruction
-        instructionLabel.font = instructionFont
-        instructionLabel.textColor = instructionColor
+        instructionLabel.font = style.instructionFont
+        instructionLabel.textColor = style.instructionColor
         return UIBarButtonItem(customView: instructionLabel)
     }
 
     private func createOverlay() {
-        if !isOverlayVisible { return }
+        if !style.isOverlayVisible { return }
         overlay = Button(frame: CGRect(
             x: 0,
             y: 0,
@@ -126,14 +127,14 @@ open class DatePickerInputType: InputType {
     }
 
     private func renderBorder() {
-        datePicker.layer.borderWidth = borderWidth
-        datePicker.layer.borderColor = borderColor.cgColor
+        datePicker.layer.borderWidth = style.borderWidth
+        datePicker.layer.borderColor = style.borderColor.cgColor
     }
 
     private func renderCalendarButton() {
         textField.setRightButton(
-            icon: calendarButtonImage,
-            style: calendarButtonStyle,
+            icon: style.calendarButtonImage,
+            style: style.calendarButtonStyle,
             action: {
                 self.didBeginEditingHandler(self.textField)
             }
@@ -155,6 +156,12 @@ open class DatePickerInputType: InputType {
 
     open func getValue() -> AnyObject {
         return datePicker.date as AnyObject
+    }
+
+    public func setValue(_ value: Date?) {
+        guard let value = value else { return }
+        datePicker.date = value
+        textField.text = datePicker.date.formatInFullDate()
     }
 
     open func getDisplayText() -> String {
