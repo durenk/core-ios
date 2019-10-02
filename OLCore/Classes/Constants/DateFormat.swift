@@ -12,6 +12,7 @@ public struct DateFormat {
     public static let date = "dd MMM yyyy"
     public static let month = "LLL"
     public static let dayWithMonth = "dd MMM"
+    public static let monthWithYear = "MMMM yyyy"
     public static let day = "d"
     public static let periodDisplay = "MMM yyyy"
     public static let periodValue = "yyyyMM"

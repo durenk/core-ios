@@ -9,41 +9,45 @@
 import Foundation
 
 extension Date {
-    public func formatInMonth() -> String {
-        return formatIn(format: DateFormat.month)
+    public func formatInMonthAndYear(locale: Locale? = nil) -> String {
+        return formatIn(format: DateFormat.monthWithYear, locale: locale)
     }
 
-    public func formatInFullDate() -> String {
-        return formatIn(format: DateFormat.date)
+    public func formatInMonth(locale: Locale? = nil) -> String {
+        return formatIn(format: DateFormat.month, locale: locale)
+    }
+
+    public func formatInFullDate(locale: Locale? = nil) -> String {
+        return formatIn(format: DateFormat.date, locale: locale)
     }
     
-    public func formatInDay() -> String {
-        return formatIn(format: DateFormat.day)
+    public func formatInDay(locale: Locale? = nil) -> String {
+        return formatIn(format: DateFormat.day, locale: locale)
     }
 
-    public func formatInDayWithMonth() -> String {
-        return formatIn(format: DateFormat.dayWithMonth)
+    public func formatInDayWithMonth(locale: Locale? = nil) -> String {
+        return formatIn(format: DateFormat.dayWithMonth, locale: locale)
     }
 
-    public func formatInPeriodDisplay() -> String {
-        return formatIn(format: DateFormat.periodDisplay)
+    public func formatInPeriodDisplay(locale: Locale? = nil) -> String {
+        return formatIn(format: DateFormat.periodDisplay, locale: locale)
     }
 
-    public func formatInPeriodValue() -> Int {
-        return Int(formatIn(format: DateFormat.periodValue)) ?? DefaultValue.emptyInt
+    public func formatInPeriodValue(locale: Locale? = nil) -> Int {
+        return Int(formatIn(format: DateFormat.periodValue, locale: locale)) ?? DefaultValue.emptyInt
     }
 
-    public func formatInPeriodDB() -> String {
-        return formatIn(format: DateFormat.periodDB)
+    public func formatInPeriodDB(locale: Locale? = nil) -> String {
+        return formatIn(format: DateFormat.periodDB, locale: locale)
     }
 
-    public func formatInDBDate() -> String {
-        return formatIn(format: DateFormat.dBDate)
+    public func formatInDBDate(locale: Locale? = nil) -> String {
+        return formatIn(format: DateFormat.dBDate, locale: locale)
     }
 
-    public func formatIn(format: String) -> String {
+    public func formatIn(format: String, locale: Locale? = nil) -> String {
         let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: Language.bahasa)
+        formatter.locale = locale ?? Locale(identifier: Language.bahasa)
         formatter.dateFormat = format
         return formatter.string(from: self)
     }
