@@ -28,20 +28,19 @@ open class MonthYearPickerInputType {
         textField: TextField,
         instruction: String = DefaultValue.emptyString,
         presenter: UINavigationController,
-        minimumDate: Date?,
-        maximumDate: Date?
+        minimumDate: Date,
+        maximumDate: Date
     ) {
         self.textField = textField
         self.instruction = instruction
         self.presenter = presenter
+        monthYearPicker.configure(minimumDate: minimumDate, maximumDate: maximumDate)
         monthYearPicker.backgroundColor = style.backgroundColor
-        monthYearPicker.minimumDate = minimumDate ?? Date()
-        monthYearPicker.maximumDate = maximumDate ?? Date()
     }
 
     public func setValue(_ value: Date?) {
         guard let value = value else { return }
-        monthYearPicker.defaultDate = value
+        monthYearPicker.selectedDate = value
         textField.text = value.formatIn(
             format: style.displayFormat,
             locale: locale
@@ -53,11 +52,11 @@ open class MonthYearPickerInputType {
         textField.resignFirstResponder()
         overlay.isHidden = true
         guard let didChangeAction = textField.didChangeAction else { return }
-        didChangeAction(textField, monthYearPicker.defaultDate)
+        didChangeAction(textField, monthYearPicker.selectedDate)
     }
 
     @objc private func done() {
-        setValue(monthYearPicker.defaultDate)
+        setValue(monthYearPicker.selectedDate)
         close()
     }
 
@@ -153,7 +152,7 @@ open class MonthYearPickerInputType {
 extension MonthYearPickerInputType: InputType {
     open func didEndEditingHandler(_ textField: TextField) {
         if !doneButtonText.isEmpty { return }
-        setValue(monthYearPicker.defaultDate)
+        setValue(monthYearPicker.selectedDate)
     }
 
     open func didChangeHandler(_ textField: TextField) {}
@@ -174,7 +173,7 @@ extension MonthYearPickerInputType: InputType {
     }
 
     open func getValue() -> AnyObject {
-        return monthYearPicker.defaultDate as AnyObject
+        return monthYearPicker.selectedDate as AnyObject
     }
 
     open func getDisplayText() -> String {
