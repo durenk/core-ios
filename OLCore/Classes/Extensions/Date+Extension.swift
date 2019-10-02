@@ -59,6 +59,22 @@ extension Date {
         return end - start
     }
 
+    public func getNextYear(_ numberOfYear: Int = 1) -> Date {
+        return Calendar.current.date(byAdding: .year, value: numberOfYear, to: self) ?? self
+    }
+
+    public func getNextYear(_ numberOfYear: Int = 1) -> Int64 {
+        return Int64(getNextYear(numberOfYear).timeIntervalSince1970)
+    }
+
+    public func getPreviousYear(_ numberOfYear: Int = 1) -> Date {
+        return Calendar.current.date(byAdding: .year, value: numberOfYear * -1, to: self) ?? self
+    }
+
+    public func getPreviousYear(_ numberOfYear: Int = 1) -> Int64 {
+        return Int64(getNextYear(numberOfYear).timeIntervalSince1970)
+    }
+
     public func getNextMonth(_ numberOfMonths: Int = 1) -> Date {
         return Calendar.current.date(byAdding: .month, value: numberOfMonths, to: self) ?? self
     }
