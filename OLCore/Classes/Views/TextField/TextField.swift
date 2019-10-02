@@ -171,7 +171,7 @@ open class TextField: UITextField {
         getInputType().didEndEditingHandler(textField)
     }
 
-    @objc func didChange(textField: UITextField, newValue: String) {
+    @objc func didChange(textField: UITextField, newValue: Any) {
         guard let didChangeAction = didChangeAction else { return }
         guard let textField = textField as? TextField else { return }
         getInputType().didChangeHandler(textField)

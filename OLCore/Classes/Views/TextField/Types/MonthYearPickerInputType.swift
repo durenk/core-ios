@@ -46,6 +46,7 @@ open class MonthYearPickerInputType {
             format: style.displayFormat,
             locale: locale
         )
+        textField.didChange(textField: textField, newValue: value)
     }
 
     @objc private func close() {

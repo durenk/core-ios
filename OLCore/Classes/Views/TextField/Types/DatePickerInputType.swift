@@ -165,6 +165,7 @@ open class DatePickerInputType: InputType {
             format: style.displayFormat,
             locale: locale
         )
+        textField.didChange(textField: textField, newValue: value)
     }
 
     open func getDisplayText() -> String {
