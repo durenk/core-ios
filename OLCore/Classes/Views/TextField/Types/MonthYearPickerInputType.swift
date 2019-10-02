@@ -26,7 +26,7 @@ open class MonthYearPickerInputType {
 
     public init(
         textField: TextField,
-        instruction: String,
+        instruction: String = DefaultValue.emptyString,
         presenter: UINavigationController,
         minimumDate: Date?,
         maximumDate: Date?
