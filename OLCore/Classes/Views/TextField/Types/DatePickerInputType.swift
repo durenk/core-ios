@@ -56,7 +56,7 @@ open class DatePickerInputType: InputType {
     }
 
     @objc private func done() {
-        textField.text = datePicker.date.formatInFullDate()
+        setValue(datePicker.date)
         close()
     }
 
@@ -161,7 +161,10 @@ open class DatePickerInputType: InputType {
     public func setValue(_ value: Date?) {
         guard let value = value else { return }
         datePicker.date = value
-        textField.text = datePicker.date.formatInFullDate()
+        textField.text = value.formatIn(
+            format: style.displayFormat,
+            locale: locale
+        )
     }
 
     open func getDisplayText() -> String {
@@ -174,6 +177,6 @@ open class DatePickerInputType: InputType {
 
     open func didEndEditingHandler(_ textField: TextField) {
         if !doneButtonText.isEmpty { return }
-        textField.text = datePicker.date.formatInFullDate()
+        setValue(datePicker.date)
     }
 }

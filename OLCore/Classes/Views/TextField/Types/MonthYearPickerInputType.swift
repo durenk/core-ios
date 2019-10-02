@@ -42,7 +42,10 @@ open class MonthYearPickerInputType {
     public func setValue(_ value: Date?) {
         guard let value = value else { return }
         monthYearPicker.defaultDate = value
-        textField.text = value.formatInMonthAndYear(locale: locale)
+        textField.text = value.formatIn(
+            format: style.displayFormat,
+            locale: locale
+        )
     }
 
     @objc private func close() {
@@ -53,10 +56,7 @@ open class MonthYearPickerInputType {
     }
 
     @objc private func done() {
-        textField.text = monthYearPicker.defaultDate.formatIn(
-            format: style.displayFormat,
-            locale: locale
-        )
+        setValue(monthYearPicker.defaultDate)
         close()
     }
 
@@ -152,7 +152,7 @@ open class MonthYearPickerInputType {
 extension MonthYearPickerInputType: InputType {
     open func didEndEditingHandler(_ textField: TextField) {
         if !doneButtonText.isEmpty { return }
-        textField.text = monthYearPicker.defaultDate.formatIn(format: style.displayFormat)
+        setValue(monthYearPicker.defaultDate)
     }
 
     open func didChangeHandler(_ textField: TextField) {}
