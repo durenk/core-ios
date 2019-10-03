@@ -15,6 +15,6 @@ open class ImageView: UIImageView {
 
     override open func awakeFromNib() {
         super.awakeFromNib()
-        backgroundColor = CoreStyle.Color.ImageBackground
+        backgroundColor = CoreStyle.Color.imageBackground
     }
 }

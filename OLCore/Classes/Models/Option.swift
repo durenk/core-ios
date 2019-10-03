@@ -8,19 +8,19 @@
 
 import UIKit
 
-open class Option: Model {
-    public var id: String = DefaultValue.EmptyString
-    public var text: String = DefaultValue.EmptyString
+open class Option {
+    public var id: String = DefaultValue.emptyString
+    public var text: String = DefaultValue.emptyString
     public var isActive: Bool = true
-    public var description: String = DefaultValue.EmptyString
+    public var description: String = DefaultValue.emptyString
     public var value: Any
 
     public init(
-        id: String = DefaultValue.EmptyString,
-        text: String = DefaultValue.EmptyString,
+        id: String = DefaultValue.emptyString,
+        text: String = DefaultValue.emptyString,
         isActive: Bool = true,
-        description: String = DefaultValue.EmptyString,
-        value: Any = DefaultValue.EmptyAny
+        description: String = DefaultValue.emptyString,
+        value: Any = DefaultValue.emptyAny
     ) {
         self.id = id
         self.text = text

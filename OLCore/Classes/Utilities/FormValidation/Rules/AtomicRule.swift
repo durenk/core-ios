@@ -12,16 +12,16 @@ public class AtomicRule: Rule {
     private var coupleInputs: [InputProtocol] = [InputProtocol]()
     private var extraValidator: InputValidator?
 
-    public init(name: String, coupleInputs: [InputProtocol], extraValidator: InputValidator? = nil, message: String = DefaultValue.EmptyString) {
+    public init(name: String, coupleInputs: [InputProtocol], extraValidator: InputValidator? = nil, message: String = DefaultValue.emptyString) {
         super.init(name: name, message: message)
         self.coupleInputs = coupleInputs
         self.extraValidator = extraValidator
-        if message != DefaultValue.EmptyString { return }
+        if message != DefaultValue.emptyString { return }
         self.message = String(format: ValidationErrorMessage.instance.getErrorMessageFormat(AtomicRule.className), name)
     }
 
     override public func validate(_ value: String) -> ValidationStatus {
-        let status = super.validate(value)
+        status = super.validate(value)
         if value.isEmpty {
             for coupleInput in coupleInputs {
                 if !coupleInput.getText().isEmpty {

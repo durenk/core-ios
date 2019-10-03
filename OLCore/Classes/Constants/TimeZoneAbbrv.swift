@@ -9,5 +9,5 @@
 import Foundation
 
 public struct TimeZoneAbbrv {
-    public static let GMTZero = "GMT+0:00"
+    public static let gmtZero = "GMT+0:00"
 }

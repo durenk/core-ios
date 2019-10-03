@@ -52,7 +52,7 @@ extension TextArea {
 
     private func removeBezelBorder() {
         layer.borderColor = UIColor.clear.cgColor
-        layer.borderWidth = DefaultValue.EmptyCGFloat
-        layer.cornerRadius = DefaultValue.EmptyCGFloat
+        layer.borderWidth = DefaultValue.emptyCGFloat
+        layer.cornerRadius = DefaultValue.emptyCGFloat
     }
 }

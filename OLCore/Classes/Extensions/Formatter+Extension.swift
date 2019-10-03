@@ -11,7 +11,7 @@ import Foundation
 extension Formatter {
     public static let thousandSeparator: NumberFormatter = {
         let formatter = NumberFormatter()
-        formatter.groupingSeparator = Separator.Thousand
+        formatter.groupingSeparator = Separator.thousand
         formatter.numberStyle = .decimal
         return formatter
     }()

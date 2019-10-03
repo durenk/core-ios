@@ -9,19 +9,24 @@
 import Foundation
 
 open class Rule: NSObject {
-    public var name: String = DefaultValue.EmptyString
-    public var message: String = DefaultValue.EmptyString
+    internal var status: ValidationStatus = ValidationStatus()
+    public var name: String = DefaultValue.emptyString
+    public var message: String = DefaultValue.emptyString
 
-    public init(name: String = DefaultValue.EmptyString, message: String = DefaultValue.EmptyString) {
+    public init(name: String = DefaultValue.emptyString, message: String = DefaultValue.emptyString) {
         super.init()
         self.name = name
         self.message = message
     }
 
     open func validate(_ value: String) -> ValidationStatus {
-        let status = ValidationStatus()
+        resetStatus()
         status.isValid = true
         status.message = message
         return status
+    }
+
+    open func resetStatus() {
+        status = ValidationStatus()
     }
 }

@@ -11,7 +11,7 @@ import UIKit
 open class DatePickerInputType: InputType {
     open var identifier: InputTypeIdentifier = .datepicker
     private var overlay: Button = Button()
-    private var instruction: String = DefaultValue.EmptyString
+    private var instruction: String = DefaultValue.emptyString
     private var textField: TextField = TextField()
     private var sender: FormTableViewController = FormTableViewController()
     private var datePicker = UIDatePicker()
@@ -21,7 +21,7 @@ open class DatePickerInputType: InputType {
     open var buttonColor: UIColor = .clear
     open var borderWidth: CGFloat = 0
     open var borderColor: UIColor = .clear
-    open var doneButtonText: String = DefaultValue.EmptyString
+    open var doneButtonText: String = DefaultValue.emptyString
     open func didEndEditingHandler(_ textField: TextField) {}
     open func didChangeHandler(_ textField: TextField) {}
     open func resetValue() {}
@@ -31,7 +31,7 @@ open class DatePickerInputType: InputType {
         self.instruction = instruction
         self.sender = sender
         datePicker.backgroundColor = .white
-        datePicker.locale = Locale(identifier: DateLocale.Indonesian)
+        datePicker.locale = Locale(identifier: DateLocale.indonesian)
         datePicker.minimumDate = minimumDate
         datePicker.maximumDate = maximumDate
         datePicker.datePickerMode = .date

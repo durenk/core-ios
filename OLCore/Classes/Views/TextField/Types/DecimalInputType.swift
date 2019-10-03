@@ -37,7 +37,7 @@ open class DecimalInputType: InputType {
     }
 
     open func getValue() -> AnyObject {
-        guard let text = textField.text else { return DefaultValue.EmptyFloat as AnyObject }
+        guard let text = textField.text else { return DefaultValue.emptyFloat as AnyObject }
         return text.floatValue as AnyObject
     }
 
@@ -47,8 +47,8 @@ open class DecimalInputType: InputType {
 
     open func shouldChangeCharactersIn(range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text else { return true }
-        if !string.contains(Separator.DecimalID) && !string.contains(Separator.DecimalEN) { return true }
+        if !string.contains(Separator.decimalID) && !string.contains(Separator.decimalEN) { return true }
         if text.isEmpty { return false }
-        return !text.contains(Separator.DecimalEN) && !text.contains(Separator.DecimalID)
+        return !text.contains(Separator.decimalEN) && !text.contains(Separator.decimalID)
     }
 }

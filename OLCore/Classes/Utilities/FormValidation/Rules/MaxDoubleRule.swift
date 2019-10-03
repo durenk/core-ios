@@ -12,10 +12,10 @@ import Foundation
 public class MaxDoubleRule: Rule {
     private var maxValue: Double = 0
 
-    public init(name: String, maxValue: Double, message: String = DefaultValue.EmptyString) {
+    public init(name: String, maxValue: Double, message: String = DefaultValue.emptyString) {
         super.init(name: name, message: message)
         self.maxValue = maxValue
-        if message != DefaultValue.EmptyString { return }
+        if message != DefaultValue.emptyString { return }
         self.message = String(
             format: ValidationErrorMessage.instance.getErrorMessageFormat(MaxDoubleRule.className),
             name,
@@ -24,7 +24,7 @@ public class MaxDoubleRule: Rule {
     }
 
     override public func validate(_ value: String) -> ValidationStatus {
-        let status = super.validate(value)
+        status = super.validate(value)
         status.isValid = value.doubleValue <= maxValue
         return status
     }

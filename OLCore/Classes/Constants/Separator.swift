@@ -9,12 +9,12 @@
 import Foundation
 
 public struct Separator {
-    public static let RangePeriod = "-"
-    public static let Thousand = "."
-    public static let DecimalEN = "."
-    public static let DecimalID = ","
-    public static let Whitespace = " "
-    public static let AccessibilityId = "_"
-    public static let Phrase = ", "
-    public static let FileExtension = "."
+    public static let rangePeriod = "-"
+    public static let thousand = "."
+    public static let decimalEN = "."
+    public static let decimalID = ","
+    public static let whitespace = " "
+    public static let accessibilityId = "_"
+    public static let phrase = ", "
+    public static let fileExtension = "."
 }

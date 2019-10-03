@@ -22,10 +22,10 @@ open class SelectionInput: Button {
     private var controller: SelectionInputViewController = SelectionInputViewController()
     private var sender: ViewController = ViewController()
     open func didChangeHandler(_ selectionInput: SelectionInput) {}
-    open var name: String = DefaultValue.EmptyString {
+    open var name: String = DefaultValue.emptyString {
         didSet {
             self.accessibilityIdentifier = String(
-                format: AccessibilityIdentifier.Button,
+                format: AccessibilityIdentifier.button,
                 name.toAccessibilityFormat()
             )
         }
@@ -89,7 +89,7 @@ extension SelectionInput: InputProtocol {
     }
 
     open func isEmpty() -> Bool {
-        return getText() == DefaultValue.EmptyString
+        return getText() == DefaultValue.emptyString
     }
 
     public func getTag() -> Int {

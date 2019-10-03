@@ -24,8 +24,8 @@ open class AmountInputType: InputType {
 
     open func render() {
         let icon = textField.isEmpty()
-            ? CoreStyle.Image.CurrencyIDRInactive
-            : CoreStyle.Image.CurrencyIDRActive
+            ? CoreStyle.Image.currencyIDRInactive
+            : CoreStyle.Image.currencyIDRActive
         textField.setLeftIcon(icon)
         textField.maxLength = maxLength
     }

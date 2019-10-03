@@ -11,10 +11,10 @@ import Foundation
 public class MinIntegerRule: Rule {
     private var minValue: Int = 0
 
-    public init(name: String, minValue: Int, message: String = DefaultValue.EmptyString) {
+    public init(name: String, minValue: Int, message: String = DefaultValue.emptyString) {
         super.init(name: name, message: message)
         self.minValue = minValue
-        if message != DefaultValue.EmptyString { return }
+        if message != DefaultValue.emptyString { return }
         self.message = String(
             format: ValidationErrorMessage.instance.getErrorMessageFormat(MinIntegerRule.className),
             name,
@@ -23,8 +23,8 @@ public class MinIntegerRule: Rule {
     }
 
     override public func validate(_ value: String) -> ValidationStatus {
-        let status = super.validate(value)
-        let number = Int(value.digits) ?? DefaultValue.EmptyInt
+        status = super.validate(value)
+        let number = Int(value.digits) ?? DefaultValue.emptyInt
         status.isValid = number >= minValue
         return status
     }

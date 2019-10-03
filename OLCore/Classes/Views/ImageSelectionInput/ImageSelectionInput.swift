@@ -14,14 +14,14 @@ open class ImageSelectionInput: Button {
     private var sender: ImageInputTableViewCell = ImageInputTableViewCell()
     private var senderParentView: ViewController = ViewController()
     private var imagePickerController: ImagePicker!
-    private var menuTitle: String = DefaultValue.EmptyString
-    private var cameraButtonTitle: String = DefaultValue.EmptyString
-    private var galleryButtonTitle: String = DefaultValue.EmptyString
+    private var menuTitle: String = DefaultValue.emptyString
+    private var cameraButtonTitle: String = DefaultValue.emptyString
+    private var galleryButtonTitle: String = DefaultValue.emptyString
     open func didChangeHandler(_ imageSelectionInput: ImageSelectionInput) {}
-    open var name: String = DefaultValue.EmptyString {
+    open var name: String = DefaultValue.emptyString {
         didSet {
             self.accessibilityIdentifier = String(
-                format: AccessibilityIdentifier.Button,
+                format: AccessibilityIdentifier.button,
                 name.toAccessibilityFormat()
             )
         }
@@ -91,7 +91,7 @@ extension ImageSelectionInput: InputProtocol {
     }
     
     open func getText() -> String {
-        return sender.getImageUrl() == nil ? DefaultValue.EmptyString : name
+        return sender.getImageUrl() == nil ? DefaultValue.emptyString : name
     }
     
     open func resetValue() {
@@ -100,7 +100,7 @@ extension ImageSelectionInput: InputProtocol {
     }
     
     open func isEmpty() -> Bool {
-        return getText() == DefaultValue.EmptyString
+        return getText() == DefaultValue.emptyString
     }
 
     public func getTag() -> Int {

@@ -9,9 +9,9 @@
 import UIKit
 
 public class PhoneRule: Rule {
-    override public init(name: String, message: String = DefaultValue.EmptyString) {
+    override public init(name: String, message: String = DefaultValue.emptyString) {
         super.init(name: name, message: message)
-        if message != DefaultValue.EmptyString { return }
+        if message != DefaultValue.emptyString { return }
         self.message = String(
             format: ValidationErrorMessage.instance.getErrorMessageFormat(PhoneRule.className),
             name
@@ -19,7 +19,7 @@ public class PhoneRule: Rule {
     }
 
     override public func validate(_ value: String) -> ValidationStatus {
-        let status = super.validate(value)
+        status = super.validate(value)
         status.isValid = value.prefix(2) == "08" && value.count >= 10 && value.count <= 13
         return status
     }

@@ -23,4 +23,12 @@ open class NavigationController: UINavigationController, UIGestureRecognizerDele
         guard let firstVC = viewControllers.first as? ViewController else { return ViewController() }
         return firstVC
     }
+
+    open func removePreviousController() {
+        var controllers = self.viewControllers
+        let previousIndex = controllers.count - 2
+        if previousIndex < 0 { return }
+        controllers.remove(at: previousIndex)
+        self.viewControllers = controllers
+    }
 }

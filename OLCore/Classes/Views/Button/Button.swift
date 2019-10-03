@@ -84,7 +84,7 @@ open class Button: UIButton {
 
     public func setTextWithPartialHighlight(
         fullText: String,
-        highlightText: String = DefaultValue.EmptyString,
+        highlightText: String = DefaultValue.emptyString,
         highlightFont: UIFont,
         highlightColor: UIColor? = nil
     ) {
@@ -124,7 +124,7 @@ open class Button: UIButton {
         super.setTitle(title, for: state)
         guard let title = title else { return }
         accessibilityIdentifier = String(
-            format: AccessibilityIdentifier.Button,
+            format: AccessibilityIdentifier.button,
             title.toAccessibilityFormat()
         )
     }

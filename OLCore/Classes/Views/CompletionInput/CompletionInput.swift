@@ -13,10 +13,10 @@ open class CompletionInput: Button {
     open var didValidationSuccessAction: InputDidValidationSuccess?
     private var sender: CompletionInputTableViewCell = CompletionInputTableViewCell()
     open func didChangeHandler(_ completionInput: CompletionInput) {}
-    open var name: String = DefaultValue.EmptyString {
+    open var name: String = DefaultValue.emptyString {
         didSet {
             self.accessibilityIdentifier = String(
-                format: AccessibilityIdentifier.Button,
+                format: AccessibilityIdentifier.button,
                 name.toAccessibilityFormat()
             )
         }
@@ -48,13 +48,13 @@ extension CompletionInput: InputProtocol {
     }
     
     open func getText() -> String {
-        return sender.getStatusComplete() ? sender.className : DefaultValue.EmptyString
+        return sender.getStatusComplete() ? sender.className : DefaultValue.emptyString
     }
     
     open func resetValue() { }
     
     open func isEmpty() -> Bool {
-        return getText() == DefaultValue.EmptyString
+        return getText() == DefaultValue.emptyString
     }
 
     public func getTag() -> Int {

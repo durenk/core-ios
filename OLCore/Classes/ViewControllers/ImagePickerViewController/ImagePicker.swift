@@ -20,9 +20,9 @@ class ImagePicker: NSObject {
     private weak var delegate: ImagePickerDelegate?
     private var alertController: UIAlertController!
     private var compressionQuality: CGFloat!
-    private var cancelButtonText: String = DefaultValue.EmptyString
-    private var settingsButtonText: String = DefaultValue.EmptyString
-    private var permissionText: String = DefaultValue.EmptyString
+    private var cancelButtonText: String = DefaultValue.emptyString
+    private var settingsButtonText: String = DefaultValue.emptyString
+    private var permissionText: String = DefaultValue.emptyString
     
     public init(presentationController: UIViewController,
                 delegate: ImagePickerDelegate,
@@ -125,7 +125,7 @@ class ImagePicker: NSObject {
             handler: nil
         )
         let permissionAlert = UIAlertController(
-            title: DefaultValue.EmptyString,
+            title: DefaultValue.emptyString,
             message: permissionText,
             preferredStyle: .alert
         )

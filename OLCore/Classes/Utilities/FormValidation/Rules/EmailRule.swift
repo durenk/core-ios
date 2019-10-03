@@ -8,9 +8,9 @@
 import UIKit
 
 public class EmailRule: Rule {
-    override public init(name: String, message: String = DefaultValue.EmptyString) {
+    override public init(name: String, message: String = DefaultValue.emptyString) {
         super.init(name: name, message: message)
-        if message != DefaultValue.EmptyString { return }
+        if message != DefaultValue.emptyString { return }
         self.message = String(
             format: ValidationErrorMessage.instance.getErrorMessageFormat(EmailRule.className),
             name
@@ -18,7 +18,7 @@ public class EmailRule: Rule {
     }
 
     override public func validate(_ value: String) -> ValidationStatus {
-        let status = super.validate(value)
+        status = super.validate(value)
         status.isValid = value.trimmingCharacters(in: .whitespacesAndNewlines).isValid(regexRule: RegexString.email)
         return status
     }

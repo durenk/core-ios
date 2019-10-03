@@ -41,8 +41,7 @@ open class NestedTableViewConnector: NSObject {
         return
     }
 
-    public func getCell() -> NestedTableViewContainerCell {
-        guard let cell = cell else { return NestedTableViewContainerCell() }
+    public func getCell() -> NestedTableViewContainerCell? {
         return cell
     }
 }

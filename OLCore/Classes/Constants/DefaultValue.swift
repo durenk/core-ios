@@ -9,14 +9,17 @@
 import Foundation
 
 public struct DefaultValue {
-    public static let Placeholder = "-"
-    public static let EmptyString = ""
-    public static let EmptyInt = 0
-    public static let EmptyInt32 = Int32(0)
-    public static let EmptyInt64 = Int64(0)
-    public static let EmptyDouble = Double(0.0)
-    public static let EmptyFloat = Float(0.0)
-    public static let EmptyIndex = -1
-    public static let EmptyCGFloat = CGFloat(0.0)
-    public static let EmptyAny = DefaultValue.EmptyString as Any
+    public static let placeholder = "-"
+    public static let whitespace = " "
+    public static let emptyString = ""
+    public static let emptyInt = 0
+    public static let emptyTimeInterval = TimeInterval(0)
+    public static let emptyInt32 = Int32(0)
+    public static let emptyInt64 = Int64(0)
+    public static let emptyUInt = UInt(0)
+    public static let emptyDouble = Double(0.0)
+    public static let emptyFloat = Float(0.0)
+    public static let emptyIndex = -1
+    public static let emptyCGFloat = CGFloat(0.0)
+    public static let emptyAny = DefaultValue.emptyString as Any
 }

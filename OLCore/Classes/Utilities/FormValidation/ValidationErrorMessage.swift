@@ -20,6 +20,6 @@ public class ValidationErrorMessage {
         for (key, value) in errorMessageFormats where key == owner {
             return value
         }
-        return DefaultValue.EmptyString
+        return DefaultValue.emptyString
     }
 }
