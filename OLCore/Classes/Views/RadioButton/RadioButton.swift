@@ -17,6 +17,7 @@ open class RadioButton: DLRadioButton {
     private var container: UIView = UIView()
     private var bottomView: UIView = UIView()
     weak public var delegate: RadioButtonDelegate?
+    public var key: String = DefaultValue.emptyString
     public var name: String = DefaultValue.emptyString
     public var didChangeAction: InputDidChangeHandler?
     public var didValidationErrorAction: InputDidValidationError?

@@ -13,6 +13,7 @@ public typealias TextAreaDidChangeHandler = (_ textarea: TextArea) -> Void
 open class TextArea: UITextView {
     private var showingPlaceholder: Bool = false
     internal var bottomLineLayer: CALayer = CALayer()
+    public var key: String = DefaultValue.emptyString
     public var name: String = DefaultValue.emptyString
     public var style: TextFieldStyle! {
         didSet {

@@ -8,6 +8,7 @@
 import UIKit
 
 open class CompletionInput: Button {
+    public var key: String = DefaultValue.emptyString
     open var didChangeAction: InputDidChangeHandler?
     open var didValidationErrorAction: InputDidValidationError?
     open var didValidationSuccessAction: InputDidValidationSuccess?

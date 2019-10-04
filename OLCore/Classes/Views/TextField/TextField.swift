@@ -19,6 +19,7 @@ open class TextField: UITextField {
     open var didChangeAction: InputDidChangeHandler?
     open var didValidationErrorAction: InputDidValidationError?
     open var didValidationSuccessAction: InputDidValidationSuccess?
+    public var key: String = DefaultValue.emptyString
     public var isAvoidWhitespaces: Bool = false
     public var maxLength: Int = 255
     public var style: TextFieldStyle = DefaultTextFieldStyle() {

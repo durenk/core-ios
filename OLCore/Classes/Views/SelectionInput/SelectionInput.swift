@@ -15,6 +15,7 @@ public protocol SelectionInputDelegate: class {
 }
 
 open class SelectionInput: Button {
+    public var key: String = DefaultValue.emptyString
     public weak var delegate: SelectionInputDelegate?
     open var didChangeAction: InputDidChangeHandler?
     open var didValidationErrorAction: InputDidValidationError?
