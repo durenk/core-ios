@@ -19,7 +19,7 @@ public class InternationalPhoneRule: Rule {
     
     override public func validate(_ value: String) -> ValidationStatus {
         status = super.validate(value)
-        status.isValid = value.isValid(regexRule: RegexString.internationalPhoneNumber)
+        status.isValid = value.prefix(1) == "+" && value.count >= 10 && value.count <= 13
         return status
     }
 }
