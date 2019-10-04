@@ -29,6 +29,11 @@ open class DropDownViewController: FormTableViewController {
         startLoading()
     }
 
+    open override func reload() {
+        options.removeAll()
+        super.reload()
+    }
+
     override open func viewDidLoad() {
         super.viewDidLoad()
         contentView.tableView.register(
