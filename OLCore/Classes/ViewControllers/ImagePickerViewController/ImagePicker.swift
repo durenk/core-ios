@@ -24,13 +24,15 @@ open class ImagePicker: NSObject {
     private var settingsButtonText: String = DefaultValue.emptyString
     private var permissionText: String = DefaultValue.emptyString
     
-    public init(presentationController: UIViewController,
-                delegate: ImagePickerDelegate,
-                overlay: UIView,
-                compressionQuality: CGFloat = 0.5,
-                cancelButtonText: String = DefaultValue.emptyString,
-                settingsButtonText: String = DefaultValue.emptyString,
-                permissionText: String = DefaultValue.emptyString) {
+    public init(
+        presentationController: UIViewController,
+        delegate: ImagePickerDelegate,
+        overlay: UIView,
+        compressionQuality: CGFloat = 0.5,
+        cancelButtonText: String = DefaultValue.emptyString,
+        settingsButtonText: String = DefaultValue.emptyString,
+        permissionText: String = DefaultValue.emptyString
+    ) {
         self.pickerController = UIImagePickerController()
         super.init()
         self.presentationController = presentationController
