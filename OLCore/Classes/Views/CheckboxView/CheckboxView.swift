@@ -14,6 +14,18 @@ open class CheckboxView: UIView {
     private var checkboxImageView: UIImageView = UIImageView()
     private var checkboxButton: Button = Button()
     private var textLabel: UILabel = UILabel()
+    open var key: String = DefaultValue.emptyString
+    open var didChangeAction: InputDidChangeHandler?
+    open var didValidationErrorAction: InputDidValidationError?
+    open var didValidationSuccessAction: InputDidValidationSuccess?
+    open var name: String = DefaultValue.emptyString {
+        didSet {
+            self.accessibilityIdentifier = String(
+                format: AccessibilityIdentifier.checkbox,
+                name.toAccessibilityFormat()
+            )
+        }
+    }
 
     open override func awakeFromNib() {
         super.awakeFromNib()
@@ -209,5 +221,33 @@ open class CheckboxView: UIView {
     public func setSelected(_ isSelected: Bool) {
         self.value = isSelected
         checkboxImageView.image = value ? style.checkedImage : style.uncheckedImage
+        guard let didChangeAction = didChangeAction else { return }
+        didChangeAction(self, value)
+    }
+}
+
+extension CheckboxView: InputProtocol {
+    public func getValue() -> AnyObject {
+        return value as AnyObject
+    }
+
+    public func getText() -> String {
+        return textLabel.text ?? DefaultValue.emptyString
+    }
+    
+    public func getInputView() -> UIView {
+        return self
+    }
+    
+    public func getTag() -> Int {
+        return tag
+    }
+    
+    public func resetValue() {
+        setSelected(false)
+    }
+    
+    public func isEmpty() -> Bool {
+        return !value
     }
 }
