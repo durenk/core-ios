@@ -12,6 +12,7 @@ open class CheckboxView: UIView {
     private var style: CheckboxStyle = DefaultCheckboxStyle()
     private var value: Bool = false
     private var checkboxImageView: UIImageView = UIImageView()
+    private var checkboxButton: Button = Button()
     private var textLabel: UILabel = UILabel()
 
     open override func awakeFromNib() {
@@ -104,20 +105,57 @@ open class CheckboxView: UIView {
         ).isActive = true
     }
 
+    private func createCheckboxButtonSizeConstraint() {
+        _ = NSLayoutConstraint(
+            item: checkboxButton,
+            attribute: NSLayoutConstraint.Attribute.width,
+            relatedBy: NSLayoutConstraint.Relation.equal,
+            toItem: nil,
+            attribute: NSLayoutConstraint.Attribute.notAnAttribute,
+            multiplier: 1,
+            constant: style.checkboxSize + (style.spacing / 2)
+        ).isActive = true
+        _ = NSLayoutConstraint(
+            item: checkboxButton,
+            attribute: NSLayoutConstraint.Attribute.height,
+            relatedBy: NSLayoutConstraint.Relation.equal,
+            toItem: nil,
+            attribute: NSLayoutConstraint.Attribute.notAnAttribute,
+            multiplier: 1,
+            constant: style.checkboxSize + (style.spacing / 2)
+        ).isActive = true
+    }
+
+    private func createCheckboxButtonOriginConstraint() {
+        _ = NSLayoutConstraint(
+            item: checkboxButton,
+            attribute: NSLayoutConstraint.Attribute.leading,
+            relatedBy: NSLayoutConstraint.Relation.equal,
+            toItem: self,
+            attribute: NSLayoutConstraint.Attribute.leading,
+            multiplier: 1,
+            constant: DefaultValue.emptyCGFloat
+        ).isActive = true
+        _ = NSLayoutConstraint(
+            item: checkboxButton,
+            attribute: NSLayoutConstraint.Attribute.top,
+            relatedBy: NSLayoutConstraint.Relation.equal,
+            toItem: self,
+            attribute: NSLayoutConstraint.Attribute.top,
+            multiplier: 1,
+            constant: DefaultValue.emptyCGFloat
+        ).isActive = true
+    }
+
     private func setText(_ text: String) {
         self.text = text
         self.textLabel.text = text
     }
 
-    @objc private func didPressCheckbox() {
-        setSelected(!value)
-    }
-
-    private func renderCheckbox() {
+    private func renderCheckboxImage() {
         checkboxImageView = UIImageView()
         checkboxImageView.translatesAutoresizingMaskIntoConstraints = false
         checkboxImageView.isUserInteractionEnabled = true
-        checkboxImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didPressCheckbox)))
         addSubview(checkboxImageView)
         createCheckboxImageViewSizeConstraint()
         createCheckboxImageViewOriginConstraint()
@@ -138,6 +176,15 @@ open class CheckboxView: UIView {
         setText(text)
     }
 
+    private func renderCheckboxButton() {
+        checkboxButton = Button()
+        checkboxButton.translatesAutoresizingMaskIntoConstraints = false
+        checkboxButton.didPressAction = { self.setSelected(!self.value) }
+        addSubview(checkboxButton)
+        createCheckboxButtonSizeConstraint()
+        createCheckboxButtonOriginConstraint()
+    }
+
     public func configure(
         text: String = DefaultValue.emptyString,
         style: CheckboxStyle = DefaultCheckboxStyle(),
@@ -150,7 +197,8 @@ open class CheckboxView: UIView {
 
     public func render() {
         removeAllSubviews()
-        renderCheckbox()
+        renderCheckboxImage()
+        renderCheckboxButton()
         renderText()
     }
 
