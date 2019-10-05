@@ -21,6 +21,8 @@ public struct CoreStyle {
         public static var currencyIDRInactive: UIImage = UIImage()
         public static var eyeButtonOpen: UIImage = UIImage()
         public static var eyeButtonClose: UIImage = UIImage()
+        public static var checkedBox: UIImage = UIImage()
+        public static var uncheckedBox: UIImage = UIImage()
     }
     public struct Color {
         public static var navigationBackground: UIColor = .groupTableViewBackground
