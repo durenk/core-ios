@@ -9,7 +9,8 @@
 import UIKit
 
 public protocol NestedTableViewDelegate: class {
-    func nestedTableViewDidChangedState(loading isLoading: Bool)
+    func nestedTableViewDidChangedLoading(_ isLoading: Bool)
+    func nestedTableViewDidChangedState()
 }
 
 open class NestedTableView: TableView, TableViewContainerProtocol {
@@ -39,12 +40,12 @@ open class NestedTableView: TableView, TableViewContainerProtocol {
 
     public func startLoading() {
         isLoading = true
-        nestedTableViewDelegate?.nestedTableViewDidChangedState(loading: isLoading)
+        nestedTableViewDelegate?.nestedTableViewDidChangedLoading(isLoading)
     }
 
     public func stopLoading() {
         isLoading = false
-        nestedTableViewDelegate?.nestedTableViewDidChangedState(loading: isLoading)
+        nestedTableViewDelegate?.nestedTableViewDidChangedLoading(isLoading)
     }
 
     open func renderLoadingState() {
