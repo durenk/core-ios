@@ -95,6 +95,11 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
         configureBackgroundColor()
     }
 
+    open func updateTableViewInset(_ inset: UIEdgeInsets) {
+        if contentView == nil { return }
+        contentView.createTableViewConstraint(inset: inset)
+    }
+
     open func setContentViewParentConstraint() {
         contentView.setParentConstraint(parentView: view)
     }
@@ -154,11 +159,12 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
         infiniteScroll.isLoading = isLoading
     }
 
-    open func configureBackgroundColor() {
-        contentView.tableView.backgroundColor = tableViewBackgroundColor
+    open func configureBackgroundColor(_ color: UIColor? = nil) {
+        let color = color == nil ? tableViewBackgroundColor : color
+        contentView.tableView.backgroundColor = color
         if tableViewBackgroundColor != UIColor.clear {
-            view.backgroundColor = tableViewBackgroundColor
-            view.superview?.backgroundColor = tableViewBackgroundColor
+            view.backgroundColor = color
+            view.superview?.backgroundColor = color
         }
     }
 }

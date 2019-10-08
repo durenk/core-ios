@@ -10,6 +10,7 @@ import UIKit
 
 open class ViewController: UIViewController {
     private var foregroundObserver: NSObjectProtocol?
+    open var backgroundView = UIImageView()
     open var didLoadData: Bool = false
     open var navigationBarStyle: UIBarStyle { get { return UIBarStyle.default } }
     open var navigationBarColor: UIColor { get { return CoreStyle.Color.navigationBackground } }
@@ -157,10 +158,16 @@ open class ViewController: UIViewController {
         return viewIfLoaded.window != nil
     }
 
-    open func setBackground(image: UIImage) {
-        let backgroundView = UIImageView(frame: view.bounds)
+    open func setBackground(image: UIImage?) {
+        if image == nil {
+            backgroundView.removeFromSuperview()
+            return
+        }
+        backgroundView = UIImageView(frame: view.bounds)
         backgroundView.image = image
-        view.addSubview(backgroundView)
+        if backgroundView.superview == nil {
+            view.addSubview(backgroundView)
+        }
         view.sendSubviewToBack(backgroundView)
     }
 }

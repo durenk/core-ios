@@ -55,7 +55,7 @@ open class TableView: View {
         tableView.dataSource = self
         tableView.backgroundColor = .clear
         addSubview(tableView)
-        createTableViewConstraint()
+        createTableViewConstraint(inset: tableViewInset)
     }
 
     private func registerCellIdentifiers() {
@@ -65,21 +65,6 @@ open class TableView: View {
         }
     }
 
-    private func createTableViewConstraint() {
-        resetTableViewConstraint()
-        tableViewConstraint = Constraint(parentView: self, childView: tableView)
-        tableViewConstraint.leading.constant = tableViewInset.left
-        tableViewConstraint.trailing.constant = tableViewInset.right
-        tableViewConstraint.top.constant = tableViewInset.top
-        tableViewConstraint.bottom.constant = tableViewInset.bottom
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        self.addConstraint(tableViewConstraint.leading)
-        self.addConstraint(tableViewConstraint.trailing)
-        self.addConstraint(tableViewConstraint.top)
-        self.addConstraint(tableViewConstraint.bottom)
-        tableViewConstraint.activate()
-    }
-
     private func resetTableViewConstraint() {
         if tableViewConstraint != nil {
             self.removeConstraint(tableViewConstraint.leading)
@@ -87,6 +72,21 @@ open class TableView: View {
             self.removeConstraint(tableViewConstraint.top)
             self.removeConstraint(tableViewConstraint.bottom)
         }
+    }
+
+    open func createTableViewConstraint(inset: UIEdgeInsets) {
+        resetTableViewConstraint()
+        tableViewConstraint = Constraint(parentView: self, childView: tableView)
+        tableViewConstraint.leading.constant = inset.left
+        tableViewConstraint.trailing.constant = inset.right
+        tableViewConstraint.top.constant = inset.top
+        tableViewConstraint.bottom.constant = inset.bottom
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        self.addConstraint(tableViewConstraint.leading)
+        self.addConstraint(tableViewConstraint.trailing)
+        self.addConstraint(tableViewConstraint.top)
+        self.addConstraint(tableViewConstraint.bottom)
+        tableViewConstraint.activate()
     }
 
     open func configureTableView() {
