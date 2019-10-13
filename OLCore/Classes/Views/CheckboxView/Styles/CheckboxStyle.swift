@@ -7,8 +7,14 @@
 
 import Foundation
 
+public enum CheckboxVerticalPosition {
+    case top
+    case center
+}
+
 public protocol CheckboxStyle {
     var checkboxSize: CGFloat { get }
+    var checkboxVerticalPosition: CheckboxVerticalPosition { get }
     var spacing: CGFloat { get }
     var font: UIFont { get }
     var textColor: UIColor { get }

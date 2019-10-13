@@ -64,12 +64,15 @@ open class CheckboxView: UIView {
             multiplier: 1,
             constant: DefaultValue.emptyCGFloat
         ).isActive = true
+        let veritcalAttribute = style.checkboxVerticalPosition == .center
+            ? NSLayoutConstraint.Attribute.centerY
+            : NSLayoutConstraint.Attribute.top
         _ = NSLayoutConstraint(
             item: checkboxImageView,
-            attribute: NSLayoutConstraint.Attribute.top,
+            attribute: veritcalAttribute,
             relatedBy: NSLayoutConstraint.Relation.equal,
             toItem: self,
-            attribute: NSLayoutConstraint.Attribute.top,
+            attribute: veritcalAttribute,
             multiplier: 1,
             constant: DefaultValue.emptyCGFloat
         ).isActive = true
@@ -125,7 +128,7 @@ open class CheckboxView: UIView {
             toItem: nil,
             attribute: NSLayoutConstraint.Attribute.notAnAttribute,
             multiplier: 1,
-            constant: style.checkboxSize + (style.spacing / 2)
+            constant: style.checkboxSize
         ).isActive = true
         _ = NSLayoutConstraint(
             item: checkboxButton,
@@ -134,7 +137,7 @@ open class CheckboxView: UIView {
             toItem: nil,
             attribute: NSLayoutConstraint.Attribute.notAnAttribute,
             multiplier: 1,
-            constant: style.checkboxSize + (style.spacing / 2)
+            constant: style.checkboxSize
         ).isActive = true
     }
 
