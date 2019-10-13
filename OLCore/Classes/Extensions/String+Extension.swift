@@ -88,6 +88,16 @@ extension String {
         }
     }
 
+    public func openURL(presenter: UINavigationController, delegate: SFSafariViewControllerDelegate? = nil) {
+        if isValidURL() {
+            if let url = URL(string: self) {
+                let safariVC = SFSafariViewController(url: url)
+                safariVC.delegate = delegate
+                presenter.present(safariVC, animated: true, completion: nil)
+            }
+        }
+    }
+
     public func openDeeplink() -> Bool {
         if isValidURL() {
             if let url = URL(string: self),
