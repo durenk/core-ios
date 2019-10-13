@@ -10,6 +10,7 @@ import UIKit
 open class DefaultCheckboxStyle: CheckboxStyle {
     open var checkboxSize = CGFloat(18)
     open var checkboxVerticalPosition = CheckboxVerticalPosition.top
+    open var interactionArea = CheckboxInteractionArea.checkboxOnly
     open var spacing = CGFloat(16)
     open var font = UIFont.systemFont(ofSize: UIFont.labelFontSize)
     open var textColor = UIColor.black
