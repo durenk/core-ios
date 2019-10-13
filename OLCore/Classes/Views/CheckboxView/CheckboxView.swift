@@ -14,6 +14,7 @@ open class CheckboxView: UIView {
     private var checkboxImageView: UIImageView = UIImageView()
     private var checkboxButton: Button = Button()
     private var textLabel: UILabel = UILabel()
+    private var isEnabled: Bool = true
     open var key: String = DefaultValue.emptyString
     open var didChangeAction: InputDidChangeHandler?
     open var didValidationErrorAction: InputDidValidationError?
@@ -167,7 +168,7 @@ open class CheckboxView: UIView {
         self.textLabel.text = text
     }
 
-    private func renderCheckboxImage() {
+    private func renderCheckboxImageView() {
         checkboxImageView = UIImageView()
         checkboxImageView.translatesAutoresizingMaskIntoConstraints = false
         checkboxImageView.isUserInteractionEnabled = true
@@ -175,6 +176,19 @@ open class CheckboxView: UIView {
         createCheckboxImageViewSizeConstraint()
         createCheckboxImageViewOriginConstraint()
         setSelected(value)
+    }
+
+    private func renderCheckboxImage() {
+        if !isEnabled {
+            checkboxImageView.tintColor = style.disabledColor
+        }
+        let image = value
+            ? style.checkedImage
+            : style.uncheckedImage
+        let renderingMode = isEnabled
+            ? UIImage.RenderingMode.alwaysOriginal
+            : UIImage.RenderingMode.alwaysTemplate
+        checkboxImageView.image = image.withRenderingMode(renderingMode)
     }
 
     private func renderText() {
@@ -194,7 +208,10 @@ open class CheckboxView: UIView {
     private func renderCheckboxButton() {
         checkboxButton = Button()
         checkboxButton.translatesAutoresizingMaskIntoConstraints = false
-        checkboxButton.didPressAction = { self.setSelected(!self.value) }
+        checkboxButton.didPressAction = {
+            if !self.isEnabled { return }
+            self.setSelected(!self.value)
+        }
         addSubview(checkboxButton)
         createCheckboxButtonSizeConstraint()
         createCheckboxButtonOriginConstraint()
@@ -203,16 +220,18 @@ open class CheckboxView: UIView {
     public func configure(
         text: String = DefaultValue.emptyString,
         style: CheckboxStyle = DefaultCheckboxStyle(),
-        isSelected: Bool = false
+        isSelected: Bool = false,
+        isEnabled: Bool = true
     ) {
         self.text = text
         self.style = style
         self.value = isSelected
+        self.isEnabled = isEnabled
     }
 
     public func render() {
         removeAllSubviews()
-        renderCheckboxImage()
+        renderCheckboxImageView()
         renderCheckboxButton()
         renderText()
     }
@@ -223,7 +242,7 @@ open class CheckboxView: UIView {
 
     public func setSelected(_ isSelected: Bool) {
         self.value = isSelected
-        checkboxImageView.image = value ? style.checkedImage : style.uncheckedImage
+        renderCheckboxImage()
         guard let didChangeAction = didChangeAction else { return }
         didChangeAction(self, value)
     }

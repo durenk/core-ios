@@ -18,6 +18,7 @@ public protocol CheckboxStyle {
     var spacing: CGFloat { get }
     var font: UIFont { get }
     var textColor: UIColor { get }
+    var disabledColor: UIColor { get }
     var checkedImage: UIImage { get }
     var uncheckedImage: UIImage { get }
 }
