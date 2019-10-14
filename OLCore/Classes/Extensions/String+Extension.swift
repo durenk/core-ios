@@ -152,4 +152,30 @@ extension String {
     public func getFirstWord() -> String {
         return components(separatedBy: DefaultValue.whitespace).first ?? DefaultValue.emptyString
     }
+    
+    public func copyToKeyboard() {
+        UIPasteboard.general.string = self
+    }
+    
+    public func pasteFromKeyboard() -> String {
+        return UIPasteboard.general.string ?? ""
+    }
+    
+    public func shareWithURL(presenter: UINavigationController, excludedActivityTypes: [UIActivity.ActivityType]?) {
+        if let firstActivityItem = URL(string: self) {
+            let activityViewController : UIActivityViewController = UIActivityViewController(
+                activityItems: [firstActivityItem], applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = presenter.view
+            activityViewController.excludedActivityTypes = excludedActivityTypes
+            presenter.present(activityViewController, animated: true, completion: nil)
+        }
+    }
+    
+    public func shareWithText(presenter: UINavigationController, excludedActivityTypes: [UIActivity.ActivityType]?) {
+        let activityViewController : UIActivityViewController = UIActivityViewController(
+            activityItems: [self], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = presenter.view
+        activityViewController.excludedActivityTypes = excludedActivityTypes
+        presenter.present(activityViewController, animated: true, completion: nil)
+    }
 }
