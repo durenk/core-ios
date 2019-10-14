@@ -60,6 +60,7 @@ open class DropDownViewController: FormTableViewController {
 
     override open func render() {
         super.render()
+        updateTableViewInset(tableViewInset)
         renderSearchInputCell()
         let section = TableViewSection()
         for option in options {

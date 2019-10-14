@@ -14,6 +14,7 @@ open class CheckboxView: UIView {
     private var checkboxImageView: UIImageView = UIImageView()
     private var checkboxButton: Button = Button()
     private var textLabel: UILabel = UILabel()
+    private var isEnabled: Bool = true
     open var key: String = DefaultValue.emptyString
     open var didChangeAction: InputDidChangeHandler?
     open var didValidationErrorAction: InputDidValidationError?
@@ -33,6 +34,123 @@ open class CheckboxView: UIView {
         backgroundColor = .clear
     }
 
+    private func setText(_ text: String) {
+        self.text = text
+        self.textLabel.text = text
+    }
+
+    private func renderCheckboxImageView() {
+        checkboxImageView = UIImageView()
+        checkboxImageView.translatesAutoresizingMaskIntoConstraints = false
+        checkboxImageView.isUserInteractionEnabled = true
+        addSubview(checkboxImageView)
+        createCheckboxImageViewSizeConstraint()
+        createCheckboxImageViewOriginConstraint()
+        setSelected(value)
+    }
+
+    private func renderCheckboxImage() {
+        if !isEnabled {
+            checkboxImageView.tintColor = style.disabledColor
+        }
+        let image = value
+            ? style.checkedImage
+            : style.uncheckedImage
+        let renderingMode = isEnabled
+            ? UIImage.RenderingMode.alwaysOriginal
+            : UIImage.RenderingMode.alwaysTemplate
+        checkboxImageView.image = image.withRenderingMode(renderingMode)
+    }
+
+    private func renderText() {
+        textLabel = UILabel()
+        textLabel.font = style.font
+        textLabel.textColor = style.textColor
+        textLabel.textAlignment = .left
+        textLabel.contentMode = .topLeft
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.numberOfLines = 0
+        addSubview(textLabel)
+        createTextLabelHorizontalConstraint()
+        createTextLabelVerticalConstraint()
+        setText(text)
+    }
+
+    private func renderCheckboxButton() {
+        checkboxButton = Button()
+        checkboxButton.translatesAutoresizingMaskIntoConstraints = false
+        checkboxButton.didPressAction = {
+            if !self.isEnabled { return }
+            self.setSelected(!self.value)
+        }
+        checkboxButton.backgroundColor = .clear
+        addSubview(checkboxButton)
+        if style.interactionArea == .checkboxOnly {
+            createCheckboxButtonSizeConstraint()
+            createCheckboxButtonOriginConstraint()
+        } else {
+            createCheckboxButtonAllAreaConstraint()
+        }
+    }
+
+    public func configure(
+        text: String = DefaultValue.emptyString,
+        style: CheckboxStyle = DefaultCheckboxStyle(),
+        isSelected: Bool = false,
+        isEnabled: Bool = true
+    ) {
+        self.text = text
+        self.style = style
+        self.value = isSelected
+        self.isEnabled = isEnabled
+    }
+
+    public func render() {
+        removeAllSubviews()
+        renderCheckboxImageView()
+        renderCheckboxButton()
+        renderText()
+    }
+
+    public func isSelected() -> Bool {
+        return value
+    }
+
+    public func setSelected(_ isSelected: Bool) {
+        self.value = isSelected
+        renderCheckboxImage()
+        guard let didChangeAction = didChangeAction else { return }
+        didChangeAction(self, value)
+    }
+}
+
+extension CheckboxView: InputProtocol {
+    public func getValue() -> AnyObject {
+        return value as AnyObject
+    }
+
+    public func getText() -> String {
+        return textLabel.text ?? DefaultValue.emptyString
+    }
+    
+    public func getInputView() -> UIView {
+        return self
+    }
+    
+    public func getTag() -> Int {
+        return tag
+    }
+    
+    public func resetValue() {
+        setSelected(false)
+    }
+    
+    public func isEmpty() -> Bool {
+        return !value
+    }
+}
+
+extension CheckboxView {
     private func createCheckboxImageViewSizeConstraint() {
         _ = NSLayoutConstraint(
             item: checkboxImageView,
@@ -64,12 +182,15 @@ open class CheckboxView: UIView {
             multiplier: 1,
             constant: DefaultValue.emptyCGFloat
         ).isActive = true
+        let veritcalAttribute = style.checkboxVerticalPosition == .center
+            ? NSLayoutConstraint.Attribute.centerY
+            : NSLayoutConstraint.Attribute.top
         _ = NSLayoutConstraint(
             item: checkboxImageView,
-            attribute: NSLayoutConstraint.Attribute.top,
+            attribute: veritcalAttribute,
             relatedBy: NSLayoutConstraint.Relation.equal,
             toItem: self,
-            attribute: NSLayoutConstraint.Attribute.top,
+            attribute: veritcalAttribute,
             multiplier: 1,
             constant: DefaultValue.emptyCGFloat
         ).isActive = true
@@ -125,7 +246,7 @@ open class CheckboxView: UIView {
             toItem: nil,
             attribute: NSLayoutConstraint.Attribute.notAnAttribute,
             multiplier: 1,
-            constant: style.checkboxSize + (style.spacing / 2)
+            constant: style.checkboxSize
         ).isActive = true
         _ = NSLayoutConstraint(
             item: checkboxButton,
@@ -134,7 +255,7 @@ open class CheckboxView: UIView {
             toItem: nil,
             attribute: NSLayoutConstraint.Attribute.notAnAttribute,
             multiplier: 1,
-            constant: style.checkboxSize + (style.spacing / 2)
+            constant: style.checkboxSize
         ).isActive = true
     }
 
@@ -148,6 +269,39 @@ open class CheckboxView: UIView {
             multiplier: 1,
             constant: DefaultValue.emptyCGFloat
         ).isActive = true
+        let veritcalAttribute = style.checkboxVerticalPosition == .center
+            ? NSLayoutConstraint.Attribute.centerY
+            : NSLayoutConstraint.Attribute.top
+        _ = NSLayoutConstraint(
+            item: checkboxButton,
+            attribute: veritcalAttribute,
+            relatedBy: NSLayoutConstraint.Relation.equal,
+            toItem: self,
+            attribute: veritcalAttribute,
+            multiplier: 1,
+            constant: DefaultValue.emptyCGFloat
+        ).isActive = true
+    }
+
+    private func createCheckboxButtonAllAreaConstraint() {
+        _ = NSLayoutConstraint(
+            item: checkboxButton,
+            attribute: NSLayoutConstraint.Attribute.leading,
+            relatedBy: NSLayoutConstraint.Relation.equal,
+            toItem: self,
+            attribute: NSLayoutConstraint.Attribute.leading,
+            multiplier: 1,
+            constant: DefaultValue.emptyCGFloat
+        ).isActive = true
+        _ = NSLayoutConstraint(
+            item: checkboxButton,
+            attribute: NSLayoutConstraint.Attribute.trailing,
+            relatedBy: NSLayoutConstraint.Relation.equal,
+            toItem: self,
+            attribute: NSLayoutConstraint.Attribute.trailing,
+            multiplier: 1,
+            constant: DefaultValue.emptyCGFloat
+        ).isActive = true
         _ = NSLayoutConstraint(
             item: checkboxButton,
             attribute: NSLayoutConstraint.Attribute.top,
@@ -157,97 +311,14 @@ open class CheckboxView: UIView {
             multiplier: 1,
             constant: DefaultValue.emptyCGFloat
         ).isActive = true
-    }
-
-    private func setText(_ text: String) {
-        self.text = text
-        self.textLabel.text = text
-    }
-
-    private func renderCheckboxImage() {
-        checkboxImageView = UIImageView()
-        checkboxImageView.translatesAutoresizingMaskIntoConstraints = false
-        checkboxImageView.isUserInteractionEnabled = true
-        addSubview(checkboxImageView)
-        createCheckboxImageViewSizeConstraint()
-        createCheckboxImageViewOriginConstraint()
-        setSelected(value)
-    }
-
-    private func renderText() {
-        textLabel = UILabel()
-        textLabel.font = style.font
-        textLabel.textColor = style.textColor
-        textLabel.textAlignment = .left
-        textLabel.contentMode = .topLeft
-        textLabel.translatesAutoresizingMaskIntoConstraints = false
-        textLabel.numberOfLines = 0
-        addSubview(textLabel)
-        createTextLabelHorizontalConstraint()
-        createTextLabelVerticalConstraint()
-        setText(text)
-    }
-
-    private func renderCheckboxButton() {
-        checkboxButton = Button()
-        checkboxButton.translatesAutoresizingMaskIntoConstraints = false
-        checkboxButton.didPressAction = { self.setSelected(!self.value) }
-        addSubview(checkboxButton)
-        createCheckboxButtonSizeConstraint()
-        createCheckboxButtonOriginConstraint()
-    }
-
-    public func configure(
-        text: String = DefaultValue.emptyString,
-        style: CheckboxStyle = DefaultCheckboxStyle(),
-        isSelected: Bool = false
-    ) {
-        self.text = text
-        self.style = style
-        self.value = isSelected
-    }
-
-    public func render() {
-        removeAllSubviews()
-        renderCheckboxImage()
-        renderCheckboxButton()
-        renderText()
-    }
-
-    public func isSelected() -> Bool {
-        return value
-    }
-
-    public func setSelected(_ isSelected: Bool) {
-        self.value = isSelected
-        checkboxImageView.image = value ? style.checkedImage : style.uncheckedImage
-        guard let didChangeAction = didChangeAction else { return }
-        didChangeAction(self, value)
-    }
-}
-
-extension CheckboxView: InputProtocol {
-    public func getValue() -> AnyObject {
-        return value as AnyObject
-    }
-
-    public func getText() -> String {
-        return textLabel.text ?? DefaultValue.emptyString
-    }
-    
-    public func getInputView() -> UIView {
-        return self
-    }
-    
-    public func getTag() -> Int {
-        return tag
-    }
-    
-    public func resetValue() {
-        setSelected(false)
-    }
-    
-    public func isEmpty() -> Bool {
-        return !value
+        _ = NSLayoutConstraint(
+            item: checkboxButton,
+            attribute: NSLayoutConstraint.Attribute.bottom,
+            relatedBy: NSLayoutConstraint.Relation.equal,
+            toItem: self,
+            attribute: NSLayoutConstraint.Attribute.bottom,
+            multiplier: 1,
+            constant: DefaultValue.emptyCGFloat
+        ).isActive = true
     }
 }
