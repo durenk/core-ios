@@ -162,4 +162,34 @@ extension String {
     public func getFirstWord() -> String {
         return components(separatedBy: DefaultValue.whitespace).first ?? DefaultValue.emptyString
     }
+    
+    public func copyToKeyboard() {
+        UIPasteboard.general.string = self
+    }
+    
+    public func pasteFromKeyboard() -> String {
+        return UIPasteboard.general.string ?? DefaultValue.emptyString
+    }
+    
+    public func share(
+        presenter: UINavigationController,
+        excludedActivityTypes: [UIActivity.ActivityType]? = UIActivityTypes.excludedFromShareText
+    ) {
+        var activityViewController = UIActivityViewController(activityItems: [], applicationActivities: nil)
+        if isValidURL() {
+            guard let link = URL(string: self) else { return }
+            activityViewController = UIActivityViewController(
+                activityItems: [link],
+                applicationActivities: nil
+            )
+        } else {
+            activityViewController = UIActivityViewController(
+                activityItems: [self],
+                applicationActivities: nil
+            )
+        }
+        activityViewController.popoverPresentationController?.sourceView = presenter.view
+        activityViewController.excludedActivityTypes = excludedActivityTypes
+        presenter.present(activityViewController, animated: true, completion: nil)
+    }
 }
