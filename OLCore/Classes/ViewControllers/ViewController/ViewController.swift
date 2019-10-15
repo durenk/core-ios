@@ -14,6 +14,7 @@ open class ViewController: UIViewController {
     open var navigationBarStyle: UIBarStyle { get { return UIBarStyle.default } }
     open var navigationBarColor: UIColor { get { return CoreStyle.Color.navigationBackground } }
     open var navigationBarTintColor: UIColor { get { return CoreStyle.Color.navigationText } }
+    open var backgroundColor: UIColor { get { return CoreStyle.Color.primaryBackground } }
     open var closeButtonPosition: LayoutPosition { get { return .none } }
     open var closeButton: UIBarButtonItem {
         get {
@@ -90,6 +91,7 @@ open class ViewController: UIViewController {
         navigation.navigationBar.shadowImage = UIColor.gray.withAlphaComponent(0.2).convertToImage()
         navigation.navigationBar.barStyle = navigationBarStyle
         navigation.navigationBar.tintColor = navigationBarTintColor
+        self.view.backgroundColor = backgroundColor
     }
 
     open func resetNavigationStack() {
@@ -165,9 +167,13 @@ open class ViewController: UIViewController {
         view.sendSubviewToBack(backgroundView)
     }
     
-    open func setBackground(urlString: String) {
-        let backgroundView = UIImageView(frame: view.bounds)
-        backgroundView.downloadedFrom(link: urlString, placeholderImage: UIImage())
+    open func setBackground(urlString: String, customFrame: CGRect? = nil) {
+        let backgroundView = UIImageView(frame: customFrame ?? view.bounds)
+        backgroundView.downloadedFrom(
+            link: urlString,
+            placeholderImage: UIImage()
+        )
+        backgroundView.contentMode = .scaleToFill
         view.addSubview(backgroundView)
         view.sendSubviewToBack(backgroundView)
     }
