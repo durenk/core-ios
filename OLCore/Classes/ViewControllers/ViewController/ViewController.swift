@@ -88,6 +88,7 @@ open class ViewController: UIViewController {
         navigation.navigationBar.isTranslucent = false
         if navigation.view.backgroundColor == UIColor.clear { return }
         navigation.setNavigationBarColor(navigationBarColor)
+        navigation.navigationBar.shadowImage = UIColor.gray.withAlphaComponent(0.2).convertToImage()
         navigation.navigationBar.barStyle = navigationBarStyle
         navigation.navigationBar.tintColor = navigationBarTintColor
     }
@@ -169,5 +170,19 @@ open class ViewController: UIViewController {
             view.addSubview(backgroundView)
         }
         view.sendSubviewToBack(backgroundView)
+    }
+}
+
+
+extension UIColor {
+    func convertToImage() -> UIImage {
+        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
+        let ctx = UIGraphicsGetCurrentContext()
+        self.setFill()
+        guard let currentContext = ctx else { return UIImage() }
+        currentContext.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image ?? UIImage()
     }
 }
