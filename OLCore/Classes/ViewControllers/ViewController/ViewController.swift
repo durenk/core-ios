@@ -164,6 +164,13 @@ open class ViewController: UIViewController {
         view.addSubview(backgroundView)
         view.sendSubviewToBack(backgroundView)
     }
+    
+    open func setBackground(urlString: String) {
+        let backgroundView = UIImageView(frame: view.bounds)
+        backgroundView.downloadedFrom(link: urlString, placeholderImage: UIImage())
+        view.addSubview(backgroundView)
+        view.sendSubviewToBack(backgroundView)
+    }
 }
 
 
