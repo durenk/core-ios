@@ -171,10 +171,10 @@ extension String {
         return UIPasteboard.general.string ?? DefaultValue.emptyString
     }
     
-    public func share(asURL: Bool, presenter: UINavigationController, excludedActivityTypes: [UIActivity.ActivityType]? = UIActivityTypes.excludedFromShareText) {
+    public func share(presenter: UINavigationController, excludedActivityTypes: [UIActivity.ActivityType]? = UIActivityTypes.excludedFromShareText) {
         var activityViewController : UIActivityViewController = UIActivityViewController(activityItems: [], applicationActivities: nil)
 
-        if asURL {
+        if isValidURL() {
             guard let urlString = URL(string: self) else { return }
             activityViewController = UIActivityViewController(
                 activityItems: [urlString], applicationActivities: nil)
