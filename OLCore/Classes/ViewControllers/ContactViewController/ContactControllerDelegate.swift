@@ -7,6 +7,4 @@
 
 import Foundation
 
-public protocol ContactControllerDelegate: class {
-    func phoneNumberDidSelect(contactName: String, phone: String)
-}
+public protocol ContactControllerDelegate: class {}
