@@ -16,6 +16,7 @@ extension UIImageView {
         completion: @escaping () -> Void = {}
     ) {
         image = placeholderImage
+        if !link.isValidURL() { return }
         sd_setImage(with: URL(string: link), placeholderImage: placeholderImage, options: []) {(image, _, _, _) in
             var imageResult = UIImage()
             if image != nil {
