@@ -13,7 +13,7 @@ public protocol ImagePickerDelegate: class {
     func imagePickerDidSelect(image: UIImage, fileSizeInKB: Int)
 }
 
-class ImagePicker: NSObject {
+open class ImagePicker: NSObject {
     private let pickerController: UIImagePickerController
     private var overlay: UIView = UIView()
     private weak var presentationController: UIViewController?
@@ -24,13 +24,15 @@ class ImagePicker: NSObject {
     private var settingsButtonText: String = DefaultValue.emptyString
     private var permissionText: String = DefaultValue.emptyString
     
-    public init(presentationController: UIViewController,
-                delegate: ImagePickerDelegate,
-                overlay: UIView,
-                compressionQuality: CGFloat = 0.5,
-                cancelButtonText: String,
-                settingsButtonText: String,
-                permissionText: String) {
+    public init(
+        presentationController: UIViewController,
+        delegate: ImagePickerDelegate,
+        overlay: UIView,
+        compressionQuality: CGFloat = 0.5,
+        cancelButtonText: String = DefaultValue.emptyString,
+        settingsButtonText: String = DefaultValue.emptyString,
+        permissionText: String = DefaultValue.emptyString
+    ) {
         self.pickerController = UIImagePickerController()
         super.init()
         self.presentationController = presentationController
@@ -71,7 +73,12 @@ class ImagePicker: NSObject {
             self.presentationController?.present(self.pickerController, animated: true)
         }
     }
-    
+
+    public func presentGalleryPhoto() {
+        self.pickerController.sourceType = .photoLibrary
+        self.presentationController?.present(self.pickerController, animated: true)
+    }
+
     public func present(from sourceView: UIView, menuTitle: String, cameraButtonTitle: String, galleryButtonTitle: String ) {
         
         alertController = UIAlertController(title: menuTitle, message: nil, preferredStyle: .actionSheet)
@@ -103,7 +110,7 @@ class ImagePicker: NSObject {
     @objc func closeAlert() {
         alertController.dismiss(animated: true, completion: nil)
     }
-    
+
     private func showCameraPermission() {
         let settingAction = UIAlertAction(
             title: settingsButtonText,
