@@ -168,22 +168,21 @@ extension String {
     }
     
     public func pasteFromKeyboard() -> String {
-        return UIPasteboard.general.string ?? ""
+        return UIPasteboard.general.string ?? DefaultValue.emptyString
     }
     
-    public func shareWithURL(presenter: UINavigationController, excludedActivityTypes: [UIActivity.ActivityType]?) {
-        if let firstActivityItem = URL(string: self) {
-            let activityViewController : UIActivityViewController = UIActivityViewController(
-                activityItems: [firstActivityItem], applicationActivities: nil)
-            activityViewController.popoverPresentationController?.sourceView = presenter.view
-            activityViewController.excludedActivityTypes = excludedActivityTypes
-            presenter.present(activityViewController, animated: true, completion: nil)
+    public func share(asURL: Bool, presenter: UINavigationController, excludedActivityTypes: [UIActivity.ActivityType]? = UIActivityTypes.excludedFromShareText) {
+        var activityViewController : UIActivityViewController = UIActivityViewController(activityItems: [], applicationActivities: nil)
+
+        if asURL {
+            guard let urlString = URL(string: self) else { return }
+            activityViewController = UIActivityViewController(
+                activityItems: [urlString], applicationActivities: nil)
+        } else {
+            activityViewController = UIActivityViewController(
+                activityItems: [self], applicationActivities: nil)
         }
-    }
-    
-    public func shareWithText(presenter: UINavigationController, excludedActivityTypes: [UIActivity.ActivityType]?) {
-        let activityViewController : UIActivityViewController = UIActivityViewController(
-            activityItems: [self], applicationActivities: nil)
+
         activityViewController.popoverPresentationController?.sourceView = presenter.view
         activityViewController.excludedActivityTypes = excludedActivityTypes
         presenter.present(activityViewController, animated: true, completion: nil)
