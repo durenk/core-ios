@@ -46,7 +46,7 @@ open class CheckboxView: UIView {
         addSubview(checkboxImageView)
         createCheckboxImageViewSizeConstraint()
         createCheckboxImageViewOriginConstraint()
-        setSelected(value)
+        setSelected(value, isRenderOnly: true)
     }
 
     private func renderCheckboxImage() {
@@ -116,11 +116,13 @@ open class CheckboxView: UIView {
         return value
     }
 
-    public func setSelected(_ isSelected: Bool) {
+    public func setSelected(_ isSelected: Bool, isRenderOnly: Bool = false) {
         self.value = isSelected
         renderCheckboxImage()
         guard let didChangeAction = didChangeAction else { return }
-        didChangeAction(self, value)
+        if !isRenderOnly {
+            didChangeAction(self, value)
+        }
     }
 }
 
