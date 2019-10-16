@@ -14,6 +14,7 @@ open class ViewController: UIViewController {
     open var navigationBarStyle: UIBarStyle { get { return UIBarStyle.default } }
     open var navigationBarColor: UIColor { get { return CoreStyle.Color.navigationBackground } }
     open var navigationBarTintColor: UIColor { get { return CoreStyle.Color.navigationText } }
+    open var backgroundColor: UIColor { get { return CoreStyle.Color.primaryBackground } }
     open var closeButtonPosition: LayoutPosition { get { return .none } }
     open var closeButton: UIBarButtonItem {
         get {
@@ -45,6 +46,7 @@ open class ViewController: UIViewController {
 
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        configureBackgroundColor()
         if CoreConfig.TableViewController.isAutoRenderOnEveryViewWillAppear {
             setupForegroundObserver()
         }
@@ -158,14 +160,25 @@ open class ViewController: UIViewController {
         return viewIfLoaded.window != nil
     }
 
-    open func setBackground(image: UIImage) {
-        let backgroundView = UIImageView(frame: view.bounds)
-        backgroundView.image = image
+    open func setBackground(
+        image: UIImage = UIImage(),
+        link: String = DefaultValue.emptyString,
+        customFrame: CGRect? = nil
+    ) {
+        let backgroundView = UIImageView(frame: customFrame ?? view.bounds)
+        backgroundView.contentMode = .scaleAspectFill
+        backgroundView.downloadedFrom(
+            link: link,
+            placeholderImage: image
+        )
         view.addSubview(backgroundView)
         view.sendSubviewToBack(backgroundView)
     }
-}
 
+    open func configureBackgroundColor() {
+        view.backgroundColor = backgroundColor
+    }
+}
 
 extension UIColor {
     func convertToImage() -> UIImage {
