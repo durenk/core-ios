@@ -44,11 +44,6 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
         }
     }
 
-    override open func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        configureBackgroundColor()
-    }
-
     override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         resetCellSelection()
@@ -159,7 +154,8 @@ open class TableViewController: ViewController, TableViewContainerProtocol {
         infiniteScroll.isLoading = isLoading
     }
 
-    open func configureBackgroundColor(_ color: UIColor? = nil) {
+    override open func configureBackgroundColor(_ color: UIColor? = nil) {
+        super.configureBackgroundColor(color)
         let color = color == nil ? tableViewBackgroundColor : color
         contentView.tableView.backgroundColor = color
         if tableViewBackgroundColor != UIColor.clear {
