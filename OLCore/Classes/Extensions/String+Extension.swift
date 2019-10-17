@@ -192,4 +192,13 @@ extension String {
         activityViewController.excludedActivityTypes = excludedActivityTypes
         presenter.present(activityViewController, animated: true, completion: nil)
     }
+
+    public mutating func append(
+        text: String,
+        separator: String = DefaultValue.emptyString
+    ) {
+        if text.isEmpty { return }
+        if !self.isEmpty { self += separator }
+        self += text
+    }
 }
