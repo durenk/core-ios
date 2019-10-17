@@ -55,9 +55,6 @@ open class Button: UIButton {
         setTitleColor(style.textColorEnabled, for: .normal)
         backgroundColor = style.buttonColorEnabled
         tintColor = style.tintColorEnabled
-        if let imageView = self.imageView {
-            self.bringSubviewToFront(imageView)
-        }
     }
 
     private func applyDisabledStyle() {
@@ -65,9 +62,6 @@ open class Button: UIButton {
         setTitleColor(style.textColorDisabled, for: .normal)
         backgroundColor = style.buttonColorDisabled
         tintColor = style.tintColorDisabled
-        if let imageView = self.imageView {
-            self.bringSubviewToFront(imageView)
-        }
     }
 
     private func setGradientColors(_ colors: [UIColor]) {
