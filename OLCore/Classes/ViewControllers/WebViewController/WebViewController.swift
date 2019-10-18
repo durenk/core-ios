@@ -9,6 +9,14 @@ import UIKit
 import WebKit
 
 open class WebViewController: ViewController, WKNavigationDelegate {
+    private let header: String = "<header>"
+        + "<meta name='viewport'"
+        + " content='width=device-width,"
+        + " initial-scale=1.0,"
+        + " maximum-scale=1.0,"
+        + " minimum-scale=1.0,"
+        + " user-scalable=no'>"
+        + "</header>"
     private var webView: WKWebView = WKWebView()
     public weak var delegate: WebViewControllerDelegate?
     public var htmlContent: String = DefaultValue.emptyString
@@ -23,6 +31,9 @@ open class WebViewController: ViewController, WKNavigationDelegate {
 
     override open func viewDidLoad() {
         super.viewDidLoad()
-        webView.loadHTMLString(htmlContent, baseURL: nil)
+        webView.loadHTMLString(
+            header + htmlContent,
+            baseURL: nil
+        )
     }
 }
