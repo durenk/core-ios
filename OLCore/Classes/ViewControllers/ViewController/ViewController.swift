@@ -14,6 +14,7 @@ open class ViewController: UIViewController {
     open var navigationBarStyle: UIBarStyle { get { return UIBarStyle.default } }
     open var navigationBarColor: UIColor { get { return CoreStyle.Color.navigationBackground } }
     open var navigationBarTintColor: UIColor { get { return CoreStyle.Color.navigationText } }
+    open var backgroundColor: UIColor { get { return CoreStyle.Color.primaryBackground } }
     open var closeButtonPosition: LayoutPosition { get { return .none } }
     open var closeButton: UIBarButtonItem {
         get {
@@ -45,6 +46,7 @@ open class ViewController: UIViewController {
 
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        configureBackgroundColor()
         if CoreConfig.TableViewController.isAutoRenderOnEveryViewWillAppear {
             setupForegroundObserver()
         }
@@ -87,6 +89,7 @@ open class ViewController: UIViewController {
         navigation.navigationBar.isTranslucent = false
         if navigation.view.backgroundColor == UIColor.clear { return }
         navigation.setNavigationBarColor(navigationBarColor)
+        navigation.navigationBar.shadowImage = UIColor.gray.withAlphaComponent(0.2).convertToImage()
         navigation.navigationBar.barStyle = navigationBarStyle
         navigation.navigationBar.tintColor = navigationBarTintColor
     }
@@ -157,10 +160,35 @@ open class ViewController: UIViewController {
         return viewIfLoaded.window != nil
     }
 
-    open func setBackground(image: UIImage) {
-        let backgroundView = UIImageView(frame: view.bounds)
-        backgroundView.image = image
+    open func setBackground(
+        image: UIImage = UIImage(),
+        link: String = DefaultValue.emptyString,
+        customFrame: CGRect? = nil
+    ) {
+        let backgroundView = UIImageView(frame: customFrame ?? view.bounds)
+        backgroundView.contentMode = .scaleAspectFill
+        backgroundView.downloadedFrom(
+            link: link,
+            placeholderImage: image
+        )
         view.addSubview(backgroundView)
         view.sendSubviewToBack(backgroundView)
+    }
+
+    open func configureBackgroundColor() {
+        view.backgroundColor = backgroundColor
+    }
+}
+
+extension UIColor {
+    func convertToImage() -> UIImage {
+        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
+        let ctx = UIGraphicsGetCurrentContext()
+        self.setFill()
+        guard let currentContext = ctx else { return UIImage() }
+        currentContext.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image ?? UIImage()
     }
 }
