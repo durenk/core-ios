@@ -30,8 +30,9 @@ extension Double {
     public func removeZerosFromEnd() -> String {
         let formatter = NumberFormatter()
         let number = NSNumber(value: self)
+        let last = String(self).components(separatedBy: ".").last ?? DefaultValue.emptyString
         formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = (String(self).components(separatedBy: ".").last)!.count
+        formatter.maximumFractionDigits = last.count
         return String(formatter.string(from: number) ?? DefaultValue.emptyString)
     }
 }
