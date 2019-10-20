@@ -45,6 +45,10 @@ extension FormTableViewController: UITextFieldDelegate {
         let isValidLength = tf.maxLength == 0 || initialText.count + string.count - range.length <= tf.maxLength
         var result = isValidLength && tf.shouldChangeCharactersIn(range: range, replacementString: string)
         if !result { return false }
+        let cursorLocation = textField.position(
+            from: textField.beginningOfDocument,
+            offset: range.location + string.count
+        )
         var replacementString = string
         if tf.autocapitalizationType == .allCharacters {
             replacementString = replacementString.uppercased()
@@ -68,6 +72,9 @@ extension FormTableViewController: UITextFieldDelegate {
         }
         if result || initialText != tf.text {
             tf.didChange(textField: tf, newValue: updatedText)
+        }
+        if let cursorLocation = cursorLocation{
+            tf.selectedTextRange = tf.textRange(from: cursorLocation, to: cursorLocation)
         }
         return result
     }
