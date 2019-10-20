@@ -136,6 +136,17 @@ extension String {
         return self.toDate(format: DateFormat.periodDB)
     }
 
+    public func formatInIndonesianMobilePhone() -> String {
+        var number = self.digits
+        if self.hasPrefix("+") { number = "+" + number }
+        let prefix = "+" + CountryCode.indonesia
+        if number.hasPrefix(prefix) {
+            number = String(number.dropFirst(prefix.count))
+            number = "0" + number
+        }
+        return number
+    }
+
     public func isValid(regexRule: String) -> Bool {
         return NSPredicate(format: "SELF MATCHES %@", regexRule).evaluate(with: self)
     }
