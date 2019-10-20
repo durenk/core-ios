@@ -10,6 +10,7 @@ import UIKit
 
 open class ViewController: UIViewController {
     private var foregroundObserver: NSObjectProtocol?
+    public var isSwipeToPopEnabled: Bool = true
     open var backgroundView = UIImageView()
     open var didLoadData: Bool = false
     open var navigationBarStyle: UIBarStyle { get { return UIBarStyle.default } }
@@ -47,6 +48,7 @@ open class ViewController: UIViewController {
 
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = isSwipeToPopEnabled
         configureBackgroundColor()
         if CoreConfig.TableViewController.isAutoRenderOnEveryViewWillAppear {
             setupForegroundObserver()
@@ -62,6 +64,11 @@ open class ViewController: UIViewController {
     open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         removeForegroundObserver()
+    }
+
+    open override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
 
     open func viewWillEnterForeground() {
