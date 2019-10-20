@@ -212,4 +212,9 @@ extension String {
         if !self.isEmpty { self += separator }
         self += text
     }
+
+    public func isBackspace() -> Bool {
+        guard let char = self.cString(using: String.Encoding.utf8) else { return false }
+        return strcmp(char, "\\b") == -92
+    }
 }

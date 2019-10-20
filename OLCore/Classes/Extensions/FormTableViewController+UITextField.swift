@@ -39,6 +39,7 @@ extension FormTableViewController: UITextFieldDelegate {
     }
 
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if string.isBackspace() { return true }
         guard let tf: TextField = textField as? TextField else { return true }
         guard let initialText: String = tf.text else { return true }
         let isValidLength = tf.maxLength == 0 || initialText.count + string.count - range.length <= tf.maxLength
