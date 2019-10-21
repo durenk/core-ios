@@ -11,7 +11,7 @@ open class DefaultDatePickerStyle: DatePickerStyle {
     open var backgroundColor: UIColor = .white
     open var instructionFont: UIFont = UIFont.systemFont(ofSize: UIFont.labelFontSize)
     open var instructionColor: UIColor = .clear
-    open var doneButtonFont: UIFont = UIFont()
+    open var doneButtonFont: UIFont = UIFont.systemFont(ofSize: UIFont.buttonFontSize)
     open var doneButtonColor: UIColor = .clear
     open var borderWidth: CGFloat = 0
     open var borderColor: UIColor = .clear
