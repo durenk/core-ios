@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class PageViewWithVC: UIPageViewController {
+open class PageViewController: UIPageViewController {
     private var foregroundObserver: NSObjectProtocol?
     open var backgroundView = UIImageView()
     open var didLoadData: Bool = false
@@ -26,7 +26,6 @@ open class PageViewWithVC: UIPageViewController {
         }
     }
     open func load() {}
-    open func loadMore() {}
 
     override open func viewDidLoad() {
         super.viewDidLoad()
