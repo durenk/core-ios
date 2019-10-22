@@ -9,7 +9,9 @@ import UIKit
 
 open class PageViewController: UIPageViewController {
     private var foregroundObserver: NSObjectProtocol?
+    open var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     open var backgroundView = UIImageView()
+    open var pageControl = UIPageControl()
     open var didLoadData: Bool = false
     open var navigationBarStyle: UIBarStyle { get { return UIBarStyle.default } }
     open var navigationBarColor: UIColor { get { return CoreStyle.Color.navigationBackground } }
@@ -167,6 +169,31 @@ open class PageViewController: UIPageViewController {
             view.addSubview(backgroundView)
         }
         view.sendSubviewToBack(backgroundView)
+    }
+    
+    open func setActivityIndicator() {
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = UIActivityIndicatorView.Style.gray
+        activityIndicator.startAnimating()
+        activityIndicator.hidesWhenStopped = true
+        self.view.addSubview(activityIndicator)
+    }
+    
+    open func createPageControl() {
+        let initialPage = 0
+        self.pageControl.currentPage = initialPage
+        pageControl.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+        self.view.addSubview(self.pageControl)
+        setpageControlConstraint()
+    }
+    
+    open func setpageControlConstraint() {
+        self.pageControl.translatesAutoresizingMaskIntoConstraints = false
+        self.pageControl.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 130).isActive = true
+        pageControl.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -20).isActive = true
+        self.pageControl.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        self.pageControl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
     }
 }
 
