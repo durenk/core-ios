@@ -180,19 +180,21 @@ open class PageViewController: UIPageViewController {
         self.view.addSubview(activityIndicator)
     }
     
-    open func createPageControl() {
-        let initialPage = 0
+    open func renderPageControl(scaleX: CGFloat = 1.5, scaleY:  CGFloat = 1.5) {
+        let initialPage = DefaultValue.emptyInt
         self.pageControl.currentPage = initialPage
-        pageControl.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+        pageControl.transform = CGAffineTransform(scaleX: scaleX, y: scaleY)
         self.view.addSubview(self.pageControl)
-        setpageControlConstraint()
     }
     
-    open func setpageControlConstraint() {
+    open func setPageControlConstraint(
+        top: CGFloat = DefaultValue.emptyCGFloat,
+        height: CGFloat = 10
+        ) {
         self.pageControl.translatesAutoresizingMaskIntoConstraints = false
-        self.pageControl.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 130).isActive = true
-        pageControl.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -20).isActive = true
-        self.pageControl.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        self.pageControl.topAnchor.constraint(equalTo: self.view.topAnchor, constant: top).isActive = true
+        pageControl.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: DefaultValue.emptyCGFloat).isActive = true
+        self.pageControl.heightAnchor.constraint(equalToConstant: height).isActive = true
         self.pageControl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
     }
 }
