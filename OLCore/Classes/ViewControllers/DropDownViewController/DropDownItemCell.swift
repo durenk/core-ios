@@ -23,30 +23,6 @@ open class DropDownItemCell: TableViewCell {
         containerWidth = SizeHelper.ScreenWidth - (contentInset.left + contentInset.right)
     }
 
-    override open func loadView() {
-        super.loadView()
-        contentView.removeAllSubviews()
-        contentView.addSubview(mainLabel)
-        Constraint(
-            parentView: contentView,
-            childView: mainLabel,
-            leading: contentInset.left,
-            trailing: contentInset.right + (containerWidth - mainLabel.frame.size.width),
-            top: contentInset.top,
-            bottom: contentInset.bottom
-        ).activate()
-        if !option.description.isEmpty {
-            contentView.addSubview(descriptionLabel)
-            Constraint(
-                parentView: contentView,
-                childView: descriptionLabel,
-                leading: contentInset.left + (containerWidth - descriptionLabel.frame.size.width),
-                trailing: contentInset.top,
-                bottom: contentInset.bottom
-            ).activate()
-        }
-    }
-
     private func renderMainLabel() {
         mainLabel.text = option.text
         mainLabel.textColor = option.isActive ? textActiveColor : textInactiveColor
@@ -58,6 +34,15 @@ open class DropDownItemCell: TableViewCell {
             percent: option.description.isEmpty ? 100 : 54,
             valueOf: containerWidth
         )
+        contentView.addSubview(mainLabel)
+        Constraint(
+            parentView: contentView,
+            childView: mainLabel,
+            leading: contentInset.left,
+            trailing: contentInset.right + (containerWidth - mainLabel.frame.size.width),
+            top: contentInset.top,
+            bottom: contentInset.bottom
+        ).activate()
     }
 
     private func renderDescriptionLabel() {
@@ -73,6 +58,16 @@ open class DropDownItemCell: TableViewCell {
             percent: 45,
             valueOf: containerWidth
         )
+        if !option.description.isEmpty {
+            contentView.addSubview(descriptionLabel)
+            Constraint(
+                parentView: contentView,
+                childView: descriptionLabel,
+                leading: contentInset.left + (containerWidth - descriptionLabel.frame.size.width),
+                trailing: contentInset.top,
+                bottom: contentInset.bottom
+            ).activate()
+        }
     }
 
     public func setContent(leftText: String, rightText: String = DefaultValue.emptyString) {
@@ -80,9 +75,14 @@ open class DropDownItemCell: TableViewCell {
         descriptionLabel.text = rightText
     }
 
-    public func render() {
-        isUserInteractionEnabled = option.isActive
+    open func renderContent() {
+        contentView.removeAllSubviews()
         renderMainLabel()
         renderDescriptionLabel()
+    }
+
+    open func render() {
+        isUserInteractionEnabled = option.isActive
+        renderContent()
     }
 }

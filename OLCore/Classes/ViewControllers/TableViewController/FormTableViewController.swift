@@ -14,7 +14,7 @@ open class FormTableViewController: TableViewController {
     private var isShowingKeyboard: Bool = false
     open func didValidationSuccess() {}
     open func didValidationFailed() {}
-    open func didChangeInput(_ input: InputProtocol) {}
+    open func didChangeInput(_ input: InputProtocol, _ newValue: Any) {}
 
     override open func viewDidLoad() {
         super.viewDidLoad()

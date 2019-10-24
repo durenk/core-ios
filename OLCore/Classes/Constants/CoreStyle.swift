@@ -16,10 +16,13 @@ public struct CoreStyle {
         public static var navigationBackButton: UIImage = UIImage()
         public static var navigationCloseButton: UIImage = UIImage()
         public static var dropDownArrow: UIImage = UIImage()
+        public static var calendarPicker: UIImage = UIImage()
         public static var currencyIDRActive: UIImage = UIImage()
         public static var currencyIDRInactive: UIImage = UIImage()
         public static var eyeButtonOpen: UIImage = UIImage()
         public static var eyeButtonClose: UIImage = UIImage()
+        public static var checkedBox: UIImage = UIImage()
+        public static var uncheckedBox: UIImage = UIImage()
     }
     public struct Color {
         public static var navigationBackground: UIColor = .groupTableViewBackground

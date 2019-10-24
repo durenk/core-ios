@@ -9,6 +9,7 @@
 import UIKit
 
 open class NestedTableViewConnector: NSObject {
+    open var contentView: NestedTableView { return NestedTableView() }
     private var cell: NestedTableViewContainerCell?
     private var isEmptyContent: Bool = true
 
@@ -17,16 +18,14 @@ open class NestedTableViewConnector: NSObject {
     }
 
     open func render(
-        contentView: NestedTableView,
         containerCell: NestedTableViewContainerCell,
         containerTableView: TableView,
         minimumContentHeight: CGFloat = 0,
-        withStartLoading isLoading: Bool = false,
         delegate: NestedTableViewDelegate?
     ) {
         if cell == nil {
             cell = containerCell
-            contentView.configure(isLoading: isLoading, delegate: delegate)
+            contentView.configure(delegate: delegate)
         }
         guard let cell = cell else {
             isEmptyContent = true
@@ -37,6 +36,7 @@ open class NestedTableViewConnector: NSObject {
             contentView: contentView,
             minimumContentHeight: minimumContentHeight
         )
+        cell.nestedTableViewContainer.setupConstraint()
         isEmptyContent = contentView.isEmpty()
         return
     }

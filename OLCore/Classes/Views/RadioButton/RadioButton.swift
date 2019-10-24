@@ -17,6 +17,7 @@ open class RadioButton: DLRadioButton {
     private var container: UIView = UIView()
     private var bottomView: UIView = UIView()
     weak public var delegate: RadioButtonDelegate?
+    public var key: String = DefaultValue.emptyString
     public var name: String = DefaultValue.emptyString
     public var didChangeAction: InputDidChangeHandler?
     public var didValidationErrorAction: InputDidValidationError?
@@ -142,7 +143,7 @@ open class RadioButton: DLRadioButton {
         }
         delegate?.radioButtonDidEndEditing(self)
         guard let didChangeAction = didChangeAction else { return }
-        didChangeAction(self)
+        didChangeAction(self, selectedOption)
     }
 
     private func setConstraintTop(item: UIView, toItem: UIView) {

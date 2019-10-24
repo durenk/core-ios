@@ -1,22 +1,21 @@
 //
-//  ViewController.swift
-//  OLCore
+//  PageViewWithVC.swift
+//  DLRadioButton
 //
-//  Created by DENZA on 06/11/18.
-//  Copyright © 2018 NDV6. All rights reserved.
+//  Created by NICKO PRASETIO on 15/10/19.
 //
 
 import UIKit
 
-open class ViewController: UIViewController {
+open class PageViewController: UIPageViewController {
     private var foregroundObserver: NSObjectProtocol?
-    public var isSwipeToPopEnabled: Bool = true
+    open var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     open var backgroundView = UIImageView()
+    open var pageControl = UIPageControl()
     open var didLoadData: Bool = false
     open var navigationBarStyle: UIBarStyle { get { return UIBarStyle.default } }
     open var navigationBarColor: UIColor { get { return CoreStyle.Color.navigationBackground } }
     open var navigationBarTintColor: UIColor { get { return CoreStyle.Color.navigationText } }
-    open var backgroundColor: UIColor { get { return CoreStyle.Color.primaryBackground } }
     open var closeButtonPosition: LayoutPosition { get { return .none } }
     open var closeButton: UIBarButtonItem {
         get {
@@ -29,7 +28,6 @@ open class ViewController: UIViewController {
         }
     }
     open func load() {}
-    open func loadMore() {}
 
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -48,8 +46,6 @@ open class ViewController: UIViewController {
 
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = isSwipeToPopEnabled
-        configureBackgroundColor()
         if CoreConfig.TableViewController.isAutoRenderOnEveryViewWillAppear {
             setupForegroundObserver()
         }
@@ -64,11 +60,6 @@ open class ViewController: UIViewController {
     open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         removeForegroundObserver()
-    }
-
-    open override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
 
     open func viewWillEnterForeground() {
@@ -97,7 +88,6 @@ open class ViewController: UIViewController {
         navigation.navigationBar.isTranslucent = false
         if navigation.view.backgroundColor == UIColor.clear { return }
         navigation.setNavigationBarColor(navigationBarColor)
-        navigation.navigationBar.shadowImage = UIColor.gray.withAlphaComponent(0.2).convertToImage()
         navigation.navigationBar.barStyle = navigationBarStyle
         navigation.navigationBar.tintColor = navigationBarTintColor
     }
@@ -168,41 +158,44 @@ open class ViewController: UIViewController {
         return viewIfLoaded.window != nil
     }
 
-    open func setBackground(
-        image: UIImage? = nil,
-        link: String = DefaultValue.emptyString,
-        customFrame: CGRect? = nil
-    ) {
-        if image == nil && link == DefaultValue.emptyString {
+    open func setBackground(image: UIImage?) {
+        if image == nil {
             backgroundView.removeFromSuperview()
             return
         }
-        backgroundView = UIImageView(frame: customFrame ?? view.bounds)
-        backgroundView.contentMode = .scaleAspectFill
-        backgroundView.downloadedFrom(
-            link: link,
-            placeholderImage: image
-        )
+        backgroundView = UIImageView(frame: view.bounds)
+        backgroundView.image = image
         if backgroundView.superview == nil {
             view.addSubview(backgroundView)
         }
         view.sendSubviewToBack(backgroundView)
     }
-
-    open func configureBackgroundColor(_ color: UIColor? = nil) {
-        view.backgroundColor = color == nil ? backgroundColor : color
+    
+    open func setActivityIndicator() {
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = UIActivityIndicatorView.Style.gray
+        activityIndicator.startAnimating()
+        activityIndicator.hidesWhenStopped = true
+        self.view.addSubview(activityIndicator)
+    }
+    
+    open func renderPageControl(scaleX: CGFloat = 1.5, scaleY:  CGFloat = 1.5) {
+        let initialPage = DefaultValue.emptyInt
+        self.pageControl.currentPage = initialPage
+        pageControl.transform = CGAffineTransform(scaleX: scaleX, y: scaleY)
+        self.view.addSubview(self.pageControl)
+    }
+    
+    open func setPageControlConstraint(
+        top: CGFloat = DefaultValue.emptyCGFloat,
+        height: CGFloat = 10
+        ) {
+        self.pageControl.translatesAutoresizingMaskIntoConstraints = false
+        self.pageControl.topAnchor.constraint(equalTo: self.view.topAnchor, constant: top).isActive = true
+        pageControl.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: DefaultValue.emptyCGFloat).isActive = true
+        self.pageControl.heightAnchor.constraint(equalToConstant: height).isActive = true
+        self.pageControl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
     }
 }
 
-extension UIColor {
-    func convertToImage() -> UIImage {
-        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
-        let ctx = UIGraphicsGetCurrentContext()
-        self.setFill()
-        guard let currentContext = ctx else { return UIImage() }
-        currentContext.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image ?? UIImage()
-    }
-}

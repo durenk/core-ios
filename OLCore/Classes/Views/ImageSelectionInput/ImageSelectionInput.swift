@@ -8,6 +8,7 @@
 import UIKit
 
 open class ImageSelectionInput: Button {
+    public var key: String = DefaultValue.emptyString
     open var didChangeAction: InputDidChangeHandler?
     open var didValidationErrorAction: InputDidValidationError?
     open var didValidationSuccessAction: InputDidValidationSuccess?
@@ -45,7 +46,7 @@ open class ImageSelectionInput: Button {
         settingsButtonText: String,
         permissionText: String,
         compressionQuality: CGFloat,
-        didChangeAction: @escaping InputDidChangeHandler = {_ in }
+        didChangeAction: @escaping InputDidChangeHandler = {_,_  in }
         ) {
         self.name = name
         self.sender = sender
@@ -79,7 +80,6 @@ open class ImageSelectionInput: Button {
         )
     }
 }
-
 
 extension ImageSelectionInput: InputProtocol {
     open func getInputView() -> UIView {

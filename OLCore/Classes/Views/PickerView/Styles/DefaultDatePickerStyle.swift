@@ -7,20 +7,21 @@
 
 import UIKit
 
-class DefaultDatePickerStyle: DatePickerViewStyle {
-    var backgroundColor: UIColor = .white
-    var instructionFont: UIFont = UIFont()
-    var instructionColor: UIColor = .clear
-    var doneButtonFont: UIFont = UIFont()
-    var doneButtonColor: UIColor = .clear
-    var borderWidth: CGFloat = 0
-    var borderColor: UIColor = .clear
-    var toolBarStyle: UIBarStyle = .default
-    var toolBarTintColor: UIColor = .clear
-    var isToolBarTranslucent: Bool = false
-    var isOverlayVisible: Bool = true
-    var calendarButtonImage: UIImage = UIImage()
-    var calendarButtonStyle: ButtonStyle = DefaultButtonStyle()
-    var textFieldTintColor: UIColor = .clear
-    var displayFormat: String = DefaultValue.emptyString
+open class DefaultDatePickerStyle: DatePickerStyle {
+    open var backgroundColor: UIColor = .white
+    open var instructionFont: UIFont = UIFont.systemFont(ofSize: UIFont.labelFontSize)
+    open var instructionColor: UIColor = UIColor.darkText
+    open var doneButtonFont: UIFont = UIFont.systemFont(ofSize: UIFont.buttonFontSize)
+    open var doneButtonColor: UIColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
+    open var borderWidth: CGFloat = 0
+    open var borderColor: UIColor = .clear
+    open var toolBarStyle: UIBarStyle = .default
+    open var toolBarTintColor: UIColor = .clear
+    open var isToolBarTranslucent: Bool = false
+    open var isOverlayVisible: Bool = false
+    open var calendarButtonImage: UIImage = CoreStyle.Image.calendarPicker
+    open var calendarButtonStyle: ButtonStyle = DefaultButtonStyle()
+    open var textFieldTintColor: UIColor = .clear
+    open var displayFormat: String = DateFormat.date
+    public init() {}
 }

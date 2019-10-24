@@ -88,6 +88,16 @@ extension String {
         }
     }
 
+    public func openURL(presenter: UINavigationController, delegate: SFSafariViewControllerDelegate? = nil) {
+        if isValidURL() {
+            if let url = URL(string: self) {
+                let safariVC = SFSafariViewController(url: url)
+                safariVC.delegate = delegate
+                presenter.present(safariVC, animated: true, completion: nil)
+            }
+        }
+    }
+
     public func openDeeplink() -> Bool {
         if isValidURL() {
             if let url = URL(string: self),
@@ -126,6 +136,17 @@ extension String {
         return self.toDate(format: DateFormat.periodDB)
     }
 
+    public func formatInIndonesianMobilePhone() -> String {
+        var number = self.digits
+        if self.hasPrefix("+") { number = "+" + number }
+        let prefix = "+" + CountryCode.indonesia
+        if number.hasPrefix(prefix) {
+            number = String(number.dropFirst(prefix.count))
+            number = "0" + number
+        }
+        return number
+    }
+
     public func isValid(regexRule: String) -> Bool {
         return NSPredicate(format: "SELF MATCHES %@", regexRule).evaluate(with: self)
     }
@@ -151,5 +172,49 @@ extension String {
 
     public func getFirstWord() -> String {
         return components(separatedBy: DefaultValue.whitespace).first ?? DefaultValue.emptyString
+    }
+    
+    public func copyToKeyboard() {
+        UIPasteboard.general.string = self
+    }
+    
+    public func pasteFromKeyboard() -> String {
+        return UIPasteboard.general.string ?? DefaultValue.emptyString
+    }
+    
+    public func share(
+        presenter: UINavigationController,
+        excludedActivityTypes: [UIActivity.ActivityType]? = UIActivityTypes.excludedFromShareText
+    ) {
+        var activityViewController = UIActivityViewController(activityItems: [], applicationActivities: nil)
+        if isValidURL() {
+            guard let link = URL(string: self) else { return }
+            activityViewController = UIActivityViewController(
+                activityItems: [link],
+                applicationActivities: nil
+            )
+        } else {
+            activityViewController = UIActivityViewController(
+                activityItems: [self],
+                applicationActivities: nil
+            )
+        }
+        activityViewController.popoverPresentationController?.sourceView = presenter.view
+        activityViewController.excludedActivityTypes = excludedActivityTypes
+        presenter.present(activityViewController, animated: true, completion: nil)
+    }
+
+    public mutating func append(
+        text: String,
+        separator: String = DefaultValue.emptyString
+    ) {
+        if text.isEmpty { return }
+        if !self.isEmpty { self += separator }
+        self += text
+    }
+
+    public func isBackspace() -> Bool {
+        guard let char = self.cString(using: String.Encoding.utf8) else { return false }
+        return strcmp(char, "\\b") == -92
     }
 }

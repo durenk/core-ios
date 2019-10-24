@@ -7,7 +7,7 @@
 
 import UIKit
 
-@objc public protocol DatePickerViewStyle {
+@objc public protocol DatePickerStyle {
     var backgroundColor: UIColor { get }
     var instructionFont: UIFont { get }
     var instructionColor: UIColor { get }

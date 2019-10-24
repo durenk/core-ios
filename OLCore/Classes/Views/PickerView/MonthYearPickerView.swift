@@ -6,46 +6,39 @@
 import UIKit
 
 open class MonthYearPickerView: UIPickerView {
-    var minimumDate = Date()
-    var maximumDate = Date()
-    var defaultDate = Date() {
+    private var months: [String] = [String]()
+    private var years: [Int] = [Int]()
+    private var minimumDate = Date()
+    private var maximumDate = Date()
+    var selectedDate = Date() {
         didSet {
             goToDefaultDate()
         }
     }
-    var months: [String] = [String]()
-    var years: [Int] = [Int]()
     var locale: Locale = Locale(identifier: DateLocale.indonesian)
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.commonSetup()
-    }
-
-    public init(frame: CGRect, minimumDate: Date = Date(), maximumDate: Date = Date()) {
-        super.init(frame: frame)
-        self.minimumDate = minimumDate
-        self.maximumDate = maximumDate
-        self.commonSetup()
-    }
 
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.commonSetup()
     }
 
-    func commonSetup() {
-        var years: [Int] = [Int]()
-        if years.isEmpty {
-            guard let calendar = NSCalendar(identifier: NSCalendar.Identifier.gregorian) else { return }
-            let minimumYear = calendar.component(.year, from: minimumDate)
-            let maximumYear = calendar.component(.year, from: maximumDate)
-            for year in minimumYear...maximumYear {
-                years.append(year)
-            }
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+
+    public func configure(
+        minimumDate: Date = Date(),
+        maximumDate: Date = Date()
+    ) {
+        self.minimumDate = minimumDate
+        self.maximumDate = maximumDate
+        years.removeAll()
+        months.removeAll()
+        guard let calendar = NSCalendar(identifier: NSCalendar.Identifier.gregorian) else { return }
+        let minimumYear = calendar.component(.year, from: minimumDate)
+        let maximumYear = calendar.component(.year, from: maximumDate)
+        for year in minimumYear...maximumYear {
+            years.append(year)
         }
-        self.years = years
-        var months: [String] = [String]()
         var month = 0
         let formatter = DateFormatter()
         formatter.locale = self.locale
@@ -53,7 +46,6 @@ open class MonthYearPickerView: UIPickerView {
             months.append(formatter.monthSymbols[month].capitalized)
             month += 1
         }
-        self.months = months
         self.delegate = self
         self.dataSource = self
         self.goToDefaultDate()
@@ -66,13 +58,13 @@ open class MonthYearPickerView: UIPickerView {
 
     func resetMonth() {
         guard let calendar = NSCalendar(identifier: NSCalendar.Identifier.gregorian) else { return }
-        let currentMonth = calendar.component(.month, from: defaultDate)
+        let currentMonth = calendar.component(.month, from: selectedDate)
         self.selectRow(currentMonth - 1, inComponent: 0, animated: true)
     }
 
     func resetYear() {
         guard let calendar = NSCalendar(identifier: NSCalendar.Identifier.gregorian) else { return }
-        let currentYear = calendar.component(.year, from: defaultDate)
+        let currentYear = calendar.component(.year, from: selectedDate)
         self.selectRow(years.firstIndex(where: { $0 == currentYear }) ?? 0, inComponent: 1, animated: true)
     }
 
@@ -118,6 +110,6 @@ extension MonthYearPickerView: UIPickerViewDelegate, UIPickerViewDataSource {
             component == 0 ? resetMonth() : resetYear()
             return
         }
-        self.defaultDate = currentPeriod
+        self.selectedDate = currentPeriod
     }
 }
