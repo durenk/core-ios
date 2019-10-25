@@ -8,8 +8,9 @@
 import UIKit
 import AVFoundation
 
-open class CameraViewController: ViewController {
+open class CameraViewController: TableViewController {
     override open var backgroundColor: UIColor { return UIColor.black }
+    override open var tableViewBackgroundColor: UIColor { return UIColor.black }
     private var imageOutput: AVCaptureStillImageOutput = AVCaptureStillImageOutput()
     private var session: AVCaptureSession?
     private var videoPreviewLayer: AVCaptureVideoPreviewLayer?
