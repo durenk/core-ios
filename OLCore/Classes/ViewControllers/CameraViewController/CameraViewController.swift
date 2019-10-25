@@ -7,9 +7,10 @@
 
 import UIKit
 
-class CameraViewController: ViewController {
-    override func viewDidLoad() {
+open class CameraViewController: ViewController {
+    public weak var delegate: CameraViewControllerDelegate?
+
+    override open func viewDidLoad() {
         super.viewDidLoad()
-        print("===")
     }
 }
