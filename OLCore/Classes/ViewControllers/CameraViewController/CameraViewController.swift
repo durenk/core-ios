@@ -10,7 +10,7 @@ import AVFoundation
 
 open class CameraViewController: TableViewController {
     override open var backgroundColor: UIColor { return UIColor.black }
-    override open var tableViewBackgroundColor: UIColor { return UIColor.black }
+    override open var tableViewBackgroundColor: UIColor { return UIColor.clear }
     private var imageOutput: AVCaptureStillImageOutput = AVCaptureStillImageOutput()
     private var session: AVCaptureSession?
     private var videoPreviewLayer: AVCaptureVideoPreviewLayer?
@@ -55,9 +55,9 @@ open class CameraViewController: TableViewController {
         videoPreviewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         videoPreviewLayer.connection?.videoOrientation = .portrait
         DispatchQueue.main.async {
-            videoPreviewLayer.frame = self.view.bounds
+            videoPreviewLayer.frame = self.contentView.bounds
             if videoPreviewLayer.superlayer == nil {
-                self.view.layer.addSublayer(videoPreviewLayer)
+                self.contentView.layer.addSublayer(videoPreviewLayer)
             }
             self.videoPreviewLayer = videoPreviewLayer
         }
