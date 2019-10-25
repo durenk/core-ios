@@ -19,7 +19,16 @@ open class CameraViewController: TableViewController {
     override open func viewDidLoad() {
         super.viewDidLoad()
         initCamera()
-        startCamera()
+    }
+
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        startCameraSession()
+    }
+
+    open override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        stopCameraSession()
     }
 
     override open func stylingNavigation() {
@@ -42,7 +51,7 @@ open class CameraViewController: TableViewController {
     private func initSession() {
         guard let deviceInput = getDeviceInput() else { return }
         let session = AVCaptureSession()
-        session.sessionPreset = AVCaptureSession.Preset.photo
+        session.sessionPreset = AVCaptureSession.Preset.medium
         session.addInput(deviceInput)
         if !session.canAddOutput(imageOutput) { return }
         session.addOutput(imageOutput)
@@ -63,11 +72,16 @@ open class CameraViewController: TableViewController {
         }
     }
 
-    private func startCamera() {
+    private func startCameraSession() {
         guard let session = session else { return }
         DispatchQueue.global(qos: .userInitiated).async {
             session.startRunning()
         }
+    }
+
+    private func stopCameraSession() {
+        guard let session = session else { return }
+        session.stopRunning()
     }
 
     private func getDeviceInput() -> AVCaptureDeviceInput? {
@@ -77,5 +91,30 @@ open class CameraViewController: TableViewController {
             deviceInput = try AVCaptureDeviceInput(device: primaryCamera)
         } catch _ as NSError {}
         return deviceInput
+    }
+
+    private func getVideoConnection() -> AVCaptureConnection? {
+        for connecton in self.imageOutput.connections {
+            for inputPort in connecton.inputPorts {
+                if inputPort.mediaType == AVMediaType.video {
+                    return connecton as AVCaptureConnection
+                }
+            }
+        }
+        return nil
+    }
+
+    public func takePhoto() {
+        DispatchQueue.global(qos: .default).async {
+            guard let videoConnection = self.getVideoConnection() else { return }
+            self.imageOutput.captureStillImageAsynchronously(from: videoConnection) {
+                (sampleBuffer: CMSampleBuffer!, _) in
+                guard let data = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer) else { return }
+                guard let image = UIImage(data: data) else { return }
+                DispatchQueue.main.async {
+                    self.delegate?.cameraViewControllerDidTakeImage(image)
+                }
+            }
+        }
     }
 }

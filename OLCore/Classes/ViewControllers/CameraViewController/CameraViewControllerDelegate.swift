@@ -8,5 +8,5 @@
 import Foundation
 
 @objc public protocol CameraViewControllerDelegate: class {
-    func cameraViewControllerDidCompleted()
+    func cameraViewControllerDidTakeImage(_ image: UIImage)
 }
