@@ -14,6 +14,7 @@ open class CameraViewController: TableViewController {
     private var imageOutput: AVCaptureStillImageOutput = AVCaptureStillImageOutput()
     private var session: AVCaptureSession?
     private var videoPreviewLayer: AVCaptureVideoPreviewLayer?
+    private var isTakingPhoto: Bool = false
     public weak var delegate: CameraViewControllerDelegate?
 
     override open func viewDidLoad() {
@@ -76,6 +77,7 @@ open class CameraViewController: TableViewController {
         guard let session = session else { return }
         DispatchQueue.global(qos: .userInitiated).async {
             session.startRunning()
+            self.isTakingPhoto = false
         }
     }
 
@@ -105,10 +107,13 @@ open class CameraViewController: TableViewController {
     }
 
     public func takePhoto() {
+        if isTakingPhoto { return }
+        isTakingPhoto = true
         DispatchQueue.global(qos: .default).async {
             guard let videoConnection = self.getVideoConnection() else { return }
             self.imageOutput.captureStillImageAsynchronously(from: videoConnection) {
-                (sampleBuffer: CMSampleBuffer!, _) in
+                (sampleBuffer: CMSampleBuffer?, _) in
+                guard let sampleBuffer = sampleBuffer else { return }
                 guard let data = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer) else { return }
                 guard let image = UIImage(data: data) else { return }
                 DispatchQueue.main.async {
