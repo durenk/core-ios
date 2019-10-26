@@ -51,7 +51,7 @@ open class CameraViewController: TableViewController {
     private func initSession() {
         guard let deviceInput = getDeviceInput() else { return }
         let session = AVCaptureSession()
-        session.sessionPreset = AVCaptureSession.Preset.medium
+        session.sessionPreset = AVCaptureSession.Preset.photo
         session.addInput(deviceInput)
         if !session.canAddOutput(imageOutput) { return }
         session.addOutput(imageOutput)
