@@ -122,4 +122,9 @@ open class CameraViewController: TableViewController {
             }
         }
     }
+
+    open override func render() {
+        super.render()
+        addOverlayIso7810Id1(horizontalPadding: 24)
+    }
 }
