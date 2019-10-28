@@ -5,7 +5,7 @@
 //  Created by DENZA on 27/10/19.
 //
 
-import Foundation
+import UIKit
 
 extension CameraViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     public func importFromGallery() {
