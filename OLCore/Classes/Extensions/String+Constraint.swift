@@ -18,7 +18,7 @@ extension String {
                 height: .greatestFiniteMagnitude
             ),
             options: .usesLineFragmentOrigin,
-            attributes: [.font : font],
+            attributes: [.font: font],
             context: nil
         )
         return ceil(boundingBox.height)
@@ -34,7 +34,7 @@ extension String {
                 height: height
             ),
             options: .usesLineFragmentOrigin,
-            attributes: [.font : font],
+            attributes: [.font: font],
             context: nil
         )
         return ceil(boundingBox.width)
