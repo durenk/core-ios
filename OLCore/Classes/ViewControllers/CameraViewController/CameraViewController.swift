@@ -16,6 +16,7 @@ open class CameraViewController: TableViewController {
     private var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     private var isTakingPhoto: Bool = false
     public weak var delegate: CameraViewControllerDelegate?
+    public var overlayLayer: CAShapeLayer?
 
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -121,10 +122,5 @@ open class CameraViewController: TableViewController {
                 }
             }
         }
-    }
-
-    open override func render() {
-        super.render()
-        addOverlayIso7810Id1(horizontalPadding: 24)
     }
 }
