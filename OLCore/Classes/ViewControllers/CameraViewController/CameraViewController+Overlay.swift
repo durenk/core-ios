@@ -8,13 +8,13 @@
 import UIKit
 
 extension CameraViewController {
-    private func getTransparentRect(
+    private func createCanvasPath(
         ratio: CGSize,
-        horizontalPadding: CGFloat
-    ) -> CGRect {
+        padding: CGFloat
+    ) -> UIBezierPath {
         let width = SizeHelper.getWidth(
             containerWidth: contentView.bounds.size.width,
-            horizontalPadding: horizontalPadding
+            horizontalPadding: padding
         )
         let height = SizeHelper.getHeightOfScale(
             width: width,
@@ -29,26 +29,23 @@ extension CameraViewController {
             height: height,
             containerHeight: contentView.bounds.size.height
         )
-        return CGRect(
+        return UIBezierPath(rect: CGRect(
             x: originX,
             y: originY,
             width: width,
             height: height
-        )
+        ))
     }
 
     public func addOverlay(
-        rectangleRatio: CGSize,
-        horizontalPadding: CGFloat,
+        canvasRatio: CGSize,
+        padding: CGFloat,
         overlayColor: UIColor = UIColor.black,
         overlayAlpha: CGFloat = 0.5
     ) {
-        let transparentPath = UIBezierPath(rect: getTransparentRect(
-            ratio: rectangleRatio,
-            horizontalPadding: horizontalPadding)
-        )
+        let canvasPath = createCanvasPath(ratio: canvasRatio, padding: padding)
         let overlayPath = UIBezierPath(rect: contentView.bounds)
-        overlayPath.append(transparentPath)
+        overlayPath.append(canvasPath)
         overlayPath.usesEvenOddFillRule = true
         overlayLayer?.removeFromSuperlayer()
         overlayLayer = CAShapeLayer(layer: contentView.layer)
