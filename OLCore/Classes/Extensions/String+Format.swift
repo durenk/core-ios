@@ -25,7 +25,7 @@ extension String {
                 return result.doubleValue
             }
         }
-        return 0
+        return DefaultValue.emptyDouble
     }
 
     public var floatValue: Float {
@@ -38,7 +38,7 @@ extension String {
                 return result.floatValue
             }
         }
-        return 0
+        return DefaultValue.emptyFloat
     }
 
     public var digits: String {
