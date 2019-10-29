@@ -37,7 +37,7 @@ extension CameraViewController {
         ))
     }
 
-    public func addOverlay(
+    public func renderOverlay(
         canvasRatio: CGSize,
         padding: CGFloat,
         overlayColor: UIColor = UIColor.black,
