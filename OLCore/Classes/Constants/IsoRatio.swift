@@ -1,5 +1,5 @@
 //
-//  IsoSize.swift
+//  IsoRatio.swift
 //  OLCore
 //
 //  Created by DENZA on 28/10/19.
@@ -7,10 +7,10 @@
 
 import UIKit
 
-public struct IsoSize {
+public struct IsoRatio {
     public struct WalletCard {
-        public static let width = CGFloat(85.60)
-        public static let height = CGFloat(53.98)
+        public static let width = CGFloat(8560)
+        public static let height = CGFloat(5398)
     }
     public struct UnitedStateGovernmentCard {
         public static let width = CGFloat(125)
