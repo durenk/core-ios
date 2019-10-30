@@ -12,13 +12,11 @@ public typealias ReceiveSizeHandler = (_ size: CGSize) -> Void
 
 open class NestedTableViewContainer: View {
     private var heightConstraint: NSLayoutConstraint?
-    private var contentView: NestedTableView = NestedTableView() {
-        didSet { setupConstraint() }
-    }
+    private var contentView: NestedTableView = NestedTableView()
     private var minimumContentHeight: CGFloat = 0
     public var didReceiveSizeAction: ReceiveSizeHandler?
 
-    private func setupConstraint() {
+    open func setupConstraint() {
         while (true) {
             removeAllSubviews()
             addSubview(contentView)

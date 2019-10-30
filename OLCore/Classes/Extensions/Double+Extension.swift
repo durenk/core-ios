@@ -26,4 +26,13 @@ extension Double {
         let divisor = pow(10.0, Double(places))
         return (self * divisor).rounded() / divisor
     }
+
+    public func removeZerosFromEnd() -> String {
+        let formatter = NumberFormatter()
+        let number = NSNumber(value: self)
+        let last = String(self).components(separatedBy: ".").last ?? DefaultValue.emptyString
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = last.count
+        return String(formatter.string(from: number) ?? DefaultValue.emptyString)
+    }
 }

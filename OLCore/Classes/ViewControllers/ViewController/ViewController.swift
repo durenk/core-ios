@@ -10,6 +10,8 @@ import UIKit
 
 open class ViewController: UIViewController {
     private var foregroundObserver: NSObjectProtocol?
+    public var isSwipeToPopEnabled: Bool = true
+    open var backgroundView = UIImageView()
     open var didLoadData: Bool = false
     open var navigationBarStyle: UIBarStyle { get { return UIBarStyle.default } }
     open var navigationBarColor: UIColor { get { return CoreStyle.Color.navigationBackground } }
@@ -46,6 +48,7 @@ open class ViewController: UIViewController {
 
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = isSwipeToPopEnabled
         configureBackgroundColor()
         if CoreConfig.TableViewController.isAutoRenderOnEveryViewWillAppear {
             setupForegroundObserver()
@@ -61,6 +64,11 @@ open class ViewController: UIViewController {
     open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         removeForegroundObserver()
+    }
+
+    open override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
 
     open func viewWillEnterForeground() {
@@ -161,22 +169,28 @@ open class ViewController: UIViewController {
     }
 
     open func setBackground(
-        image: UIImage = UIImage(),
+        image: UIImage? = nil,
         link: String = DefaultValue.emptyString,
         customFrame: CGRect? = nil
     ) {
-        let backgroundView = UIImageView(frame: customFrame ?? view.bounds)
+        if image == nil && link == DefaultValue.emptyString {
+            backgroundView.removeFromSuperview()
+            return
+        }
+        backgroundView = UIImageView(frame: customFrame ?? view.bounds)
         backgroundView.contentMode = .scaleAspectFill
         backgroundView.downloadedFrom(
             link: link,
             placeholderImage: image
         )
-        view.addSubview(backgroundView)
+        if backgroundView.superview == nil {
+            view.addSubview(backgroundView)
+        }
         view.sendSubviewToBack(backgroundView)
     }
 
-    open func configureBackgroundColor() {
-        view.backgroundColor = backgroundColor
+    open func configureBackgroundColor(_ color: UIColor? = nil) {
+        view.backgroundColor = color == nil ? backgroundColor : color
     }
 }
 

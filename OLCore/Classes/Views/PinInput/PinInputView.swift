@@ -124,17 +124,6 @@ open class PinInputView: UIView {
         addSubview(keyboardButton)
     }
 
-    private func render() {
-        self.layoutIfNeeded()
-        let containerSize = bounds.size
-        if containerSize.width == DefaultValue.emptyCGFloat { return }
-        removeAllSubviews()
-        renderTextField()
-        renderPanViews(containerSize: containerSize)
-        renderKeyboardButton(containerSize: containerSize)
-        didChangedValue()
-    }
-
     public func configure(
         length: Int,
         panWidth: CGFloat = DefaultValue.emptyCGFloat,
@@ -147,7 +136,17 @@ open class PinInputView: UIView {
         self.panWidth = panWidth
         self.panSpacing = panSpacing
         self.style = style
-        self.render()
+    }
+
+    public func render() {
+        self.layoutIfNeeded()
+        let containerSize = bounds.size
+        if containerSize.width == DefaultValue.emptyCGFloat { return }
+        removeAllSubviews()
+        renderTextField()
+        renderPanViews(containerSize: containerSize)
+        renderKeyboardButton(containerSize: containerSize)
+        didChangedValue()
     }
 
     public func getValue() -> String {
@@ -160,6 +159,10 @@ open class PinInputView: UIView {
 
     public func resetValue() {
         textField.text = DefaultValue.emptyString
+    }
+
+    public func setValue(_ value: String) {
+        textField.text = value
     }
 
     public func setEnabled(_ isEnabled: Bool = true) {

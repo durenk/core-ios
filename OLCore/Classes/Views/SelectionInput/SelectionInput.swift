@@ -15,6 +15,7 @@ public protocol SelectionInputDelegate: class {
 }
 
 open class SelectionInput: Button {
+    public var key: String = DefaultValue.emptyString
     public weak var delegate: SelectionInputDelegate?
     open var didChangeAction: InputDidChangeHandler?
     open var didValidationErrorAction: InputDidValidationError?
@@ -42,7 +43,7 @@ open class SelectionInput: Button {
         sender: ViewController,
         controller: SelectionInputViewController,
         defaultValue: [Option]? = [Option](),
-        didChangeAction: @escaping InputDidChangeHandler = {_ in }
+        didChangeAction: @escaping InputDidChangeHandler = {_,_  in }
     ) {
         self.name = name
         self.sender = sender
@@ -66,7 +67,7 @@ open class SelectionInput: Button {
     private func didSelectOptions(_ options: [Option]) {
         delegate?.selectionInputDidEndEditing(self)
         guard let didChangeAction = didChangeAction else { return }
-        didChangeAction(self)
+        didChangeAction(self, getValue())
     }
 }
 

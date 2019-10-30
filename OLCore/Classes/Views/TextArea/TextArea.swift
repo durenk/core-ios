@@ -13,6 +13,7 @@ public typealias TextAreaDidChangeHandler = (_ textarea: TextArea) -> Void
 open class TextArea: UITextView {
     private var showingPlaceholder: Bool = false
     internal var bottomLineLayer: CALayer = CALayer()
+    public var key: String = DefaultValue.emptyString
     public var name: String = DefaultValue.emptyString
     public var style: TextFieldStyle! {
         didSet {
@@ -56,7 +57,7 @@ open class TextArea: UITextView {
 
     private func didChange(_ textArea: TextArea) {
         guard let didChangeAction = didChangeAction else { return }
-        didChangeAction(self)
+        didChangeAction(self, textArea.text)
     }
 
     open func shouldChangeTextHandler(range: NSRange, replacementText text: String) -> Bool {

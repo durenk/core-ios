@@ -14,45 +14,49 @@ open class MonthYearPickerInputType {
     private var textField: TextField = TextField()
     private var presenter: UINavigationController = UINavigationController()
     private var monthYearPicker = MonthYearPickerView()
-    private var displayFormat: String = DefaultValue.emptyString
-    open var locale: Locale = Locale(identifier: DateLocale.indonesian)
     open var doneButtonText: String = DefaultValue.emptyString
-    public var style: DatePickerViewStyle = DefaultDatePickerStyle() {
+    open var locale: Locale = Locale(identifier: DateLocale.indonesian) {
+        didSet {
+            monthYearPicker.locale = locale
+        }
+    }
+    public var style: DatePickerStyle = DefaultDatePickerStyle() {
         didSet { applyStyle() }
     }
 
     public init(
         textField: TextField,
-        instruction: String,
+        instruction: String = DefaultValue.emptyString,
         presenter: UINavigationController,
-        minimumDate: Date?,
-        maximumDate: Date?
+        minimumDate: Date,
+        maximumDate: Date
     ) {
         self.textField = textField
         self.instruction = instruction
         self.presenter = presenter
-        self.displayFormat = style.displayFormat
+        monthYearPicker.configure(minimumDate: minimumDate, maximumDate: maximumDate)
         monthYearPicker.backgroundColor = style.backgroundColor
-        monthYearPicker.locale = locale
-        monthYearPicker.minimumDate = minimumDate ?? Date()
-        monthYearPicker.maximumDate = maximumDate ?? Date()
     }
 
     public func setValue(_ value: Date?) {
         guard let value = value else { return }
-        monthYearPicker.defaultDate = value
-        textField.text = value.formatInMonthAndYear(locale: locale)
+        monthYearPicker.selectedDate = value
+        textField.text = value.formatIn(
+            format: style.displayFormat,
+            locale: locale
+        )
+        textField.didChange(textField: textField, newValue: value)
     }
 
     @objc private func close() {
         textField.resignFirstResponder()
         overlay.isHidden = true
         guard let didChangeAction = textField.didChangeAction else { return }
-        didChangeAction(textField)
+        didChangeAction(textField, monthYearPicker.selectedDate)
     }
 
     @objc private func done() {
-        textField.text = monthYearPicker.defaultDate.formatIn(format: displayFormat, locale: locale)
+        setValue(monthYearPicker.selectedDate)
         close()
     }
 
@@ -81,8 +85,14 @@ open class MonthYearPickerInputType {
             target: self,
             action: #selector(self.done)
         )
-        button.setTitleTextAttributes([NSAttributedString.Key.font: style.doneButtonFont], for: .normal)
-        button.setTitleTextAttributes([NSAttributedString.Key.font: style.doneButtonFont], for: .highlighted)
+        button.setTitleTextAttributes(
+            [NSAttributedString.Key.font: style.doneButtonFont],
+            for: .normal
+        )
+        button.setTitleTextAttributes(
+            [NSAttributedString.Key.font: style.doneButtonFont],
+            for: .highlighted
+        )
         return button
     }
 
@@ -142,7 +152,7 @@ open class MonthYearPickerInputType {
 extension MonthYearPickerInputType: InputType {
     open func didEndEditingHandler(_ textField: TextField) {
         if !doneButtonText.isEmpty { return }
-        textField.text = monthYearPicker.defaultDate.formatIn(format: displayFormat)
+        setValue(monthYearPicker.selectedDate)
     }
 
     open func didChangeHandler(_ textField: TextField) {}
@@ -163,7 +173,7 @@ extension MonthYearPickerInputType: InputType {
     }
 
     open func getValue() -> AnyObject {
-        return monthYearPicker.defaultDate as AnyObject
+        return monthYearPicker.selectedDate as AnyObject
     }
 
     open func getDisplayText() -> String {

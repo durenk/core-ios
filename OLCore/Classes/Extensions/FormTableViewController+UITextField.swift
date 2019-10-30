@@ -39,11 +39,16 @@ extension FormTableViewController: UITextFieldDelegate {
     }
 
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if string.isBackspace() { return true }
         guard let tf: TextField = textField as? TextField else { return true }
         guard let initialText: String = tf.text else { return true }
         let isValidLength = tf.maxLength == 0 || initialText.count + string.count - range.length <= tf.maxLength
         var result = isValidLength && tf.shouldChangeCharactersIn(range: range, replacementString: string)
         if !result { return false }
+        let cursorLocation = textField.position(
+            from: textField.beginningOfDocument,
+            offset: range.location + string.count
+        )
         var replacementString = string
         if tf.autocapitalizationType == .allCharacters {
             replacementString = replacementString.uppercased()
@@ -57,11 +62,31 @@ extension FormTableViewController: UITextFieldDelegate {
             replacementString = replacementString.digits
             result = false
         }
+        let updatedText = getUpdatedText(
+            textField,
+            shouldChangeCharactersIn: range,
+            replacementString: replacementString
+        )
         if !result {
-            let text = tf.text ?? DefaultValue.emptyString
-            tf.text = (text as NSString).replacingCharacters(in: range, with: replacementString)
+            tf.text = updatedText
         }
-        if result || initialText != tf.text { tf.didChange(tf) }
+        if result || initialText != tf.text {
+            tf.didChange(textField: tf, newValue: updatedText)
+        }
+        if let cursorLocation = cursorLocation{
+            tf.selectedTextRange = tf.textRange(from: cursorLocation, to: cursorLocation)
+        }
         return result
+    }
+
+    private func getUpdatedText(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> String {
+        if let text = textField.text, let textRange = Range(range, in: text) {
+            let updatedText = text.replacingCharacters(
+                in: textRange,
+                with: string
+            )
+            return updatedText
+        }
+        return DefaultValue.emptyString
     }
 }

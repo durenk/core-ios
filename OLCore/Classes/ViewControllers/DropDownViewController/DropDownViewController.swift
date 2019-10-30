@@ -29,6 +29,11 @@ open class DropDownViewController: FormTableViewController {
         startLoading()
     }
 
+    open override func reload() {
+        options.removeAll()
+        super.reload()
+    }
+
     override open func viewDidLoad() {
         super.viewDidLoad()
         contentView.tableView.register(
@@ -39,16 +44,15 @@ open class DropDownViewController: FormTableViewController {
 
     private func renderSearchInputCell() {
         if !searchEnabled { return }
-        if searchInputCell == nil {
-            searchInputCell = createSearchBarCell()
-        }
+        searchInputCell = createSearchBarCell()
         guard let searchInputCell = searchInputCell else { return }
-        if searchInputCell.superview != nil { return }
         searchInputCell.frame.size.width = contentView.bounds.width
+        searchInputCell.removeFromSuperview()
         if let searchTextField = searchInputCell.getFirstTextField() {
             searchTextField.delegate = self
             searchTextField.returnKeyType = .search
             searchTextField.didChangeAction = didChangeSearchKeyword
+            searchTextField.text = searchKeyword
         }
         contentView.addSubview(searchInputCell)
         contentView.sendSubviewToBack(searchInputCell)
@@ -56,6 +60,7 @@ open class DropDownViewController: FormTableViewController {
 
     override open func render() {
         super.render()
+        updateTableViewInset(tableViewInset)
         renderSearchInputCell()
         let section = TableViewSection()
         for option in options {
@@ -105,8 +110,9 @@ open class DropDownViewController: FormTableViewController {
         return nil
     }
 
-    private func didChangeSearchKeyword(_ input: InputProtocol) {
-        search(keyword: input.getText())
+    private func didChangeSearchKeyword(_ input: InputProtocol, _ newValue: Any) {
+        guard let newValue = newValue as? String else { return }
+        search(keyword: newValue)
     }
 }
 

@@ -19,6 +19,7 @@ open class TextField: UITextField {
     open var didChangeAction: InputDidChangeHandler?
     open var didValidationErrorAction: InputDidValidationError?
     open var didValidationSuccessAction: InputDidValidationSuccess?
+    public var key: String = DefaultValue.emptyString
     public var isAvoidWhitespaces: Bool = false
     public var maxLength: Int = 255
     public var style: TextFieldStyle = DefaultTextFieldStyle() {
@@ -171,11 +172,11 @@ open class TextField: UITextField {
         getInputType().didEndEditingHandler(textField)
     }
 
-    @objc func didChange(_ textField: UITextField) {
+    @objc func didChange(textField: UITextField, newValue: Any) {
         guard let didChangeAction = didChangeAction else { return }
         guard let textField = textField as? TextField else { return }
         getInputType().didChangeHandler(textField)
-        didChangeAction(self)
+        didChangeAction(self, newValue)
     }
 
     open func getInputType() -> InputType {

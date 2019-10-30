@@ -41,7 +41,7 @@ open class DropDownInputType: InputType {
     private func didSelectOption(_ option: Option) {
         textField.text = option.text
         guard let didChange = textField.didChangeAction else { return }
-        didChange(textField)
+        didChange(textField, option)
     }
 
     open func render() {
