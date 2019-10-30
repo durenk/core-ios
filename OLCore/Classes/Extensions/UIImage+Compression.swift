@@ -7,6 +7,8 @@
 
 import UIKit
 
+public typealias UIImageDidCompressHandler = (_ imageData: Data?) -> Void
+
 extension UIImage {
     public enum JpegQuality: CGFloat {
         case lowest = 0.1
@@ -20,26 +22,29 @@ extension UIImage {
         return jpegData(compressionQuality: jpegQuality.rawValue)
     }
 
-    public func compressTo(expectedSizeInKb: CGFloat) -> Data? {
-        let sizeInBytes = expectedSizeInKb * 1000
+    public func compressToExpectedSize(
+        inKb expectedSize: CGFloat,
+        didCompress: @escaping UIImageDidCompressHandler
+    ) {
+        let sizeInBytes = expectedSize * 1000
         var compressingValue: CGFloat = JpegQuality.highest.rawValue
-        while (true) {
-            let data = jpegData(compressionQuality: compressingValue)
-            if compressingValue <= JpegQuality.lowest.rawValue {
-                return data
+        DispatchQueue.global(qos: .userInitiated).async {
+            while (true) {
+                let data = self.jpegData(compressionQuality: compressingValue)
+                if compressingValue <= JpegQuality.lowest.rawValue {
+                    DispatchQueue.main.async {
+                        didCompress(data)
+                    }
+                    return
+                }
+                if let imageData = data, CGFloat(imageData.count) < sizeInBytes {
+                    DispatchQueue.main.async {
+                        didCompress(data)
+                    }
+                    return
+                }
+                compressingValue -= JpegQuality.lowest.rawValue
             }
-            guard let imageData = data else {
-                return data
-            }
-            if CGFloat(imageData.count) < sizeInBytes {
-                return imageData
-            }
-            compressingValue -= JpegQuality.lowest.rawValue
         }
-    }
-
-    public func compressTo(expectedSizeInKb: CGFloat) -> UIImage {
-        guard let data = compressTo(expectedSizeInKb: expectedSizeInKb) else { return self }
-        return UIImage(data: data) ?? self
     }
 }
