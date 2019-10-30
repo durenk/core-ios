@@ -5,39 +5,41 @@
 //  Created by Sofyan Fradenza Adi on 30/10/19.
 //
 
-import Foundation
+import UIKit
 
 extension UIImage {
-    enum JpegQuality: CGFloat {
-        case lowest = 0.0
+    public enum JpegQuality: CGFloat {
+        case lowest = 0.1
         case low = 0.25
         case medium = 0.5
         case high = 0.75
         case highest = 1.0
     }
 
-    func jpeg(_ jpegQuality: JpegQuality) -> Data? {
+    public func jpeg(_ jpegQuality: JpegQuality) -> Data? {
         return jpegData(compressionQuality: jpegQuality.rawValue)
     }
 
-    func compressTo(expectedSizeInMb: Int) -> UIImage {
-        let sizeInBytes = expectedSizeInMb * 1024 * 1024
-        var needCompress: Bool = true
-        var imageData: Data?
-        var compressingValue: CGFloat = 1.0
-        while (needCompress && compressingValue > DefaultValue.emptyCGFloat) {
-            guard let data = jpegData(compressionQuality: compressingValue) else { return self }
-            if data.count < sizeInBytes {
-                needCompress = false
-                imageData = data
-            } else {
-                compressingValue -= 0.1
+    public func compressTo(expectedSizeInKb: CGFloat) -> Data? {
+        let sizeInBytes = expectedSizeInKb * 1000
+        var compressingValue: CGFloat = JpegQuality.highest.rawValue
+        while (true) {
+            let data = jpegData(compressionQuality: compressingValue)
+            if compressingValue <= JpegQuality.lowest.rawValue {
+                return data
             }
+            guard let imageData = data else {
+                return data
+            }
+            if CGFloat(imageData.count) < sizeInBytes {
+                return imageData
+            }
+            compressingValue -= JpegQuality.lowest.rawValue
         }
-        guard let data = imageData else { return self }
-        if data.count < sizeInBytes {
-            return UIImage(data: data) ?? self
-        }
-        return self
+    }
+
+    public func compressTo(expectedSizeInKb: CGFloat) -> UIImage {
+        guard let data = compressTo(expectedSizeInKb: expectedSizeInKb) else { return self }
+        return UIImage(data: data) ?? self
     }
 }
