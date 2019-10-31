@@ -111,6 +111,17 @@ open class Button: UIButton {
         setAttributedTitle(attribute, for: .normal)
     }
 
+    public func setUnderline() {
+        let title = self.titleLabel?.text ?? DefaultValue.emptyString
+        let attributedString = NSMutableAttributedString(
+            string: (title))
+        attributedString.addAttribute(
+            NSAttributedString.Key.underlineStyle,
+            value: NSUnderlineStyle.single.rawValue,
+            range: NSRange(location: DefaultValue.emptyInt, length: (title.count)))
+        self.setAttributedTitle(attributedString, for: .normal)
+    }
+
     @objc public func pressButtonHandler(_ sender: UIButton) {
         guard let action = didPressAction else { return }
         action()
