@@ -39,11 +39,11 @@ extension FormTableViewController: UITextFieldDelegate {
     }
 
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if string.isBackspace() { return true }
         guard let tf: TextField = textField as? TextField else { return true }
         guard let initialText: String = tf.text else { return true }
         let isValidLength = tf.maxLength == 0 || initialText.count + string.count - range.length <= tf.maxLength
         var result = isValidLength && tf.shouldChangeCharactersIn(range: range, replacementString: string)
+        if !result && string.isBackspace() { return true }
         if !result { return false }
         let cursorLocation = textField.position(
             from: textField.beginningOfDocument,
@@ -73,7 +73,7 @@ extension FormTableViewController: UITextFieldDelegate {
         if result || initialText != tf.text {
             tf.didChange(textField: tf, newValue: updatedText)
         }
-        if let cursorLocation = cursorLocation{
+        if let cursorLocation = cursorLocation {
             tf.selectedTextRange = tf.textRange(from: cursorLocation, to: cursorLocation)
         }
         return result
