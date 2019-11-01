@@ -48,6 +48,10 @@ open class NestedTableView: TableView, TableViewContainerProtocol {
         nestedTableViewDelegate?.nestedTableViewDidChangedLoading(isLoading)
     }
 
+    public func loading() -> Bool {
+        return isLoading
+    }
+
     open func renderLoadingState() {
         appendSection(sectionCollection.activityIndicator)
     }
