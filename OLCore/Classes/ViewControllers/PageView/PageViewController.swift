@@ -170,6 +170,15 @@ open class PageViewController: UIPageViewController {
         }
         view.sendSubviewToBack(backgroundView)
     }
+
+    open func setBasicBackground() {
+        let backgroundView = UIImageView(frame: view.bounds)
+        backgroundView.backgroundColor = UIColor.white
+        if backgroundView.superview == nil {
+            view.addSubview(backgroundView)
+        }
+        view.sendSubviewToBack(backgroundView)
+    }
     
     open func setActivityIndicator() {
         activityIndicator.center = self.view.center

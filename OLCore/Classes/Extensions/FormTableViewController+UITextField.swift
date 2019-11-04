@@ -39,16 +39,12 @@ extension FormTableViewController: UITextFieldDelegate {
     }
 
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if string.isBackspace() { return true }
         guard let tf: TextField = textField as? TextField else { return true }
         guard let initialText: String = tf.text else { return true }
         let isValidLength = tf.maxLength == 0 || initialText.count + string.count - range.length <= tf.maxLength
         var result = isValidLength && tf.shouldChangeCharactersIn(range: range, replacementString: string)
+        if !result && string.isBackspace() { return true }
         if !result { return false }
-        let cursorLocation = textField.position(
-            from: textField.beginningOfDocument,
-            offset: range.location + string.count
-        )
         var replacementString = string
         if tf.autocapitalizationType == .allCharacters {
             replacementString = replacementString.uppercased()
@@ -67,13 +63,18 @@ extension FormTableViewController: UITextFieldDelegate {
             shouldChangeCharactersIn: range,
             replacementString: replacementString
         )
+        let offsetValue = string.isBackspace() ? 1 : -1
+        let cursorLocation = textField.position(
+            from: textField.beginningOfDocument,
+            offset: result ? range.lowerBound + string.count + offsetValue : range.lowerBound + string.count
+        )
         if !result {
             tf.text = updatedText
         }
         if result || initialText != tf.text {
             tf.didChange(textField: tf, newValue: updatedText)
         }
-        if let cursorLocation = cursorLocation{
+        if let cursorLocation = cursorLocation {
             tf.selectedTextRange = tf.textRange(from: cursorLocation, to: cursorLocation)
         }
         return result

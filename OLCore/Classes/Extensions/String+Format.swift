@@ -92,4 +92,9 @@ extension String {
         if !self.isEmpty { self += separator }
         self += text
     }
+    
+    public var removeMultipleWhitespaces: String {
+        let components = self.components(separatedBy: NSCharacterSet.whitespacesAndNewlines)
+        return components.filter { !$0.isEmpty }.joined(separator: DefaultValue.whitespace)
+    }
 }
