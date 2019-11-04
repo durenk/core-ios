@@ -93,7 +93,7 @@ extension String {
         self += text
     }
     
-    public var condensedWhitespace: String {
+    public var removeMultipleWhitespaces: String {
         let components = self.components(separatedBy: NSCharacterSet.whitespacesAndNewlines)
         return components.filter { !$0.isEmpty }.joined(separator: DefaultValue.whitespace)
     }
