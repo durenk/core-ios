@@ -111,15 +111,22 @@ open class CameraViewController: TableViewController {
         if isTakingPhoto { return }
         isTakingPhoto = true
         DispatchQueue.global(qos: .default).async {
-            guard let videoConnection = self.getVideoConnection() else { return }
-            self.imageOutput.captureStillImageAsynchronously(from: videoConnection) {
-                (sampleBuffer: CMSampleBuffer?, _) in
-                guard let sampleBuffer = sampleBuffer else { return }
-                guard let data = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer) else { return }
-                guard let image = UIImage(data: data) else { return }
-                DispatchQueue.main.async {
-                    self.delegate?.cameraViewControllerDidTakeImage(image)
-                }
+            self.captureOutput()
+        }
+    }
+
+    private func captureOutput() {
+        guard let videoConnection = self.getVideoConnection() else { return }
+        imageOutput.captureStillImageAsynchronously(from: videoConnection) {
+            (sampleBuffer: CMSampleBuffer?, _) in
+            guard let sampleBuffer = sampleBuffer else { return }
+            guard let data = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(
+                sampleBuffer
+            ) else { return }
+            guard let image = UIImage(data: data) else { return }
+            let croppedImage = image.crop(frameSize: self.contentView.bounds.size)
+            DispatchQueue.main.async {
+                self.delegate?.cameraViewControllerDidTakeImage(croppedImage)
             }
         }
     }
