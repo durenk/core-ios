@@ -29,12 +29,13 @@ extension CameraViewController {
             height: height,
             containerHeight: contentView.bounds.size.height
         )
-        return UIBezierPath(rect: CGRect(
+        canvasFrame = CGRect(
             x: originX,
             y: originY,
             width: width,
             height: height
-        ))
+        )
+        return UIBezierPath(rect: canvasFrame ?? CGRect.zero)
     }
 
     public func renderOverlay(

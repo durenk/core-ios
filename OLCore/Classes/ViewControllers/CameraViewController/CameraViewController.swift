@@ -17,6 +17,7 @@ open class CameraViewController: TableViewController {
     private var isTakingPhoto: Bool = false
     public weak var delegate: CameraViewControllerDelegate?
     public var overlayLayer: CAShapeLayer?
+    public var canvasFrame: CGRect?
 
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -124,7 +125,10 @@ open class CameraViewController: TableViewController {
                 sampleBuffer
             ) else { return }
             guard let image = UIImage(data: data) else { return }
-            let croppedImage = image.crop(frameSize: self.contentView.bounds.size)
+            var croppedImage = image.crop(frameSize: self.contentView.bounds.size)
+            if let canvasFrame = self.canvasFrame {
+                croppedImage = croppedImage.crop(frameSize: canvasFrame.size)
+            }
             DispatchQueue.main.async {
                 self.delegate?.cameraViewControllerDidTakeImage(croppedImage)
             }
