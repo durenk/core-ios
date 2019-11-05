@@ -26,6 +26,9 @@ extension CameraViewController: UINavigationControllerDelegate, UIImagePickerCon
         }
         guard let image = selectedImage else { return }
         picker.dismiss(animated: true, completion: nil)
-        delegate?.cameraViewControllerDidTakeImage(image)
+        delegate?.cameraViewControllerDidTakePicture(
+            originalImage: image,
+            croppedImage: image
+        )
     }
 }
