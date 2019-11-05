@@ -130,7 +130,10 @@ open class CameraViewController: TableViewController {
                 croppedImage = croppedImage.crop(frameSize: canvasFrame.size)
             }
             DispatchQueue.main.async {
-                self.delegate?.cameraViewControllerDidTakeImage(croppedImage)
+                self.delegate?.cameraViewControllerDidTakePicture(
+                    originalImage: image,
+                    croppedImage: croppedImage
+                )
             }
         }
     }
