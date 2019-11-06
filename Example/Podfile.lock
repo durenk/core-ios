@@ -1,5 +1,5 @@
 PODS:
-  - OLCore (0.9.0):
+  - OLCore (0.11.0):
     - SDWebImage
   - SDWebImage (5.2.3):
     - SDWebImage/Core (= 5.2.3)
@@ -20,7 +20,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  OLCore: d430cb28c81f553f35bcd2eff1e477308ce59843
+  OLCore: 4047f40ca1d1ed04f3b5824c749017d492bad0c0
   SDWebImage: 46a7f73228f84ce80990c786e4372cf4db5875ce
   SwiftLint: 5553187048b900c91aa03552807681bb6b027846
 
