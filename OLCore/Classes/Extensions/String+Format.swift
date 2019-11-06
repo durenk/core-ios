@@ -80,6 +80,14 @@ extension String {
         return String(suffix(length))
     }
 
+    public func getPrefix(_ maxLength: Int) -> String {
+        var length = maxLength
+        if self.count < maxLength {
+            length = self.count
+        }
+        return String(prefix(length))
+    }
+
     public func getFirstWord() -> String {
         return components(separatedBy: DefaultValue.whitespace).first ?? DefaultValue.emptyString
     }
