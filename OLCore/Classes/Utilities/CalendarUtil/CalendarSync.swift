@@ -9,13 +9,15 @@ import Foundation
 import EventKit
 
 open class CalendarSync{
-    public init() {}
     
-    open func syncToPhone(eventCalendar: EventCalendar){
-        let eventStore : EKEventStore = EKEventStore()
+    public static func syncToPhone(
+        eventCalendar: EventCalendar,
+        completion: @escaping (_ isSuccess: Bool) -> Void
+    ) {
+        let eventStore: EKEventStore = EKEventStore()
         eventStore.requestAccess(to: .event) { (granted, error) in
             if (granted) && (error == nil) {
-                let event:EKEvent = EKEvent(eventStore: eventStore)
+                let event: EKEvent = EKEvent(eventStore: eventStore)
                 event.title = eventCalendar.title
                 event.startDate = eventCalendar.startDate
                 event.endDate = eventCalendar.endDate
@@ -23,8 +25,9 @@ open class CalendarSync{
                 event.calendar = eventStore.defaultCalendarForNewEvents
                 do {
                     try eventStore.save(event, span: .thisEvent)
-                } catch let error as NSError {
-                    print(error)
+                    completion(true)
+                } catch {
+                    completion(false)
                 }
             }
         }
