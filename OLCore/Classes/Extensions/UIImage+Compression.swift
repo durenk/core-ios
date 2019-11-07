@@ -47,4 +47,21 @@ extension UIImage {
             }
         }
     }
+
+    public func resizeToWidth(width: CGFloat) -> UIImage {
+        let canvas = CGSize(
+            width: width,
+            height: CGFloat(ceil(width / size.width * size.height))
+        )
+        if #available(iOS 10.0, *) {
+            return UIGraphicsImageRenderer(
+                size: canvas,
+                format: imageRendererFormat
+            ).image {
+                _ in draw(in: CGRect(origin: .zero, size: canvas))
+            }
+        } else {
+            return self
+        }
+    }
 }
