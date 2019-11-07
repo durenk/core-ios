@@ -16,7 +16,7 @@ open class CalendarSync{
     ) {
         let eventStore: EKEventStore = EKEventStore()
         eventStore.requestAccess(to: .event) { (granted, error) in
-            if (granted) && (error == nil) {
+            if granted && error == nil {
                 let event: EKEvent = EKEvent(eventStore: eventStore)
                 event.title = eventCalendar.title
                 event.startDate = eventCalendar.startDate
