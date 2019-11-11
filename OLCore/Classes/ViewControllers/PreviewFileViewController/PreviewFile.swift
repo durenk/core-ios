@@ -9,6 +9,7 @@ import UIKit
 
 open class PreviewFile: NSObject, UIDocumentInteractionControllerDelegate {
     private var controller: UIViewController!
+    private var documentInteractionController: UIDocumentInteractionController!
 
     public init(controller: UIViewController) {
         super.init()
@@ -16,12 +17,12 @@ open class PreviewFile: NSObject, UIDocumentInteractionControllerDelegate {
     }
 
     public func previewFile(path: URL)  {
-        let documentInteractionController = UIDocumentInteractionController(url: path)
+        documentInteractionController = UIDocumentInteractionController(url: path)
         documentInteractionController.delegate = self
         documentInteractionController.presentPreview(animated: true)
     }
 
-    func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
+    public func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
         return self.controller
     }
 }
