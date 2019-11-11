@@ -50,4 +50,12 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return scaledImage ?? self
     }
+
+    public func fixImageOrientation() -> UIImage {
+        UIGraphicsBeginImageContext(self.size)
+        self.draw(at: .zero)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage ?? self
+    }
 }
