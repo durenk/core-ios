@@ -51,38 +51,6 @@ extension UIImage {
         return scaledImage ?? self
     }
 
-    public func cropToSize(newSize: CGSize) -> UIImage {
-        let size = self.size
-        var x: CGFloat = (size.width - newSize.width) * 0.5
-        var y: CGFloat = (size.height - newSize.height) * 0.5
-        var tempNewSize = newSize
-        if self.imageOrientation == .left
-            || self.imageOrientation == .leftMirrored
-            || self.imageOrientation == .right
-            || self.imageOrientation == .rightMirrored {
-                var temp = x
-                x = y
-                y = temp
-                temp = tempNewSize.width
-                tempNewSize.width = tempNewSize.height
-                tempNewSize.height = temp
-        }
-        let cropRect = CGRect(
-            x: x * self.scale,
-            y: y * self.scale,
-            width: tempNewSize.width * self.scale,
-            height: tempNewSize.height * self.scale
-        )
-        guard let cgImage = self.cgImage else { return self }
-        guard let croppedImageRef = cgImage.cropping(to: cropRect) else { return self }
-        let cropped = UIImage(
-            cgImage: croppedImageRef,
-            scale: self.scale,
-            orientation: self.imageOrientation
-        )
-        return cropped
-    }
-
     public func fixImageOrientation() -> UIImage {
         UIGraphicsBeginImageContext(self.size)
         self.draw(at: .zero)
