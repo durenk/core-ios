@@ -62,7 +62,6 @@ extension UIImage {
             var temp = x
             x = y
             y = temp
-            
             temp = tempNewSize.width
             tempNewSize.width = tempNewSize.height
             tempNewSize.height = temp!
