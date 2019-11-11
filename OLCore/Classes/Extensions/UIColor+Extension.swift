@@ -22,4 +22,15 @@ extension UIColor {
             blue: rgb & 0xFF
         )
     }
+    
+    public func convertToImage() -> UIImage {
+        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
+        let ctx = UIGraphicsGetCurrentContext()
+        self.setFill()
+        guard let currentContext = ctx else { return UIImage() }
+        currentContext.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image ?? UIImage()
+    }
 }

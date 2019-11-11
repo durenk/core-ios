@@ -25,6 +25,7 @@ public struct CoreStyle {
         public static var uncheckedBox: UIImage = UIImage()
     }
     public struct Color {
+        public static var navigationBarSeparator: UIColor = .clear
         public static var navigationBackground: UIColor = .groupTableViewBackground
         public static var navigationText: UIColor = .black
         public static var primaryBackground: UIColor = .groupTableViewBackground
