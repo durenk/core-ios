@@ -9,7 +9,7 @@
 import Foundation
 
 open class Rule: NSObject {
-    internal var status: ValidationStatus = ValidationStatus()
+    public var status: ValidationStatus = ValidationStatus()
     public var name: String = DefaultValue.emptyString
     public var message: String = DefaultValue.emptyString
 
