@@ -8,6 +8,10 @@
 import Foundation
 
 extension Array {
+    public var isEmpty: Bool {
+        return self.count == DefaultValue.emptyInt
+    }
+
     public func chunked(into size: Int) -> [[Element]] {
         if size <= 0 { return [] }
         return stride(from: 0, to: count, by: size).map {
