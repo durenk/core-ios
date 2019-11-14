@@ -22,7 +22,9 @@ open class PreviewFile: NSObject, UIDocumentInteractionControllerDelegate {
         documentInteractionController?.presentPreview(animated: true)
     }
 
-    public func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
+    public func documentInteractionControllerViewControllerForPreview(
+        _ controller: UIDocumentInteractionController
+    ) -> UIViewController {
         return self.controller
     }
 }
