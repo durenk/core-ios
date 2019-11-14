@@ -8,12 +8,12 @@
 import UIKit
 
 open class PreviewFile: NSObject, UIDocumentInteractionControllerDelegate {
-    private var controller: UIViewController!
+    private var controller: UIViewController
     private var documentInteractionController: UIDocumentInteractionController?
 
     public init(controller: UIViewController) {
-        super.init()
         self.controller = controller
+        super.init()
     }
 
     public func previewFile(path: URL)  {
