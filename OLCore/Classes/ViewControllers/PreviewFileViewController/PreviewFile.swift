@@ -9,7 +9,7 @@ import UIKit
 
 open class PreviewFile: NSObject, UIDocumentInteractionControllerDelegate {
     private var controller: UIViewController!
-    private var documentInteractionController: UIDocumentInteractionController!
+    private var documentInteractionController: UIDocumentInteractionController?
 
     public init(controller: UIViewController) {
         super.init()
@@ -18,8 +18,8 @@ open class PreviewFile: NSObject, UIDocumentInteractionControllerDelegate {
 
     public func previewFile(path: URL)  {
         documentInteractionController = UIDocumentInteractionController(url: path)
-        documentInteractionController.delegate = self
-        documentInteractionController.presentPreview(animated: true)
+        documentInteractionController?.delegate = self
+        documentInteractionController?.presentPreview(animated: true)
     }
 
     public func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
