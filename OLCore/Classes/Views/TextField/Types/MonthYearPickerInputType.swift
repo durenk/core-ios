@@ -30,7 +30,7 @@ open class MonthYearPickerInputType {
         presenter: UINavigationController,
         minimumDate: Date,
         maximumDate: Date,
-        locale: Locale
+        locale: Locale = Locale(identifier: DateLocale.indonesian)
     ) {
         self.textField = textField
         self.instruction = instruction
