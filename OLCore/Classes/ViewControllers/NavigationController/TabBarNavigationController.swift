@@ -37,16 +37,17 @@ open class TabBarNavigationController: UITabBarController {
         selectedIndex = 0
     }
 
-    public func moveToController(_ destinationClass: AnyClass) {
-        guard let controllers = self.viewControllers else { return }
-        if controllers.isEmpty { return }
+    public func moveToController(_ destinationClass: AnyClass) -> ViewController? {
+        guard let controllers = self.viewControllers else { return nil }
+        if controllers.isEmpty { return nil}
         for index in 0...(controllers.count - 1) {
             guard let nvc = controllers[index] as? NavigationController else { continue }
             guard let vc = nvc.viewControllers.first as? ViewController else { continue }
             if vc.isMember(of: destinationClass.self) {
                 selectedIndex = index
-                return
+                return vc
             }
         }
+        return nil
     }
 }
