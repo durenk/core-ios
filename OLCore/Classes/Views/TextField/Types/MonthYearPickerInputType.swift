@@ -29,11 +29,13 @@ open class MonthYearPickerInputType {
         instruction: String = DefaultValue.emptyString,
         presenter: UINavigationController,
         minimumDate: Date,
-        maximumDate: Date
+        maximumDate: Date,
+        locale: Locale
     ) {
         self.textField = textField
         self.instruction = instruction
         self.presenter = presenter
+        monthYearPicker.locale = locale
         monthYearPicker.configure(minimumDate: minimumDate, maximumDate: maximumDate)
         monthYearPicker.backgroundColor = style.backgroundColor
     }
