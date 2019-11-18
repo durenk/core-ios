@@ -13,7 +13,6 @@ open class EmptyItemCell: TableViewCell {
     public var contentInset: UIEdgeInsets = UIEdgeInsets.zero
     public var emptyTitle: String = DefaultValue.emptyString
     private var mainLabel: Label = Label()
-    private var descriptionLabel: Label = Label()
     private var containerWidth = DefaultValue.emptyCGFloat
 
     override open func awakeFromNib() {
@@ -38,11 +37,6 @@ open class EmptyItemCell: TableViewCell {
             top: contentInset.top,
             bottom: contentInset.bottom
         ).activate()
-    }
-
-    public func setContent(leftText: String, rightText: String = DefaultValue.emptyString) {
-        mainLabel.text = leftText
-        descriptionLabel.text = rightText
     }
 
     open func renderContent() {
