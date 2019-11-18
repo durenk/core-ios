@@ -20,6 +20,7 @@ open class DropDownViewController: FormTableViewController {
     public var separatorColor: UIColor = UITableView().separatorColor ?? .clear
     public var separatorInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
     public var contentInset: UIEdgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+    public var emptyTitle: String = DefaultValue.emptyString
     private var searchInputCell: TableViewCell?
     private var searchKeyword: String = DefaultValue.emptyString
     open var searchEnabled: Bool { get { return false } }
@@ -39,6 +40,10 @@ open class DropDownViewController: FormTableViewController {
         contentView.tableView.register(
             DropDownItemCell.self,
             forCellReuseIdentifier: DropDownItemCell.className
+        )
+        contentView.tableView.register(
+            EmptyItemCell.self,
+            forCellReuseIdentifier: EmptyItemCell.className
         )
     }
 
@@ -60,6 +65,10 @@ open class DropDownViewController: FormTableViewController {
 
     override open func render() {
         super.render()
+        if options.isEmpty {
+            renderEmptyState()
+            return
+        }
         updateTableViewInset(tableViewInset)
         renderSearchInputCell()
         let section = TableViewSection()
@@ -77,6 +86,13 @@ open class DropDownViewController: FormTableViewController {
             separatorStyle: .singleLine,
             separatorInset: separatorInset
         )
+    }
+
+    open func renderEmptyState() {
+        guard let cell = contentView.tableView.dequeueReusableCell(withIdentifier: EmptyItemCell.className) as? EmptyItemCell else { return }
+        cell.emptyTitle = emptyTitle
+        cell.render()
+        contentView.appendSection(TableViewSection(cell))
     }
 
     open func createItemCell(_ option: Option) -> DropDownItemCell {
