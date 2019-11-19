@@ -105,4 +105,10 @@ extension String {
         let components = self.components(separatedBy: NSCharacterSet.whitespacesAndNewlines)
         return components.filter { !$0.isEmpty }.joined(separator: DefaultValue.whitespace)
     }
+
+    public func filterAllowedCharacters(_ allowedCharacters: String) -> String {
+        let rejectedCharacters = NSCharacterSet(charactersIn: allowedCharacters).inverted
+        let filteredCharacters = components(separatedBy: rejectedCharacters)
+        return filteredCharacters.joined(separator: DefaultValue.emptyString)
+    }
 }

@@ -22,6 +22,7 @@ open class TextField: UITextField {
     public var key: String = DefaultValue.emptyString
     public var isAvoidWhitespaces: Bool = false
     public var maxLength: Int = 255
+    public var allowedCharacters: String?
     public var style: TextFieldStyle = DefaultTextFieldStyle() {
         didSet {
             applyStyle()
