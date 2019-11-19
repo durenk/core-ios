@@ -58,6 +58,10 @@ extension FormTableViewController: UITextFieldDelegate {
             replacementString = replacementString.digits
             result = false
         }
+        if let allowedCharacters = tf.allowedCharacters {
+            replacementString = replacementString.filterAllowedCharacters(allowedCharacters)
+            result = false
+        }
         let updatedText = getUpdatedText(
             textField,
             shouldChangeCharactersIn: range,
