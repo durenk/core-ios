@@ -80,6 +80,14 @@ extension String {
         return String(suffix(length))
     }
 
+    public func getPrefix(_ maxLength: Int) -> String {
+        var length = maxLength
+        if self.count < maxLength {
+            length = self.count
+        }
+        return String(prefix(length))
+    }
+
     public func getFirstWord() -> String {
         return components(separatedBy: DefaultValue.whitespace).first ?? DefaultValue.emptyString
     }
@@ -96,5 +104,11 @@ extension String {
     public var removeMultipleWhitespaces: String {
         let components = self.components(separatedBy: NSCharacterSet.whitespacesAndNewlines)
         return components.filter { !$0.isEmpty }.joined(separator: DefaultValue.whitespace)
+    }
+
+    public func filterAllowedCharacters(_ allowedCharacters: String) -> String {
+        let rejectedCharacters = NSCharacterSet(charactersIn: allowedCharacters).inverted
+        let filteredCharacters = components(separatedBy: rejectedCharacters)
+        return filteredCharacters.joined(separator: DefaultValue.emptyString)
     }
 }

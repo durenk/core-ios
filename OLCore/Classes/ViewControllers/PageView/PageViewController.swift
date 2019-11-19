@@ -150,7 +150,7 @@ open class PageViewController: UIPageViewController {
 
     open func moveTabBarToController(_ controllerClass: AnyClass) {
         guard let tabBar = self.tabBarController as? TabBarNavigationController else { return }
-        tabBar.moveToController(controllerClass.self)
+        _ = tabBar.moveToController(controllerClass.self)
     }
 
     open func isPresenting() -> Bool {

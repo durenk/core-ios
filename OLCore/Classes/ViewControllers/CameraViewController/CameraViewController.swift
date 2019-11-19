@@ -17,6 +17,7 @@ open class CameraViewController: TableViewController {
     private var isTakingPhoto: Bool = false
     public weak var delegate: CameraViewControllerDelegate?
     public var overlayLayer: CAShapeLayer?
+    public var canvasFrame: CGRect?
 
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -111,15 +112,28 @@ open class CameraViewController: TableViewController {
         if isTakingPhoto { return }
         isTakingPhoto = true
         DispatchQueue.global(qos: .default).async {
-            guard let videoConnection = self.getVideoConnection() else { return }
-            self.imageOutput.captureStillImageAsynchronously(from: videoConnection) {
-                (sampleBuffer: CMSampleBuffer?, _) in
-                guard let sampleBuffer = sampleBuffer else { return }
-                guard let data = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer) else { return }
-                guard let image = UIImage(data: data) else { return }
-                DispatchQueue.main.async {
-                    self.delegate?.cameraViewControllerDidTakeImage(image)
-                }
+            self.captureOutput()
+        }
+    }
+
+    private func captureOutput() {
+        guard let videoConnection = self.getVideoConnection() else { return }
+        imageOutput.captureStillImageAsynchronously(from: videoConnection) {
+            (sampleBuffer: CMSampleBuffer?, _) in
+            guard let sampleBuffer = sampleBuffer else { return }
+            guard let data = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(
+                sampleBuffer
+            ) else { return }
+            guard let image = UIImage(data: data) else { return }
+            var croppedImage = image.crop(frameSize: self.contentView.bounds.size)
+            if let canvasFrame = self.canvasFrame {
+                croppedImage = croppedImage.crop(frameSize: canvasFrame.size)
+            }
+            DispatchQueue.main.async {
+                self.delegate?.cameraViewControllerDidTakePicture(
+                    originalImage: image,
+                    croppedImage: croppedImage
+                )
             }
         }
     }
