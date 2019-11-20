@@ -48,19 +48,18 @@ open class DropDownViewController: FormTableViewController {
     }
 
     private func renderSearchInputCell() {
-        if !searchEnabled { return }
-        searchInputCell = createSearchBarCell()
-        guard let searchInputCell = searchInputCell else { return }
+        if !searchEnabled || searchInputCell != nil { return }
+        guard let searchInputCell = createSearchBarCell() else { return }
         searchInputCell.frame.size.width = contentView.bounds.width
-        searchInputCell.removeFromSuperview()
+        searchInputCell.frame.size.width = contentView.bounds.width
+        contentView.addSubview(searchInputCell)
+        contentView.sendSubviewToBack(searchInputCell)
         if let searchTextField = searchInputCell.getFirstTextField() {
             searchTextField.delegate = self
             searchTextField.returnKeyType = .search
             searchTextField.didChangeAction = didChangeSearchKeyword
-            searchTextField.text = searchKeyword
         }
-        contentView.addSubview(searchInputCell)
-        contentView.sendSubviewToBack(searchInputCell)
+        self.searchInputCell = searchInputCell
     }
 
     override open func render() {
@@ -143,8 +142,7 @@ extension DropDownViewController {
     private func search(keyword: String) {
         if !searchEnabled { return }
         searchKeyword = keyword
-        render()
-        contentView.tableView.reloadData()
+        rerender()
         contentView.scrollToTop()
     }
 }
