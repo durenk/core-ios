@@ -24,10 +24,11 @@ extension UIImage {
 
     public func compressToExpectedSize(
         inKb expectedSize: CGFloat,
+        compressionRatio: CGFloat = JpegQuality.medium.rawValue,
         didCompress: @escaping UIImageDidCompressHandler
     ) {
         let sizeInBytes = expectedSize * 1000
-        var compressingValue: CGFloat = JpegQuality.highest.rawValue
+        var compressingValue = compressionRatio
         DispatchQueue.global(qos: .userInitiated).async {
             while (true) {
                 let data = self.jpegData(compressionQuality: compressingValue)
