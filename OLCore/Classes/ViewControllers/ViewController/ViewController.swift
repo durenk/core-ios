@@ -183,6 +183,7 @@ open class ViewController: UIViewController {
             link: link,
             placeholderImage: image
         )
+        backgroundView.clipsToBounds = true
         if backgroundView.superview == nil {
             view.addSubview(backgroundView)
         }
