@@ -44,6 +44,7 @@ open class TableView: View {
             sender.render()
         }
         delegate?.tableViewDidCommontInit?(self)
+        self.backgroundColor = .clear
     }
 
     private func createTableView() {
