@@ -134,9 +134,9 @@ extension UIView {
         }
         return textField
     }
-    
+
     private static let kRotationAnimationKey = "rotationanimationkey"
-    
+
     public func rotate(duration: Double = 1) {
         if layer.animation(forKey: UIView.kRotationAnimationKey) == nil {
             let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
@@ -147,7 +147,7 @@ extension UIView {
             layer.add(rotationAnimation, forKey: UIView.kRotationAnimationKey)
         }
     }
-    
+
     public func stopRotating() {
         if layer.animation(forKey: UIView.kRotationAnimationKey) != nil {
             layer.removeAnimation(forKey: UIView.kRotationAnimationKey)
