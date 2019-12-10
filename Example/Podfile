@@ -14,4 +14,9 @@ target 'OLCore_Example' do
     inherit! :search_paths
     
   end
+  
+  target 'OLCoreExtensionTests' do
+    inherit! :search_paths
+    
+  end
 end

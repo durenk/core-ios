@@ -7,9 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0181E86ABEE1593886DCEC25 /* Pods_OLCore_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A077E9E9F09A27614AA464D /* Pods_OLCore_Tests.framework */; };
+		0181E86ABEE1593886DCEC25 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		1454CA1922FD17E90095897A /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* DemoViewController.swift */; };
-		4EE9774C44A5DA54C6C73619 /* Pods_OLCore_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A13B310A972B7452D740F2 /* Pods_OLCore_Example.framework */; };
+		1FDFBBF7C771CDDC220639CB /* Pods_OLCore_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D12A3716F43CA3E97F658AB /* Pods_OLCore_Tests.framework */; };
+		4E137AAC23964A9200AD128F /* StringKeyboardTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E137AAB23964A9200AD128F /* StringKeyboardTest.swift */; };
+		4E137AAE23964AB800AD128F /* StringFormatTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E137AAD23964AB800AD128F /* StringFormatTest.swift */; };
+		4E137AB223964AEA00AD128F /* StringValidationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E137AB123964AEA00AD128F /* StringValidationTest.swift */; };
+		4E4BDBC12383F41300221075 /* IntExtensionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4BDBC02383F41300221075 /* IntExtensionTest.swift */; };
+		4E4BDBC32383F58D00221075 /* ArrayExtensionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4BDBC22383F58D00221075 /* ArrayExtensionTest.swift */; };
+		4E4BDBC52383F7E300221075 /* DoubleExtensionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4BDBC42383F7E300221075 /* DoubleExtensionTest.swift */; };
+		53250D9FACAC345A59ECA02F /* Pods_OLCoreExtensionTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 371163EE88A660508FE7571A /* Pods_OLCoreExtensionTests.framework */; };
+		5B1B46BFF4D3D119D9694C94 /* Pods_OLCore_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5D7838771E9BDDB061D9337 /* Pods_OLCore_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
@@ -17,6 +25,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4E4BDBB12383DA7500221075 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 607FACCF1AFB9204008FA782;
+			remoteInfo = OLCore_Example;
+		};
 		607FACE61AFB9204008FA782 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
@@ -27,10 +42,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		161605F67E45060DA563DD7B /* Pods-OLCore_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OLCore_Tests.release.xcconfig"; path = "Target Support Files/Pods-OLCore_Tests/Pods-OLCore_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		29A13B310A972B7452D740F2 /* Pods_OLCore_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OLCore_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3A2B1D40A1DE68EF10292F31 /* Pods-OLCore_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OLCore_Example.debug.xcconfig"; path = "Target Support Files/Pods-OLCore_Example/Pods-OLCore_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		3DDC5527E565311E642930AE /* Pods-OLCore_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OLCore_Tests.debug.xcconfig"; path = "Target Support Files/Pods-OLCore_Tests/Pods-OLCore_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		11BE5A5D9E095B7FEE20CFB2 /* Pods-OLCore_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OLCore_Example.release.xcconfig"; path = "Target Support Files/Pods-OLCore_Example/Pods-OLCore_Example.release.xcconfig"; sourceTree = "<group>"; };
+		2A3436886482B48758086E1F /* Pods-OLCore_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OLCore_Tests.release.xcconfig"; path = "Target Support Files/Pods-OLCore_Tests/Pods-OLCore_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		371163EE88A660508FE7571A /* Pods_OLCoreExtensionTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OLCoreExtensionTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A2EB07902A33739D4345C7F /* Pods-OLCoreExtensionTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OLCoreExtensionTests.debug.xcconfig"; path = "Target Support Files/Pods-OLCoreExtensionTests/Pods-OLCoreExtensionTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4E137AAB23964A9200AD128F /* StringKeyboardTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringKeyboardTest.swift; sourceTree = "<group>"; };
+		4E137AAD23964AB800AD128F /* StringFormatTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringFormatTest.swift; sourceTree = "<group>"; };
+		4E137AB123964AEA00AD128F /* StringValidationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringValidationTest.swift; sourceTree = "<group>"; };
+		4E4BDBAC2383DA7500221075 /* OLCoreExtensionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OLCoreExtensionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E4BDBB02383DA7500221075 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4E4BDBC02383F41300221075 /* IntExtensionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensionTest.swift; sourceTree = "<group>"; };
+		4E4BDBC22383F58D00221075 /* ArrayExtensionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensionTest.swift; sourceTree = "<group>"; };
+		4E4BDBC42383F7E300221075 /* DoubleExtensionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtensionTest.swift; sourceTree = "<group>"; };
 		5F744AF0B0606DBEFEC91DFE /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* OLCore_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OLCore_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -41,18 +64,29 @@
 		607FACE51AFB9204008FA782 /* OLCore_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OLCore_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		9A077E9E9F09A27614AA464D /* Pods_OLCore_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OLCore_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F06618F64737D05DC7EF4AD /* Pods-OLCore_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OLCore_Tests.debug.xcconfig"; path = "Target Support Files/Pods-OLCore_Tests/Pods-OLCore_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		9A959F486EDA4FEB173B6D23 /* Pods-OLCoreExtensionTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OLCoreExtensionTests.release.xcconfig"; path = "Target Support Files/Pods-OLCoreExtensionTests/Pods-OLCoreExtensionTests.release.xcconfig"; sourceTree = "<group>"; };
+		9D12A3716F43CA3E97F658AB /* Pods_OLCore_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OLCore_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB8DA8F56D62A1554546C199 /* Pods-OLCore_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OLCore_Example.debug.xcconfig"; path = "Target Support Files/Pods-OLCore_Example/Pods-OLCore_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		C301011890AAA95E803F7B30 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		D6984B89D1B772508EB41F1C /* Pods-OLCore_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OLCore_Example.release.xcconfig"; path = "Target Support Files/Pods-OLCore_Example/Pods-OLCore_Example.release.xcconfig"; sourceTree = "<group>"; };
+		D5D7838771E9BDDB061D9337 /* Pods_OLCore_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OLCore_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4756C53722444D3276B947A /* OLCore.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = OLCore.podspec; path = ../OLCore.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4E4BDBA92383DA7500221075 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53250D9FACAC345A59ECA02F /* Pods_OLCoreExtensionTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		607FACCD1AFB9204008FA782 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EE9774C44A5DA54C6C73619 /* Pods_OLCore_Example.framework in Frameworks */,
+				5B1B46BFF4D3D119D9694C94 /* Pods_OLCore_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,20 +94,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0181E86ABEE1593886DCEC25 /* Pods_OLCore_Tests.framework in Frameworks */,
+				0181E86ABEE1593886DCEC25 /* (null) in Frameworks */,
+				1FDFBBF7C771CDDC220639CB /* Pods_OLCore_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		52DA554DF16E081C7DFEF74E /* Frameworks */ = {
+		4E4BDBAD2383DA7500221075 /* OLCoreExtensionTests */ = {
 			isa = PBXGroup;
 			children = (
-				29A13B310A972B7452D740F2 /* Pods_OLCore_Example.framework */,
-				9A077E9E9F09A27614AA464D /* Pods_OLCore_Tests.framework */,
+				4E4BDBB02383DA7500221075 /* Info.plist */,
+				4E4BDBC22383F58D00221075 /* ArrayExtensionTest.swift */,
+				4E4BDBC42383F7E300221075 /* DoubleExtensionTest.swift */,
+				4E4BDBC02383F41300221075 /* IntExtensionTest.swift */,
+				4E137AAB23964A9200AD128F /* StringKeyboardTest.swift */,
+				4E137AAD23964AB800AD128F /* StringFormatTest.swift */,
+				4E137AB123964AEA00AD128F /* StringValidationTest.swift */,
 			);
-			name = Frameworks;
+			path = OLCoreExtensionTests;
 			sourceTree = "<group>";
 		};
 		607FACC71AFB9204008FA782 = {
@@ -82,9 +122,10 @@
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* Example for OLCore */,
 				607FACE81AFB9204008FA782 /* Tests */,
+				4E4BDBAD2383DA7500221075 /* OLCoreExtensionTests */,
 				607FACD11AFB9204008FA782 /* Products */,
 				A191D97A08A535E53D7FBF6E /* Pods */,
-				52DA554DF16E081C7DFEF74E /* Frameworks */,
+				E19D5A0A5805C033123EF610 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -93,6 +134,7 @@
 			children = (
 				607FACD01AFB9204008FA782 /* OLCore_Example.app */,
 				607FACE51AFB9204008FA782 /* OLCore_Tests.xctest */,
+				4E4BDBAC2383DA7500221075 /* OLCoreExtensionTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -148,17 +190,48 @@
 		A191D97A08A535E53D7FBF6E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3A2B1D40A1DE68EF10292F31 /* Pods-OLCore_Example.debug.xcconfig */,
-				D6984B89D1B772508EB41F1C /* Pods-OLCore_Example.release.xcconfig */,
-				3DDC5527E565311E642930AE /* Pods-OLCore_Tests.debug.xcconfig */,
-				161605F67E45060DA563DD7B /* Pods-OLCore_Tests.release.xcconfig */,
+				BB8DA8F56D62A1554546C199 /* Pods-OLCore_Example.debug.xcconfig */,
+				11BE5A5D9E095B7FEE20CFB2 /* Pods-OLCore_Example.release.xcconfig */,
+				7F06618F64737D05DC7EF4AD /* Pods-OLCore_Tests.debug.xcconfig */,
+				2A3436886482B48758086E1F /* Pods-OLCore_Tests.release.xcconfig */,
+				4A2EB07902A33739D4345C7F /* Pods-OLCoreExtensionTests.debug.xcconfig */,
+				9A959F486EDA4FEB173B6D23 /* Pods-OLCoreExtensionTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E19D5A0A5805C033123EF610 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				371163EE88A660508FE7571A /* Pods_OLCoreExtensionTests.framework */,
+				D5D7838771E9BDDB061D9337 /* Pods_OLCore_Example.framework */,
+				9D12A3716F43CA3E97F658AB /* Pods_OLCore_Tests.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4E4BDBAB2383DA7500221075 /* OLCoreExtensionTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4E4BDBB52383DA7500221075 /* Build configuration list for PBXNativeTarget "OLCoreExtensionTests" */;
+			buildPhases = (
+				474567AB9B584380FC2C4DBA /* [CP] Check Pods Manifest.lock */,
+				4E4BDBA82383DA7500221075 /* Sources */,
+				4E4BDBA92383DA7500221075 /* Frameworks */,
+				4E4BDBAA2383DA7500221075 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4E4BDBB22383DA7500221075 /* PBXTargetDependency */,
+			);
+			name = OLCoreExtensionTests;
+			productName = OLCoreExtensionTests;
+			productReference = 4E4BDBAC2383DA7500221075 /* OLCoreExtensionTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		607FACCF1AFB9204008FA782 /* OLCore_Example */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "OLCore_Example" */;
@@ -183,7 +256,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "OLCore_Tests" */;
 			buildPhases = (
-				9E5B141A3B6E47B22689BEBF /* [CP] Check Pods Manifest.lock */,
+				CF694EF97D6B7FA607CDF454 /* [CP] Check Pods Manifest.lock */,
 				607FACE11AFB9204008FA782 /* Sources */,
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
@@ -204,10 +277,15 @@
 		607FACC81AFB9204008FA782 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
+				LastSwiftUpdateCheck = 1110;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
+					4E4BDBAB2383DA7500221075 = {
+						CreatedOnToolsVersion = 11.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 607FACCF1AFB9204008FA782;
+					};
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
 						LastSwiftMigration = 1020;
@@ -234,11 +312,19 @@
 			targets = (
 				607FACCF1AFB9204008FA782 /* OLCore_Example */,
 				607FACE41AFB9204008FA782 /* OLCore_Tests */,
+				4E4BDBAB2383DA7500221075 /* OLCoreExtensionTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4E4BDBAA2383DA7500221075 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		607FACCE1AFB9204008FA782 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -296,7 +382,29 @@
 			shellPath = /bin/sh;
 			shellScript = "cd ../ONEOnboard\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
-		9E5B141A3B6E47B22689BEBF /* [CP] Check Pods Manifest.lock */ = {
+		474567AB9B584380FC2C4DBA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-OLCoreExtensionTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CF694EF97D6B7FA607CDF454 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -343,6 +451,19 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4E4BDBA82383DA7500221075 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E4BDBC52383F7E300221075 /* DoubleExtensionTest.swift in Sources */,
+				4E137AAC23964A9200AD128F /* StringKeyboardTest.swift in Sources */,
+				4E137AAE23964AB800AD128F /* StringFormatTest.swift in Sources */,
+				4E4BDBC12383F41300221075 /* IntExtensionTest.swift in Sources */,
+				4E4BDBC32383F58D00221075 /* ArrayExtensionTest.swift in Sources */,
+				4E137AB223964AEA00AD128F /* StringValidationTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		607FACCC1AFB9204008FA782 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -363,6 +484,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4E4BDBB22383DA7500221075 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 607FACCF1AFB9204008FA782 /* OLCore_Example */;
+			targetProxy = 4E4BDBB12383DA7500221075 /* PBXContainerItemProxy */;
+		};
 		607FACE71AFB9204008FA782 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 607FACCF1AFB9204008FA782 /* OLCore_Example */;
@@ -382,6 +508,59 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4E4BDBB32383DA7500221075 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4A2EB07902A33739D4345C7F /* Pods-OLCoreExtensionTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = OLCoreExtensionTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.steven.OLCoreExtensionTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OLCore_Example.app/OLCore_Example";
+			};
+			name = Debug;
+		};
+		4E4BDBB42383DA7500221075 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A959F486EDA4FEB173B6D23 /* Pods-OLCoreExtensionTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = OLCoreExtensionTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.steven.OLCoreExtensionTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OLCore_Example.app/OLCore_Example";
+			};
+			name = Release;
+		};
 		607FACED1AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -489,7 +668,7 @@
 		};
 		607FACF01AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3A2B1D40A1DE68EF10292F31 /* Pods-OLCore_Example.debug.xcconfig */;
+			baseConfigurationReference = BB8DA8F56D62A1554546C199 /* Pods-OLCore_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = OLCore/Info.plist;
@@ -505,7 +684,7 @@
 		};
 		607FACF11AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D6984B89D1B772508EB41F1C /* Pods-OLCore_Example.release.xcconfig */;
+			baseConfigurationReference = 11BE5A5D9E095B7FEE20CFB2 /* Pods-OLCore_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = OLCore/Info.plist;
@@ -521,7 +700,7 @@
 		};
 		607FACF31AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3DDC5527E565311E642930AE /* Pods-OLCore_Tests.debug.xcconfig */;
+			baseConfigurationReference = 7F06618F64737D05DC7EF4AD /* Pods-OLCore_Tests.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -543,7 +722,7 @@
 		};
 		607FACF41AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 161605F67E45060DA563DD7B /* Pods-OLCore_Tests.release.xcconfig */;
+			baseConfigurationReference = 2A3436886482B48758086E1F /* Pods-OLCore_Tests.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -562,6 +741,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4E4BDBB52383DA7500221075 /* Build configuration list for PBXNativeTarget "OLCoreExtensionTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E4BDBB32383DA7500221075 /* Debug */,
+				4E4BDBB42383DA7500221075 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "OLCore" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
