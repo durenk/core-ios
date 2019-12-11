@@ -168,6 +168,12 @@ open class PinInputView: UIView {
     public func setEnabled(_ isEnabled: Bool = true) {
         keyboardButton.isUserInteractionEnabled = isEnabled
     }
+
+    public func setFirstResponder() {
+        DispatchQueue.main.async {
+            self.textField.becomeFirstResponder()
+        }
+    }
 }
 
 extension PinInputView: UITextFieldDelegate {
